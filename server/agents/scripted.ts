@@ -1,4 +1,5 @@
 import type { RunAgentInput } from '@ag-ui/core';
+import { matchScenario } from '../../shared/scenarios.js';
 import type { TextStream } from './events.js';
 import { emitAgentPlan } from './events.js';
 import type { AgentRun } from './types.js';
@@ -134,17 +135,9 @@ export function scriptedPlan(input: RunAgentInput): readonly TextStream[] {
       },
     ];
   }
-  if (text.includes('二沉池')) {
-    return [{
-      text: '正在定位二沉池 A。',
-      tool: { name: 'focus_equipment', args: { selectionId: SC_101 } },
-    }];
-  }
-  if (text.includes('好氧池')) {
-    return [{
-      text: '正在拉近到好氧池 A。',
-      tool: { name: 'focus_equipment', args: { selectionId: AE_101 } },
-    }];
+  const scenario = matchScenario(text);
+  if (scenario) {
+    return scenario.steps;
   }
   if (includesAny(text, ['全厂', '全景', '整个厂', '整个污水', '污水处理厂'])) {
     return [
@@ -156,7 +149,7 @@ export function scriptedPlan(input: RunAgentInput): readonly TextStream[] {
     ];
   }
   return [{
-    text: '你可以让我查看全厂、定位二沉池或好氧池，也可以先选择一台设备再让我讲解。',
+    text: '你可以查看工艺巡览、系统专题或全厂视角，也可以先选择一台设备再让我讲解。',
   }];
 }
 

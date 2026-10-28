@@ -168,6 +168,9 @@ The deterministic first-release scenarios are:
 - play a guided opening tour from the full-plant overview through inlet,
   anaerobic, aerobic, secondary-clarifier, coagulation, filtration, and sludge
   equipment before returning to the overview;
+- provide grouped static tours for intake, AAO biology, secondary clarification,
+  advanced treatment, sludge treatment, aeration, chemical dosing, effluent
+  monitoring, and emergency storage/return;
 - locate and explain a named equipment group;
 - focus and highlight the current selection;
 - explain the selected device;
