@@ -115,6 +115,12 @@ button {
   padding: 20px 20px 14px;
 }
 
+.conversation-header__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .conversation-header h1 {
   margin: 3px 0 0;
   font-size: 20px;
@@ -139,6 +145,38 @@ button {
 .agent-state[data-active="true"] {
   border-color: rgb(113 216 196 / 50%);
   color: var(--accent);
+}
+
+.conversation-toggle {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--panel-border);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 4%);
+  cursor: pointer;
+}
+
+.conversation-toggle:hover,
+.conversation-toggle:focus-visible {
+  border-color: var(--accent);
+}
+
+.conversation-panel[data-collapsed="true"] {
+  width: 74px;
+  min-width: 74px;
+}
+
+.conversation-panel[data-collapsed="true"] > :not(.conversation-header) {
+  display: none;
+}
+
+.conversation-panel[data-collapsed="true"] .conversation-header {
+  padding: 18px;
+}
+
+.conversation-panel[data-collapsed="true"] .conversation-header > div:first-child,
+.conversation-panel[data-collapsed="true"] .agent-state {
+  display: none;
 }
 
 .conversation-context {

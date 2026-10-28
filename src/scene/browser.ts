@@ -28,6 +28,18 @@ interface BrowserSceneOptions {
   readonly onUserCameraIntent?: () => void;
 }
 
+interface EquipmentManifest {
+  readonly equipment: readonly {
+    readonly selectionId: string;
+    readonly tag: string;
+    readonly name: string;
+    readonly stage: string;
+    readonly area: string;
+    readonly connections: readonly string[];
+    readonly bounds: ICEGeometryBoundsLike;
+  }[];
+}
+
 function center(bounds: ICEGeometryBoundsLike): readonly [number, number, number] {
   return [
     (bounds.min[0] + bounds.max[0]) / 2,
@@ -50,6 +62,31 @@ function radius(bounds: ICEGeometryBoundsLike): number {
 export async function createSceneController(
   options: BrowserSceneOptions,
 ): Promise<SceneController> {
+  const assetBaseUri = options.assetBaseUri ?? document.baseURI;
+  const manifestResponse = await fetch(new URL(
+    'assets/wastewater-plant/equipment.json',
+    assetBaseUri,
+  ));
+  if (!manifestResponse.ok) {
+    throw new Error(
+      `ICE3_EQUIPMENT_MANIFEST_INVALID: HTTP ${manifestResponse.status}`,
+    );
+  }
+  const manifest = await manifestResponse.json() as EquipmentManifest;
+  const catalogRecords = Object.freeze(
+    manifest.equipment.map((record) => Object.freeze({
+      selectionId: record.selectionId,
+      name: record.name,
+      bounds: record.bounds,
+      metadata: Object.freeze({
+        equipmentTag: record.tag,
+        processStage: record.stage,
+        area: record.area,
+        connections: record.connections,
+      }),
+    })),
+  );
+
   const engine = new ICE3().init(options.stage);
   engine.setBackgroundColor('#000000');
   const camera = new ICEPerspectiveCamera({
@@ -62,7 +99,7 @@ export async function createSceneController(
   });
   const loader = new ICETilesetLoader(engine, { camera });
   const handle: ICETilesetHandle = await loader.open(
-    resolveWastewaterAssetUrl(options.assetBaseUri ?? document.baseURI),
+    resolveWastewaterAssetUrl(assetBaseUri),
   );
   const orbit = new ICEOrbitController(engine, camera).start();
   engine.setScene(handle.scene).setCamera(camera).start();
@@ -85,19 +122,6 @@ export async function createSceneController(
   const intentListeners = new Set<() => void>();
   let disposed = false;
 
-  const metadataRecords = (): readonly EquipmentRecord[] => (
-    engine.queryScene().flatMap((item) => {
-      const node = engine.findBySelectionId(item.selectionId);
-      if (!node) return [];
-      return [{
-        selectionId: item.selectionId,
-        name: item.name,
-        metadata: node.metadata,
-        bounds: item.bounds,
-      }];
-    })
-  );
-
   const animate = async (destination: CameraPose): Promise<void> => {
     motion?.abort();
     motion = new AbortController();
@@ -105,7 +129,7 @@ export async function createSceneController(
   };
 
   const boundsForArea = (area: string): ICEGeometryBounds | undefined => {
-    const items = metadataRecords().filter((item) => item.metadata?.area === area);
+    const items = catalogRecords.filter((item) => item.metadata?.area === area);
     if (items.length === 0) return undefined;
     return {
       min: [0, 1, 2].map((axis) => (
@@ -136,7 +160,7 @@ export async function createSceneController(
   };
 
   const port = {
-    records: metadataRecords,
+    records: () => catalogRecords,
     setSelection(ids: readonly string[]): void {
       engine.setSelection(ids);
     },

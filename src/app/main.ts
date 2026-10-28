@@ -61,7 +61,7 @@ export async function startConsole(host: HTMLElement): Promise<void> {
       scene,
       view,
       threadId: `ice3-agent-${Date.now()}`,
-      autoplay: { enabled: autoplay, delayMs: 700 },
+      autoplay: { enabled: autoplay, delayMs: 1_200 },
     });
     scene.onSelection((ids) => {
       session.setSelectedEquipment(ids[0] ?? null);

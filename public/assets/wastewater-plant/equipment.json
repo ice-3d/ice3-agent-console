@@ -1,0 +1,1554 @@
+{
+  "assetId": "ice3-virtual-wwtp",
+  "equipment": [
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AE-101",
+      "tag": "AE-101",
+      "name": "好氧池 A",
+      "stage": "biological",
+      "area": "BiologicalTrainA",
+      "connections": [
+        "main-10-AX-101-AE-101",
+        "main-11-AE-101-SC-101",
+        "air-01",
+        "loop-a-01"
+      ],
+      "bounds": {
+        "min": [
+          118.99059438705444,
+          0.1600000113248825,
+          28.5
+        ],
+        "max": [
+          139.0349998474121,
+          6.747499853372574,
+          43.5
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AE-201",
+      "tag": "AE-201",
+      "name": "好氧池 B",
+      "stage": "biological",
+      "area": "BiologicalTrainB",
+      "connections": [
+        "branch-b-03",
+        "branch-b-04",
+        "air-02",
+        "loop-b-01"
+      ],
+      "bounds": {
+        "min": [
+          118.99059438705444,
+          0.1600000113248825,
+          46.5
+        ],
+        "max": [
+          139.0349998474121,
+          6.747499853372574,
+          61.5
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AIT-COD-101",
+      "tag": "AIT-COD-101",
+      "name": "出水 COD 在线仪",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "sample-01"
+      ],
+      "bounds": {
+        "min": [
+          262.41759645938873,
+          0.1599999964237213,
+          33.5
+        ],
+        "max": [
+          265.5677856206894,
+          3.535000115633011,
+          34.87125778198242
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AIT-NH3-101",
+      "tag": "AIT-NH3-101",
+      "name": "出水氨氮在线仪",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "sample-02"
+      ],
+      "bounds": {
+        "min": [
+          262.41759645938873,
+          0.1599999964237213,
+          36.5
+        ],
+        "max": [
+          265.5677856206894,
+          3.535000115633011,
+          37.87125778198242
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AIT-TN-101",
+      "tag": "AIT-TN-101",
+      "name": "出水总氮在线仪",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "sample-04"
+      ],
+      "bounds": {
+        "min": [
+          262.41759645938873,
+          0.1599999964237213,
+          42.5
+        ],
+        "max": [
+          265.5677856206894,
+          3.535000115633011,
+          43.87125778198242
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AIT-TP-101",
+      "tag": "AIT-TP-101",
+      "name": "出水总磷在线仪",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "sample-03"
+      ],
+      "bounds": {
+        "min": [
+          262.41759645938873,
+          0.1599999964237213,
+          39.5
+        ],
+        "max": [
+          265.5677856206894,
+          3.535000115633011,
+          40.87125778198242
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AIT-TU-101",
+      "tag": "AIT-TU-101",
+      "name": "出水浊度在线仪",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "sample-05"
+      ],
+      "bounds": {
+        "min": [
+          262.41759645938873,
+          0.1599999964237213,
+          45.5
+        ],
+        "max": [
+          265.5677856206894,
+          3.535000115633011,
+          46.87125778198242
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AT-101",
+      "tag": "AT-101",
+      "name": "厌氧池 A",
+      "stage": "biological",
+      "area": "BiologicalTrainA",
+      "connections": [
+        "main-08-DW-101-AT-101",
+        "main-09-AT-101-AX-101",
+        "ras-a-02",
+        "chemical-04b",
+        "air-at-a-01"
+      ],
+      "bounds": {
+        "min": [
+          91.99059438705444,
+          0.1600000113248825,
+          28.5
+        ],
+        "max": [
+          112.03499984741211,
+          6.747499853372574,
+          43.5
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AT-201",
+      "tag": "AT-201",
+      "name": "厌氧池 B",
+      "stage": "biological",
+      "area": "BiologicalTrainB",
+      "connections": [
+        "branch-b-01",
+        "branch-b-02",
+        "ras-b-02",
+        "air-at-b-01"
+      ],
+      "bounds": {
+        "min": [
+          91.99059438705444,
+          0.1600000113248825,
+          46.5
+        ],
+        "max": [
+          112.03499984741211,
+          6.747499853372574,
+          61.5
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AX-101",
+      "tag": "AX-101",
+      "name": "缺氧池 A",
+      "stage": "biological",
+      "area": "BiologicalTrainA",
+      "connections": [
+        "main-09-AT-101-AX-101",
+        "main-10-AX-101-AE-101",
+        "loop-a-01",
+        "ras-ax-a-01",
+        "air-ax-a-01"
+      ],
+      "bounds": {
+        "min": [
+          104.99059438705444,
+          0.1600000113248825,
+          28.5
+        ],
+        "max": [
+          125.03499984741211,
+          6.747499853372574,
+          43.5
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/AX-201",
+      "tag": "AX-201",
+      "name": "缺氧池 B",
+      "stage": "biological",
+      "area": "BiologicalTrainB",
+      "connections": [
+        "branch-b-02",
+        "branch-b-03",
+        "loop-b-01",
+        "ras-ax-b-01",
+        "air-ax-b-01"
+      ],
+      "bounds": {
+        "min": [
+          104.99059438705444,
+          0.1600000113248825,
+          46.5
+        ],
+        "max": [
+          125.03499984741211,
+          6.747499853372574,
+          61.5
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/BLW-101",
+      "tag": "BLW-101",
+      "name": "鼓风机 A",
+      "stage": "utilities",
+      "area": "UtilitiesArea",
+      "connections": [
+        "air-01",
+        "air-at-a-01",
+        "air-ax-a-01"
+      ],
+      "bounds": {
+        "min": [
+          106.94679403305054,
+          0.1599999964237213,
+          89.90000009536743
+        ],
+        "max": [
+          114.5,
+          3.8116278648376465,
+          94.09999990463257
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/BLW-102",
+      "tag": "BLW-102",
+      "name": "鼓风机 B",
+      "stage": "utilities",
+      "area": "UtilitiesArea",
+      "connections": [
+        "air-02",
+        "air-at-b-01",
+        "air-ax-b-01"
+      ],
+      "bounds": {
+        "min": [
+          116.94679403305054,
+          0.1599999964237213,
+          89.90000009536743
+        ],
+        "max": [
+          124.5,
+          3.8116278648376465,
+          94.09999990463257
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/CARBON-101",
+      "tag": "CARBON-101",
+      "name": "碳源储罐",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-04a",
+        "service-water-carbon"
+      ],
+      "bounds": {
+        "min": [
+          71.21759939193726,
+          0.15500003099441528,
+          66.60739278793335
+        ],
+        "max": [
+          78.76780557632446,
+          7.823400586843491,
+          73.20000004768372
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/CARBON-102",
+      "tag": "CARBON-102",
+      "name": "碳源计量泵",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-04a",
+        "chemical-04b"
+      ],
+      "bounds": {
+        "min": [
+          79.83839559555054,
+          0.1600000113248825,
+          68.60000002384186
+        ],
+        "max": [
+          85.40000009536743,
+          3.309513211250305,
+          71.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/CL-101",
+      "tag": "CL-101",
+      "name": "混凝沉淀刮泥机",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "main-14-CO-101-CL-101",
+        "main-15-CL-101-FL-101"
+      ],
+      "bounds": {
+        "min": [
+          170.2029972076416,
+          0.000599980354309082,
+          37.09999990463257
+        ],
+        "max": [
+          193.93499374389648,
+          6.1750002801418304,
+          52.90000009536743
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/CO-101",
+      "tag": "CO-101",
+      "name": "混凝沉淀池",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "main-13-P-LIFT-111-CO-101",
+        "main-14-CO-101-CL-101",
+        "branch-b-06",
+        "chemical-01b",
+        "chemical-coag-01"
+      ],
+      "bounds": {
+        "min": [
+          158.81760549545288,
+          0.15999972820281982,
+          39.59999990463257
+        ],
+        "max": [
+          173.1677918434143,
+          5.470000386238098,
+          50.40000009536743
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/CONV-101",
+      "tag": "CONV-101",
+      "name": "污泥输送机",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "sludge-07"
+      ],
+      "bounds": {
+        "min": [
+          140.14901113510132,
+          -0.07499992847442627,
+          69.5
+        ],
+        "max": [
+          152.3249969482422,
+          3.065000057220459,
+          70.5
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/CV-101",
+      "tag": "CV-101",
+      "name": "进水止回阀",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "main-03-P-101-CV-101",
+        "main-04-CV-101-GR-102",
+        "pump-b-02"
+      ],
+      "bounds": {
+        "min": [
+          31.21760129928589,
+          0.1600000113248825,
+          43.89999997615814
+        ],
+        "max": [
+          36.76779794692993,
+          2.3799999356269836,
+          46.10000002384186
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/DIG-101",
+      "tag": "DIG-101",
+      "name": "厌氧消化池 A",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "sludge-02",
+        "sludge-03"
+      ],
+      "bounds": {
+        "min": [
+          63.46500015258789,
+          0.15999998152256012,
+          95.77424621582031
+        ],
+        "max": [
+          79.36306762695312,
+          12.959999680519104,
+          108.22575426101685
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/DIG-102",
+      "tag": "DIG-102",
+      "name": "厌氧消化池 B",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "sludge-03",
+        "sludge-04",
+        "gas-01"
+      ],
+      "bounds": {
+        "min": [
+          83.46500015258789,
+          0.15999998152256012,
+          97.77424621582031
+        ],
+        "max": [
+          99.36306762695312,
+          12.959999680519104,
+          110.22575426101685
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/DRY-101",
+      "tag": "DRY-101",
+      "name": "污泥干化机",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "sludge-05",
+        "sludge-06"
+      ],
+      "bounds": {
+        "min": [
+          135.81760549545288,
+          0.1599999964237213,
+          78.75
+        ],
+        "max": [
+          148.1677918434143,
+          6.511000007390976,
+          85.25
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/DT-101",
+      "tag": "DT-101",
+      "name": "消毒接触池",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "main-19-UF-101-DT-101",
+        "main-20-DT-101-UV-101",
+        "chemical-03b",
+        "chemical-contact-01"
+      ],
+      "bounds": {
+        "min": [
+          238.61759328842163,
+          0.15999998152256012,
+          39.84999990463257
+        ],
+        "max": [
+          253.54925537109375,
+          4.804999947547913,
+          50.37800073623657
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/DW-101",
+      "tag": "DW-101",
+      "name": "配水井",
+      "stage": "primary",
+      "area": "PrimaryTreatmentArea",
+      "connections": [
+        "main-07-PC-101-DW-101",
+        "main-08-DW-101-AT-101",
+        "branch-b-01",
+        "grit-water-01",
+        "storm-02",
+        "filtrate-01",
+        "supernatant-01",
+        "filter-return-01",
+        "filter-drain-01"
+      ],
+      "bounds": {
+        "min": [
+          78.81759786605835,
+          0.1550000011920929,
+          41.66209030151367
+        ],
+        "max": [
+          85.33790588378906,
+          3.551200032234192,
+          48.93860101699829
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/DWG-101",
+      "tag": "DWG-101",
+      "name": "污泥脱水机",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "sludge-04",
+        "sludge-05",
+        "filtrate-01",
+        "chemical-02b"
+      ],
+      "bounds": {
+        "min": [
+          122.29059743881226,
+          0.1599999964237213,
+          78
+        ],
+        "max": [
+          137.76779794692993,
+          3.7840000092983246,
+          86
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/EQ-101",
+      "tag": "EQ-101",
+      "name": "事故池",
+      "stage": "primary",
+      "area": "PrimaryTreatmentArea",
+      "connections": [
+        "storm-01"
+      ],
+      "bounds": {
+        "min": [
+          75.91759634017944,
+          0.15999996662139893,
+          15.599999904632568
+        ],
+        "max": [
+          88.32025146484375,
+          3.959999918937683,
+          24.40000009536743
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/FAN-101",
+      "tag": "FAN-101",
+      "name": "除臭风机",
+      "stage": "utilities",
+      "area": "UtilitiesArea",
+      "connections": [
+        "odor-02",
+        "odor-03"
+      ],
+      "bounds": {
+        "min": [
+          157.94680166244507,
+          0.1599999964237213,
+          93.90000009536743
+        ],
+        "max": [
+          165.5,
+          3.8116259574890137,
+          98.09999990463257
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/FIT-101",
+      "tag": "FIT-101",
+      "name": "出水流量计",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "main-21-UV-101-FIT-101",
+        "main-22-FIT-101-V-OUT-101"
+      ],
+      "bounds": {
+        "min": [
+          262.41759645938873,
+          0.1599999964237213,
+          53.5
+        ],
+        "max": [
+          265.5677856206894,
+          3.535000115633011,
+          54.87125778198242
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/FL-101",
+      "tag": "FL-101",
+      "name": "滤布滤池",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "main-15-CL-101-FL-101",
+        "main-16-FL-101-OZ-101",
+        "backwash-01",
+        "backwash-03",
+        "filter-return-01",
+        "filter-drain-01"
+      ],
+      "bounds": {
+        "min": [
+          185.01760244369507,
+          0.15999998152256012,
+          40.09999990463257
+        ],
+        "max": [
+          198.96779489517212,
+          5.677500367164612,
+          49.90000009536743
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/FLARE-101",
+      "tag": "FLARE-101",
+      "name": "沼气火炬",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "gas-01"
+      ],
+      "bounds": {
+        "min": [
+          45.79999923706055,
+          0.16500000655651093,
+          103.20000004768372
+        ],
+        "max": [
+          55.76779794692993,
+          9.899000018835068,
+          106.79999995231628
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/GAC-101",
+      "tag": "GAC-101",
+      "name": "活性炭滤池",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "main-17-OZ-101-GAC-101",
+        "main-18-GAC-101-UF-101"
+      ],
+      "bounds": {
+        "min": [
+          213.01760244369507,
+          0.15999998152256012,
+          40.09999990463257
+        ],
+        "max": [
+          226.96779489517212,
+          5.677500367164612,
+          49.90000009536743
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/GC-101",
+      "tag": "GC-101",
+      "name": "曝气沉砂池",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "main-05-GR-102-GC-101",
+        "main-06-GC-101-PC-101"
+      ],
+      "bounds": {
+        "min": [
+          46.967599391937256,
+          0.1600000262260437,
+          40.16553974151611
+        ],
+        "max": [
+          59.01779794692993,
+          4.809999883174896,
+          49.83446025848389
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/GR-101",
+      "tag": "GR-101",
+      "name": "粗格栅",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "main-01-IN-001-GR-101",
+        "main-02-GR-101-P-101",
+        "pump-b-01",
+        "odor-03"
+      ],
+      "bounds": {
+        "min": [
+          10.917600154876709,
+          0.1550000011920929,
+          42.64500021934509
+        ],
+        "max": [
+          21.06779909133911,
+          3.584999978542328,
+          47.340001583099365
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/GR-102",
+      "tag": "GR-102",
+      "name": "细格栅",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "main-04-CV-101-GR-102",
+        "main-05-GR-102-GC-101"
+      ],
+      "bounds": {
+        "min": [
+          36.91760015487671,
+          0.1550000011920929,
+          42.64500021934509
+        ],
+        "max": [
+          47.06779718399048,
+          3.584999978542328,
+          47.340001583099365
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/GW-101",
+      "tag": "GW-101",
+      "name": "砂水分离器",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "grit-water-01"
+      ],
+      "bounds": {
+        "min": [
+          49.467599391937256,
+          0.16500000655651093,
+          33.60000002384186
+        ],
+        "max": [
+          56.51779794692993,
+          3.614184707403183,
+          36.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/IN-001",
+      "tag": "IN-001",
+      "name": "厂外进水口",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "main-01-IN-001-GR-101"
+      ],
+      "bounds": {
+        "min": [
+          -0.612950325012207,
+          0.1599999964237213,
+          40.52018451690674
+        ],
+        "max": [
+          9.967799663543701,
+          4.32000008225441,
+          49.47981548309326
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/MOV-301",
+      "tag": "MOV-301",
+      "name": "反洗进水阀",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "backwash-02",
+        "backwash-03"
+      ],
+      "bounds": {
+        "min": [
+          196.21759939193726,
+          0.1600000113248825,
+          28.899999976158142
+        ],
+        "max": [
+          201.76779794692993,
+          2.3799999356269836,
+          31.100000023841858
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/NACLO-101",
+      "tag": "NACLO-101",
+      "name": "次氯酸钠储罐",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-03a",
+        "membrane-clean-01",
+        "service-water-na",
+        "chemical-contact-01"
+      ],
+      "bounds": {
+        "min": [
+          55.217599391937256,
+          0.15500003099441528,
+          66.60739278793335
+        ],
+        "max": [
+          62.76779794692993,
+          7.823400586843491,
+          73.20000004768372
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/NACLO-102",
+      "tag": "NACLO-102",
+      "name": "次氯酸钠计量泵",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-03a",
+        "chemical-03b"
+      ],
+      "bounds": {
+        "min": [
+          63.8383994102478,
+          0.1600000113248825,
+          68.60000002384186
+        ],
+        "max": [
+          69.40000009536743,
+          3.309513211250305,
+          71.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/ODR-101",
+      "tag": "ODR-101",
+      "name": "除臭装置 A",
+      "stage": "utilities",
+      "area": "UtilitiesArea",
+      "connections": [
+        "odor-01"
+      ],
+      "bounds": {
+        "min": [
+          135.94680166244507,
+          0.1599999964237213,
+          93.90000009536743
+        ],
+        "max": [
+          143.5,
+          3.8116259574890137,
+          98.09999990463257
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/ODR-102",
+      "tag": "ODR-102",
+      "name": "除臭装置 B",
+      "stage": "utilities",
+      "area": "UtilitiesArea",
+      "connections": [
+        "odor-01",
+        "odor-02"
+      ],
+      "bounds": {
+        "min": [
+          146.94680166244507,
+          0.1599999964237213,
+          93.90000009536743
+        ],
+        "max": [
+          154.5,
+          3.8116259574890137,
+          98.09999990463257
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/OUT-101",
+      "tag": "OUT-101",
+      "name": "排放口",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "main-23-V-OUT-101-OUT-101"
+      ],
+      "bounds": {
+        "min": [
+          272.3870496749878,
+          0.1599999964237213,
+          49.52018451690674
+        ],
+        "max": [
+          282.9678101539612,
+          4.32000008225441,
+          58.47981548309326
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/OZ-101",
+      "tag": "OZ-101",
+      "name": "臭氧接触池",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "main-16-FL-101-OZ-101",
+        "main-17-OZ-101-GAC-101"
+      ],
+      "bounds": {
+        "min": [
+          199.61759328842163,
+          0.15999998152256012,
+          39.84999990463257
+        ],
+        "max": [
+          214.54925537109375,
+          4.804999947547913,
+          50.37800073623657
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-101",
+      "tag": "P-101",
+      "name": "进水泵 A",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "main-02-GR-101-P-101",
+        "main-03-P-101-CV-101"
+      ],
+      "bounds": {
+        "min": [
+          22.838399410247803,
+          0.1600000113248825,
+          39.60000002384186
+        ],
+        "max": [
+          28.40000009536743,
+          3.3095136880874634,
+          42.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-102",
+      "tag": "P-102",
+      "name": "进水泵 B",
+      "stage": "intake",
+      "area": "IntakeArea",
+      "connections": [
+        "pump-b-01",
+        "pump-b-02"
+      ],
+      "bounds": {
+        "min": [
+          22.838399410247803,
+          0.1600000113248825,
+          47.60000002384186
+        ],
+        "max": [
+          28.40000009536743,
+          3.3095136880874634,
+          50.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-BW-301",
+      "tag": "P-BW-301",
+      "name": "反冲洗泵",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "backwash-01",
+        "backwash-02",
+        "membrane-backwash-01"
+      ],
+      "bounds": {
+        "min": [
+          186.83840322494507,
+          0.1600000113248825,
+          28.600000023841858
+        ],
+        "max": [
+          192.40000009536743,
+          3.3095113039016724,
+          31.399999976158142
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-EQ-101",
+      "tag": "P-EQ-101",
+      "name": "事故水回流泵",
+      "stage": "primary",
+      "area": "PrimaryTreatmentArea",
+      "connections": [
+        "storm-01",
+        "storm-02"
+      ],
+      "bounds": {
+        "min": [
+          85.83839559555054,
+          0.1600000113248825,
+          18.600000023841858
+        ],
+        "max": [
+          91.40000009536743,
+          3.309513211250305,
+          21.399999976158142
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-111",
+      "tag": "P-LIFT-111",
+      "name": "中间提升泵 A",
+      "stage": "secondary",
+      "area": "SecondaryTreatmentArea",
+      "connections": [
+        "main-12-SC-101-P-LIFT-111",
+        "main-13-P-LIFT-111-CO-101"
+      ],
+      "bounds": {
+        "min": [
+          147.83840322494507,
+          0.1600000113248825,
+          34.60000002384186
+        ],
+        "max": [
+          153.40000009536743,
+          3.3095113039016724,
+          37.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-112",
+      "tag": "P-LIFT-112",
+      "name": "中间提升泵 B",
+      "stage": "secondary",
+      "area": "SecondaryTreatmentArea",
+      "connections": [
+        "branch-b-05",
+        "branch-b-06"
+      ],
+      "bounds": {
+        "min": [
+          147.83840322494507,
+          0.1600000113248825,
+          52.60000002384186
+        ],
+        "max": [
+          153.40000009536743,
+          3.3095113039016724,
+          55.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-101",
+      "tag": "P-RAS-101",
+      "name": "回流污泥泵 A",
+      "stage": "secondary",
+      "area": "SecondaryTreatmentArea",
+      "connections": [
+        "ras-a-01",
+        "ras-a-02",
+        "ras-ax-a-01"
+      ],
+      "bounds": {
+        "min": [
+          122.83839559555054,
+          0.1600000113248825,
+          72.60000002384186
+        ],
+        "max": [
+          128.40000009536743,
+          3.309513211250305,
+          75.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-201",
+      "tag": "P-RAS-201",
+      "name": "回流污泥泵 B",
+      "stage": "secondary",
+      "area": "SecondaryTreatmentArea",
+      "connections": [
+        "ras-b-01",
+        "ras-b-02",
+        "ras-ax-b-01"
+      ],
+      "bounds": {
+        "min": [
+          131.83840322494507,
+          0.1600000113248825,
+          72.60000002384186
+        ],
+        "max": [
+          137.40000009536743,
+          3.3095113039016724,
+          75.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-SL-101",
+      "tag": "P-SL-101",
+      "name": "污泥输送泵",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "sludge-01",
+        "sludge-02"
+      ],
+      "bounds": {
+        "min": [
+          102.83839559555054,
+          0.1600000113248825,
+          80.60000002384186
+        ],
+        "max": [
+          108.40000009536743,
+          3.309513211250305,
+          83.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/P-WAS-301",
+      "tag": "P-WAS-301",
+      "name": "剩余污泥泵",
+      "stage": "secondary",
+      "area": "SecondaryTreatmentArea",
+      "connections": [
+        "was-01",
+        "was-02"
+      ],
+      "bounds": {
+        "min": [
+          140.83840322494507,
+          0.1600000113248825,
+          72.60000002384186
+        ],
+        "max": [
+          146.40000009536743,
+          3.3095113039016724,
+          75.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/PAC-101",
+      "tag": "PAC-101",
+      "name": "PAC 加药装置 A",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-01a",
+        "service-water-pac"
+      ],
+      "bounds": {
+        "min": [
+          23.21760129928589,
+          0.15500003099441528,
+          66.60739278793335
+        ],
+        "max": [
+          30.767799854278564,
+          7.823400586843491,
+          73.20000004768372
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/PAC-102",
+      "tag": "PAC-102",
+      "name": "PAC 计量泵 B",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-01a",
+        "chemical-01b"
+      ],
+      "bounds": {
+        "min": [
+          31.838401317596436,
+          0.1600000113248825,
+          68.60000002384186
+        ],
+        "max": [
+          37.40000009536743,
+          3.3095141649246216,
+          71.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/PAM-101",
+      "tag": "PAM-101",
+      "name": "PAM 加药装置 A",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-02a",
+        "service-water-pam",
+        "chemical-coag-01"
+      ],
+      "bounds": {
+        "min": [
+          39.217599391937256,
+          0.15500003099441528,
+          66.60739278793335
+        ],
+        "max": [
+          46.76779794692993,
+          7.823400586843491,
+          73.20000004768372
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/PAM-102",
+      "tag": "PAM-102",
+      "name": "PAM 计量泵 B",
+      "stage": "chemical",
+      "area": "ChemicalDosingArea",
+      "connections": [
+        "chemical-02a",
+        "chemical-02b"
+      ],
+      "bounds": {
+        "min": [
+          47.83840322494507,
+          0.1600000113248825,
+          68.60000002384186
+        ],
+        "max": [
+          53.40000009536743,
+          3.3095141649246216,
+          71.39999997615814
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/PC-101",
+      "tag": "PC-101",
+      "name": "初沉池",
+      "stage": "primary",
+      "area": "PrimaryTreatmentArea",
+      "connections": [
+        "main-06-GC-101-PC-101",
+        "main-07-PC-101-DW-101",
+        "primary-scum-01"
+      ],
+      "bounds": {
+        "min": [
+          61.717599391937256,
+          0.1600000262260437,
+          38.963597774505615
+        ],
+        "max": [
+          76.26780557632446,
+          6.255000054836273,
+          51.689884185791016
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/SC-101",
+      "tag": "SC-101",
+      "name": "二沉池 A",
+      "stage": "secondary",
+      "area": "SecondaryTreatmentArea",
+      "connections": [
+        "main-11-AE-101-SC-101",
+        "main-12-SC-101-P-LIFT-111",
+        "ras-a-01",
+        "was-01",
+        "scum-a-01"
+      ],
+      "bounds": {
+        "min": [
+          133.2029972076416,
+          0.000599980354309082,
+          28.09999990463257
+        ],
+        "max": [
+          156.93499374389648,
+          6.1750002801418304,
+          43.90000009536743
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/SC-201",
+      "tag": "SC-201",
+      "name": "二沉池 B",
+      "stage": "secondary",
+      "area": "SecondaryTreatmentArea",
+      "connections": [
+        "branch-b-04",
+        "branch-b-05",
+        "ras-b-01",
+        "scum-b-01"
+      ],
+      "bounds": {
+        "min": [
+          133.2029972076416,
+          0.000599980354309082,
+          46.09999990463257
+        ],
+        "max": [
+          156.93499374389648,
+          6.1750002801418304,
+          61.90000009536743
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/SILO-101",
+      "tag": "SILO-101",
+      "name": "污泥料仓",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "sludge-06",
+        "sludge-07"
+      ],
+      "bounds": {
+        "min": [
+          152.70000004768372,
+          0.15999996662139893,
+          78.70000004768372
+        ],
+        "max": [
+          159.29999995231628,
+          9.640200018882751,
+          85.29999995231628
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/ST-101",
+      "tag": "ST-101",
+      "name": "污泥浓缩池",
+      "stage": "sludge",
+      "area": "SludgeTreatmentArea",
+      "connections": [
+        "was-02",
+        "sludge-01",
+        "supernatant-01",
+        "primary-scum-01",
+        "scum-a-01",
+        "scum-b-01"
+      ],
+      "bounds": {
+        "min": [
+          108.87599325180054,
+          0.1599999964237213,
+          75.25
+        ],
+        "max": [
+          123.5638198852539,
+          6.025000184774399,
+          88.75
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/UF-101",
+      "tag": "UF-101",
+      "name": "超滤膜池",
+      "stage": "advanced",
+      "area": "AdvancedTreatmentArea",
+      "connections": [
+        "main-18-GAC-101-UF-101",
+        "main-19-UF-101-DT-101",
+        "membrane-backwash-01",
+        "membrane-clean-01"
+      ],
+      "bounds": {
+        "min": [
+          225.61759328842163,
+          0.15999972820281982,
+          39.84999990463257
+        ],
+        "max": [
+          240.36780405044556,
+          5.159999966621399,
+          50.42179727554321
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/UV-101",
+      "tag": "UV-101",
+      "name": "紫外消毒渠道",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "main-20-DT-101-UV-101",
+        "main-21-UV-101-FIT-101",
+        "sample-01",
+        "sample-02",
+        "sample-03",
+        "sample-04",
+        "sample-05",
+        "service-water-pac",
+        "service-water-pam",
+        "service-water-na",
+        "service-water-carbon"
+      ],
+      "bounds": {
+        "min": [
+          247.31760549545288,
+          0.1600000113248825,
+          42.299999952316284
+        ],
+        "max": [
+          262.6677918434143,
+          3.534999966621399,
+          48.850000858306885
+        ]
+      }
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/V-OUT-101",
+      "tag": "V-OUT-101",
+      "name": "出水阀",
+      "stage": "advanced",
+      "area": "DischargeArea",
+      "connections": [
+        "main-22-FIT-101-V-OUT-101",
+        "main-23-V-OUT-101-OUT-101"
+      ],
+      "bounds": {
+        "min": [
+          267.2175841331482,
+          0.1600000113248825,
+          52.89999997615814
+        ],
+        "max": [
+          272.76779794692993,
+          2.3799999356269836,
+          55.10000002384186
+        ]
+      }
+    }
+  ]
+}

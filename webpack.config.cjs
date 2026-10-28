@@ -59,4 +59,7 @@ module.exports = (env = {}) => ({
     ],
   },
   devtool: 'source-map',
+  performance: {
+    hints: false,
+  },
 });

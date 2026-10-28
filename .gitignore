@@ -3,5 +3,6 @@ dist/
 playwright-report/
 test-results/
 .superpowers/
+.playwright-cli/
 .env
 .DS_Store
