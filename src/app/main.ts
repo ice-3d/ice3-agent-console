@@ -9,7 +9,11 @@ import { runAgentServer } from '../protocol/client.js';
 import { runAgentLocally } from '../protocol/local-agent.js';
 import type { ThreadState } from '../protocol/reducer.js';
 import { resolveAutoplay, resolveDemoMode } from './mode.js';
-import { createSession, type SessionView } from './session.js';
+import {
+  createSession,
+  type AgentConsoleSession,
+  type SessionView,
+} from './session.js';
 
 class ConsoleView implements SessionView {
   constructor(
@@ -52,11 +56,12 @@ export async function startConsole(host: HTMLElement): Promise<void> {
   chat.setMode('scripted', demo ? 'local' : 'server');
 
   try {
+    let session: AgentConsoleSession | null = null;
     const scene = await createSceneController({
       stage: stage.element,
-      onUserCameraIntent: () => session.notifyUserSceneIntent(),
+      onUserCameraIntent: () => session?.notifyUserSceneIntent(),
     });
-    const session = createSession({
+    session = createSession({
       transport: demo ? runAgentLocally : runAgentServer,
       scene,
       view,
@@ -64,12 +69,13 @@ export async function startConsole(host: HTMLElement): Promise<void> {
       autoplay: { enabled: autoplay, delayMs: 1_200 },
     });
     scene.onSelection((ids) => {
-      session.setSelectedEquipment(ids[0] ?? null);
-      session.notifyUserSceneIntent();
+      session?.setSelectedEquipment(ids[0] ?? null);
+      session?.notifyUserSceneIntent();
     });
     createQuickActions(host, (prompt) => {
-      void session.send(prompt);
+      void session?.send(prompt);
     });
+    view.render(session.state);
     window.__ICE3_AGENT_CONSOLE__ = {
       send: (text) => session.send(text),
       selectedIds: () => scene.snapshot().selectedIds,

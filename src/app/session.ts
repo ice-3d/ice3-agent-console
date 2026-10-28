@@ -102,6 +102,8 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
   let runId: string | null = null;
   let abort: AbortController | null = null;
   let autoplayTimer: ReturnType<typeof setTimeout> | null = null;
+  let autoplayBaseState: ThreadState | null = null;
+  let activeAutoplayRun: string | null = null;
   let selectedEquipment: string | null = null;
   let disposed = false;
   let sequence = 0;
@@ -167,16 +169,19 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
     if (result.selectionIds[0]) setSelectedEquipment(result.selectionIds[0]);
   }
 
-  const send = async (text: string): Promise<void> => {
+  const run = async (
+    text: string,
+    options: { readonly autoplay: boolean },
+  ): Promise<void> => {
     const trimmed = text.trim();
     if (!trimmed || disposed) return;
-    stopAutoplay();
     abort?.abort();
     abort = new AbortController();
     const currentRun = `run-${++sequence}`;
     runId = currentRun;
     const userId = `user-${currentRun}`;
-    view.appendUserMessage(trimmed, userId);
+    if (options.autoplay) activeAutoplayRun = currentRun;
+    if (!options.autoplay) view.appendUserMessage(trimmed, userId);
     local({ type: '@local/user-message', id: userId, text: trimmed });
     view.setBusy(true);
     const snapshot = scene.snapshot();
@@ -186,6 +191,13 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
         : []
     ));
     const selected = selectedEquipment ?? snapshot.selectedIds[0];
+    const catalog = scene.records().map((record) => ({
+      selectionId: record.selectionId,
+      name: record.name,
+      tag: record.metadata?.equipmentTag,
+      stage: record.metadata?.processStage,
+      area: record.metadata?.area,
+    }));
     const request: RunRequest = {
       threadId,
       runId: currentRun,
@@ -197,6 +209,10 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
         {
           description: 'camera state',
           value: JSON.stringify(snapshot),
+        },
+        {
+          description: 'equipment catalog',
+          value: JSON.stringify(catalog),
         },
       ],
       state: { scene: snapshot },
@@ -233,9 +249,31 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
         });
       }
     } finally {
-      if (runId === currentRun) runId = null;
+      if (runId === currentRun) {
+        runId = null;
+        view.setBusy(false);
+      }
+      if (activeAutoplayRun === currentRun) activeAutoplayRun = null;
+    }
+  };
+
+  const cancelAutoplayConversation = (): void => {
+    stopAutoplay();
+    if (!autoplayBaseState) return;
+    const base = autoplayBaseState;
+    autoplayBaseState = null;
+    if (activeAutoplayRun && activeAutoplayRun === runId) {
+      runId = null;
+      activeAutoplayRun = null;
+      abort?.abort();
       view.setBusy(false);
     }
+    publish(base);
+  };
+
+  const send = async (text: string): Promise<void> => {
+    cancelAutoplayConversation();
+    await run(text, { autoplay: false });
   };
 
   return {
@@ -244,19 +282,21 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
     },
     start() {
       if (!autoplay?.enabled) return;
+      autoplayBaseState = state;
       autoplayTimer = setTimeout(() => {
         autoplayTimer = null;
-        void send('带我看一下整个污水处理厂');
+        void run('带我看一下整个污水处理厂', { autoplay: true });
       }, autoplay.delayMs);
     },
     send,
     notifyUserSceneIntent() {
-      stopAutoplay();
+      cancelAutoplayConversation();
     },
     setSelectedEquipment,
     dispose() {
       disposed = true;
       stopAutoplay();
+      activeAutoplayRun = null;
       abort?.abort();
     },
   };
