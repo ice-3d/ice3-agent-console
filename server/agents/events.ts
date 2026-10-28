@@ -14,6 +14,7 @@ export interface AgentEvent {
 
 export interface TextStream {
   readonly text: string;
+  readonly holdMs?: number;
   readonly tool?: {
     readonly name: SceneToolName;
     readonly args: Readonly<Record<string, unknown>>;
@@ -93,6 +94,9 @@ export async function* emitAgentPlan(options: {
       type: EventType.TOOL_CALL_END,
       toolCallId,
     };
+    if (beat.holdMs && delayMs > 0) {
+      await new Promise((resolve) => setTimeout(resolve, beat.holdMs));
+    }
   }
 
   ensureActive();

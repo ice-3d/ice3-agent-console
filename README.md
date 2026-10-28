@@ -13,7 +13,8 @@ npm run dev
 ```
 
 The application runs at `http://127.0.0.1:8110`; the Agent service runs at
-`http://127.0.0.1:8099`.
+`http://127.0.0.1:8099`. Opening the page starts the guided wastewater-plant
+tour automatically after the scene becomes ready.
 
 ```bash
 npm run build:demo
@@ -27,7 +28,15 @@ require the Agent service. URL overrides:
 - `?autoplay=1` or `?autoplay=0` control the opening walkthrough.
 
 Normal builds default to server transport. Demo builds default to browser-local
-transport and autoplay. Invalid query values fall back to the build default.
+transport. Every build starts with the guided tour; `?autoplay=0` makes the
+opening quiet for debugging or focused tests. Invalid query values fall back to
+the build default.
+
+The opening tour establishes the plant overview, then moves through the inlet,
+anaerobic, aerobic, secondary-clarifier, coagulation, filtration, and sludge
+areas before returning to the overview. Each stop combines narration, camera
+motion, and equipment selection. A mouse, keyboard, device selection, typed
+message, or quick action ends the tour and hands control back to the user.
 
 ## Real-model server
 

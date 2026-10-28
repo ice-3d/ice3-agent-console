@@ -203,6 +203,9 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
       runId: currentRun,
       messages,
       context: [
+        ...(options.autoplay
+          ? [{ description: 'presentation mode', value: 'guided-tour' }]
+          : []),
         ...(selected
           ? [{ description: 'selected equipment', value: selected }]
           : []),

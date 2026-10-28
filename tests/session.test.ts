@@ -150,6 +150,44 @@ test('manual scene intent cancels pending autoplay', async () => {
   expect(calls).toBe(0);
 });
 
+test('marks an autoplay request as a guided tour', async () => {
+  let started!: () => void;
+  const requestStarted = new Promise<void>((resolve) => {
+    started = resolve;
+  });
+  let captured: Parameters<RunTransport>[0] | undefined;
+  const transport: RunTransport = async (request, handlers) => {
+    captured = request;
+    handlers.onEvent({
+      type: EventType.RUN_STARTED,
+      threadId: 'thread-1',
+      runId: 'run-1',
+    });
+    handlers.onEvent({
+      type: EventType.RUN_FINISHED,
+      threadId: 'thread-1',
+      runId: 'run-1',
+    });
+    handlers.onDone?.();
+    started();
+  };
+  const session = createSession({
+    transport,
+    scene: new FakeScene(),
+    view: new FakeView(),
+    threadId: 'thread-1',
+    autoplay: { enabled: true, delayMs: 0 },
+  });
+
+  session.start();
+  await requestStarted;
+
+  expect(captured?.context).toContainEqual({
+    description: 'presentation mode',
+    value: 'guided-tour',
+  });
+});
+
 test('manual scene intent cancels an active autoplay run', async () => {
   let started!: () => void;
   const requestStarted = new Promise<void>((resolve) => {
