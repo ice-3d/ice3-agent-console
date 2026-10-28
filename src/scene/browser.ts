@@ -24,6 +24,10 @@ import {
   frameEquipment,
   type ScreenRect,
 } from './focus-framing.js';
+import {
+  blinkSelection,
+  type SelectionBlinkHandle,
+} from './selection-blink.js';
 
 interface BrowserSceneOptions {
   readonly stage: HTMLElement;
@@ -122,6 +126,8 @@ export async function createSceneController(
   camera.setPosition(overview.position).setTarget(overview.target);
 
   let motion: AbortController | null = null;
+  let selectionBlink: SelectionBlinkHandle | null = null;
+  let logicalSelection: readonly string[] = [];
   let programmaticSelectionDepth = 0;
   let view: CameraView = 'overview';
   const selectionListeners = new Set<(ids: readonly string[]) => void>();
@@ -169,15 +175,38 @@ export async function createSceneController(
     }
   };
 
+  const applyProgrammaticSelection = (ids: readonly string[]): void => {
+    programmaticSelectionDepth += 1;
+    try {
+      engine.setSelection(ids);
+    } finally {
+      programmaticSelectionDepth -= 1;
+    }
+  };
+  const startSelectionBlink = (ids: readonly string[]): void => {
+    selectionBlink?.cancel(false);
+    logicalSelection = [...new Set(ids)];
+    selectionBlink = logicalSelection.length === 0
+      ? null
+      : blinkSelection(logicalSelection, {
+          apply: applyProgrammaticSelection,
+          reducedMotion: window.matchMedia?.(
+            '(prefers-reduced-motion: reduce)',
+          ).matches ?? false,
+        });
+  };
+  const stopSelectionBlink = (restore = true): void => {
+    selectionBlink?.cancel(restore);
+    selectionBlink = null;
+  };
+
   const port = {
     records: () => catalogRecords,
     setSelection(ids: readonly string[]): void {
-      programmaticSelectionDepth += 1;
-      try {
-        engine.setSelection(ids);
-      } finally {
-        programmaticSelectionDepth -= 1;
-      }
+      stopSelectionBlink(false);
+      logicalSelection = [...new Set(ids)];
+      applyProgrammaticSelection(logicalSelection);
+      startSelectionBlink(logicalSelection);
     },
     async focus(bounds: ICEGeometryBoundsLike): Promise<void> {
       view = 'equipment';
@@ -201,7 +230,7 @@ export async function createSceneController(
     },
     snapshot(): SceneSnapshot {
       return {
-        selectedIds: engine.getSelection(),
+        selectedIds: logicalSelection,
         view,
         cameraPosition: camera.getPosition().toArray(),
         cameraTarget: camera.getTarget().toArray(),
@@ -210,6 +239,7 @@ export async function createSceneController(
   };
   const executor = new SceneCommandExecutor(port);
   const cancelAgentMotion = (): void => {
+    stopSelectionBlink();
     motion?.abort();
     motion = null;
     for (const listener of intentListeners) listener();
@@ -220,6 +250,7 @@ export async function createSceneController(
   }): void => {
     if (programmaticSelectionDepth > 0) return;
     const ids = event.param?.selection ?? [];
+    startSelectionBlink(ids);
     for (const listener of selectionListeners) listener(ids);
     options.onSelection?.(ids);
   };
@@ -261,6 +292,7 @@ export async function createSceneController(
     dispose(): void {
       if (disposed) return;
       disposed = true;
+      stopSelectionBlink(false);
       motion?.abort();
       orbit.dispose();
       handle.dispose();

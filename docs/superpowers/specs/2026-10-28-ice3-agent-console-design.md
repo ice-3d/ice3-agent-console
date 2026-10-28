@@ -236,7 +236,10 @@ right edge.
 - equipment focus is centered in the unobscured stage region beside or above
   the conversation panel, with camera distance derived from the equipment
   bounds and viewport aspect rather than a fixed zoom multiplier;
-- selection emphasis supplied by the engine;
+- selection emphasis supplied by the engine, including a short yellow pulse
+  whenever the selected equipment changes; the pulse finishes in the selected
+  state and is replaced or cancelled when the user takes control;
+- reduced-motion preferences keep the yellow emphasis static;
 - loading, LOD, and failure status;
 - no permanent equipment label clutter.
 

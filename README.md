@@ -42,6 +42,10 @@ Equipment focus uses the part of the stage that remains visible beside or above
 the conversation panel, rather than the geometric center of the full canvas.
 The camera distance is calculated from the equipment bounds, viewport aspect,
 and a bounded screen-fill ratio so larger equipment remains fully readable.
+Selecting an equipment through the Agent, the opening tour, or direct scene
+interaction briefly pulses the yellow emphasis six times and then leaves the
+selection permanently highlighted. The pulse is disabled when the operating
+system requests reduced motion.
 
 ## Real-model server
 
