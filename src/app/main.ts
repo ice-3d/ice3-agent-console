@@ -72,7 +72,7 @@ export async function startConsole(host: HTMLElement): Promise<void> {
       session?.setSelectedEquipment(ids[0] ?? null);
       session?.notifyUserSceneIntent();
     });
-    createQuickActions(host, (prompt) => {
+    createQuickActions(chat.composerArea, (prompt) => {
       void session?.send(prompt);
     });
     view.render(session.state);

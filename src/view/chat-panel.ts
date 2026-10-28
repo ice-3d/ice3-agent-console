@@ -15,6 +15,7 @@ export class ChatPanel {
   readonly input: HTMLTextAreaElement;
   readonly submit: HTMLButtonElement;
   readonly stateLabel: HTMLElement;
+  readonly composerArea: HTMLElement;
   private readonly scroller: HTMLElement;
   private readonly localUsers: LocalUserMessage[] = [];
   private listener: ((text: string) => void) | null = null;
@@ -43,12 +44,14 @@ export class ChatPanel {
       </div>
       <section class="conversation-scroll" data-role="conversation-scroll"
         aria-live="polite"></section>
-      <form class="composer" data-role="composer">
-        <label for="agent-command">向现场助手提问</label>
-        <textarea id="agent-command" data-role="composer-input"
-          rows="2" placeholder="例如：定位二沉池 A"></textarea>
-        <button type="submit" data-role="composer-submit">发送</button>
-      </form>
+      <div class="conversation-composer" data-role="composer-area">
+        <form class="composer" data-role="composer">
+          <label for="agent-command">向现场助手提问</label>
+          <textarea id="agent-command" data-role="composer-input"
+            rows="2" placeholder="例如：定位二沉池 A"></textarea>
+          <button type="submit" data-role="composer-submit">发送</button>
+        </form>
+      </div>
     `;
     host.append(this.element);
     this.scroller = this.element.querySelector(
@@ -61,6 +64,9 @@ export class ChatPanel {
     )!;
     this.stateLabel = this.element.querySelector(
       '[data-role="agent-state"]',
+    )!;
+    this.composerArea = this.element.querySelector(
+      '[data-role="composer-area"]',
     )!;
     const toggle = this.element.querySelector<HTMLButtonElement>(
       '[data-role="conversation-toggle"]',
