@@ -329,9 +329,29 @@ button {
 }
 
 .quick-actions {
+  display: grid;
+  gap: 7px;
+}
+
+.quick-action-group {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 7px;
+  align-items: start;
+}
+
+.quick-action-group__label {
+  padding: 8px 0 0 7px;
+  border-left: 2px solid var(--panel-border);
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.quick-action-group__items {
   display: flex;
-  gap: 6px;
   flex-wrap: wrap;
+  gap: 6px;
 }
 
 .quick-actions button {
@@ -343,6 +363,11 @@ button {
   color: var(--muted);
   font-size: 12px;
   cursor: pointer;
+}
+
+.quick-actions button:disabled {
+  opacity: 0.45;
+  cursor: wait;
 }
 
 .quick-actions button:hover,

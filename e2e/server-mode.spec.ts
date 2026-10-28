@@ -18,9 +18,9 @@ test('loads the wastewater plant and completes a scene command', async ({
   await page.goto('http://127.0.0.1:8110/?demo=0&autoplay=0');
   await expect(page.locator('[data-role="scene-status"]'))
     .toHaveText('场景已就绪', { timeout: 60_000 });
-  await page.getByRole('button', { name: '讲解好氧池' }).click();
+  await page.getByRole('button', { name: '二沉池', exact: true }).click();
   await expect(page.locator('[data-role="selection-tag"]'))
-    .toHaveText('AE-101', { timeout: 10_000 });
+    .toHaveText('P-WAS-301', { timeout: 10_000 });
 });
 
 test('cancels autoplay when the user interacts with the scene', async ({

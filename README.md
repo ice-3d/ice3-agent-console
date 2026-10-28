@@ -47,6 +47,17 @@ interaction briefly pulses the yellow emphasis six times and then leaves the
 selection permanently highlighted. The pulse is disabled when the operating
 system requests reduced motion.
 
+The composer also exposes a grouped deterministic scenario library:
+
+- process tours: intake, AAO biology, secondary clarification, advanced
+  treatment, and sludge treatment;
+- system topics: aeration, chemical dosing, effluent monitoring, and emergency
+  storage/return;
+- quick actions: full-plant overview and clear focus.
+
+Every scenario uses the same six application-level scene tools and works in
+both server-backed and browser-local modes.
+
 ## Real-model server
 
 Set the following environment variables before `npm run dev`:
