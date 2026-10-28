@@ -12,10 +12,10 @@ export const DEFAULT_QUICK_ACTIONS: readonly QuickAction[] = Object.freeze([
 ]);
 
 export function createQuickActions(
-  host: HTMLElement,
+  container: HTMLElement,
   onSelect: (prompt: string) => void,
 ): HTMLElement {
-  const document = host.ownerDocument;
+  const document = container.ownerDocument;
   const navigation = document.createElement('nav');
   navigation.className = 'quick-actions';
   navigation.setAttribute('aria-label', '快捷指令');
@@ -26,6 +26,6 @@ export function createQuickActions(
     button.addEventListener('click', () => onSelect(action.prompt));
     navigation.append(button);
   }
-  host.append(navigation);
+  container.prepend(navigation);
   return navigation;
 }

@@ -239,12 +239,17 @@ button {
   font-size: 12px;
 }
 
+.conversation-composer {
+  display: grid;
+  gap: 10px;
+  padding: 12px 14px 14px;
+  border-top: 1px solid var(--panel-border);
+}
+
 .composer {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 8px;
-  padding: 14px;
-  border-top: 1px solid var(--panel-border);
 }
 
 .composer label {
@@ -324,22 +329,19 @@ button {
 }
 
 .quick-actions {
-  position: absolute;
-  z-index: 4;
-  left: 28px;
-  bottom: 24px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  max-width: calc(100vw - 500px);
 }
 
 .quick-actions button {
+  min-height: 32px;
   border: 1px solid var(--panel-border);
   border-radius: 999px;
-  padding: 8px 12px;
-  background: rgb(8 15 20 / 86%);
+  padding: 5px 10px;
+  background: rgb(255 255 255 / 3%);
   color: var(--muted);
+  font-size: 12px;
   cursor: pointer;
 }
 
@@ -380,13 +382,6 @@ button {
     top: 78px;
     bottom: auto;
     left: 12px;
-  }
-
-  .quick-actions {
-    right: 12px;
-    bottom: calc(58vh + 20px);
-    left: 12px;
-    max-width: none;
   }
 
   .brand-lockup {
