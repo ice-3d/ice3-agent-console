@@ -117,6 +117,7 @@ export async function createSceneController(
   camera.setPosition(overview.position).setTarget(overview.target);
 
   let motion: AbortController | null = null;
+  let programmaticSelectionDepth = 0;
   let view: CameraView = 'overview';
   const selectionListeners = new Set<(ids: readonly string[]) => void>();
   const intentListeners = new Set<() => void>();
@@ -162,7 +163,12 @@ export async function createSceneController(
   const port = {
     records: () => catalogRecords,
     setSelection(ids: readonly string[]): void {
-      engine.setSelection(ids);
+      programmaticSelectionDepth += 1;
+      try {
+        engine.setSelection(ids);
+      } finally {
+        programmaticSelectionDepth -= 1;
+      }
     },
     async focus(bounds: ICEGeometryBoundsLike): Promise<void> {
       const target = center(bounds);
@@ -200,6 +206,7 @@ export async function createSceneController(
   const onSelection = (event: {
     readonly param?: { readonly selection?: readonly string[] };
   }): void => {
+    if (programmaticSelectionDepth > 0) return;
     const ids = event.param?.selection ?? [];
     for (const listener of selectionListeners) listener(ids);
     options.onSelection?.(ids);

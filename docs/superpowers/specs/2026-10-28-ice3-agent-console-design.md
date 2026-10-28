@@ -165,7 +165,9 @@ types.
 
 The deterministic first-release scenarios are:
 
-- introduce the full plant and move to overview;
+- play a guided opening tour from the full-plant overview through inlet,
+  anaerobic, aerobic, secondary-clarifier, coagulation, filtration, and sludge
+  equipment before returning to the overview;
 - locate and explain a named equipment group;
 - focus and highlight the current selection;
 - explain the selected device;
@@ -210,12 +212,16 @@ the build default.
 
 ### Autoplay
 
-- Normal builds default to no autoplay.
-- Demo builds may default to autoplay.
+- All builds of this demonstration default to the guided opening tour.
 - `?autoplay=1` and `?autoplay=0` override the build default.
 
 The two axes are independent. Any manual conversation or scene interaction
 cancels autoplay and Agent-driven camera motion.
+
+The guided opening tour is a multi-event Agent run. Every stop streams narration,
+selects the relevant equipment, and moves the camera before the next stop starts.
+Programmatic selections caused by tour tools are not user intent and must not
+cancel the run; pointer, keyboard, or explicit user selection does cancel it.
 
 ## Interface
 

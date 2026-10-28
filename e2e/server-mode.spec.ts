@@ -1,5 +1,17 @@
 import { expect, test } from '@playwright/test';
 
+test('starts a moving guided tour when opened without overrides', async ({
+  page,
+}) => {
+  await page.goto('http://127.0.0.1:8110/?demo=1');
+  await expect(page.locator('[data-role="scene-status"]'))
+    .toHaveText('场景已就绪', { timeout: 60_000 });
+  await expect(page.locator('[data-role="selection-tag"]'))
+    .toHaveText('P-101', { timeout: 10_000 });
+  await expect(page.locator('[data-role="selection-tag"]'))
+    .toHaveText('AT-101', { timeout: 10_000 });
+});
+
 test('loads the wastewater plant and completes a scene command', async ({
   page,
 }) => {

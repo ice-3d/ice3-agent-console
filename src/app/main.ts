@@ -52,7 +52,7 @@ export async function startConsole(host: HTMLElement): Promise<void> {
   const status = new ConsoleStatus(host);
   const view = new ConsoleView(chat, equipment, status);
   const demo = resolveDemoMode(window.location.search, __ICE_DEMO__);
-  const autoplay = resolveAutoplay(window.location.search, __ICE_DEMO__);
+  const autoplay = resolveAutoplay(window.location.search, true);
   chat.setMode('scripted', demo ? 'local' : 'server');
 
   try {

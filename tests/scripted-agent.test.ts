@@ -29,6 +29,59 @@ test('returns a deterministic overview tool sequence', async () => {
   expect(events.at(-1)?.type).toBe(EventType.RUN_FINISHED);
 });
 
+test('plays a multi-stop guided tour for opening autoplay', async () => {
+  const request = input('带我看一下整个污水处理厂');
+  request.context = [{
+    description: 'presentation mode',
+    value: 'guided-tour',
+  }];
+  const toolCalls: { name: string; args: unknown }[] = [];
+  let activeName: string | undefined;
+  for await (const event of createScriptedAgent({ delayMs: 0 }).run(request)) {
+    if (event.type === EventType.TOOL_CALL_START) {
+      activeName = String(event.toolCallName);
+    } else if (event.type === EventType.TOOL_CALL_ARGS) {
+      toolCalls.push({
+        name: activeName!,
+        args: JSON.parse(String(event.delta)),
+      });
+    }
+  }
+
+  expect(toolCalls).toEqual([
+    { name: 'set_camera_view', args: { view: 'overview' } },
+    {
+      name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/P-101' },
+    },
+    {
+      name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/AT-101' },
+    },
+    {
+      name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/AE-101' },
+    },
+    {
+      name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/SC-101' },
+    },
+    {
+      name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/CO-101' },
+    },
+    {
+      name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/FL-101' },
+    },
+    {
+      name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/ST-101' },
+    },
+    { name: 'clear_scene_focus', args: {} },
+  ]);
+});
+
 test('uses current equipment context for a follow-up explanation', async () => {
   const request = input('讲讲这个设备');
   request.context = [{
