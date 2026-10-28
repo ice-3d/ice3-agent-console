@@ -1,0 +1,270 @@
+import { EventType } from '@ag-ui/core';
+import { expect } from '#test-expect';
+import { test } from 'node:test';
+import {
+  createSession,
+  type SessionView,
+} from '../src/app/session.js';
+import type { RunTransport } from '../src/protocol/run-input.js';
+import type {
+  EquipmentRecord,
+  SceneController,
+} from '../src/scene/types.js';
+
+class FakeScene implements SceneController {
+  readonly commands: unknown[] = [];
+  readonly recordsValue: readonly EquipmentRecord[] = [{
+    selectionId: 'ice3-virtual-wwtp/equipment/SC-101',
+    name: '二沉池 A',
+    metadata: { equipmentTag: 'SC-101' },
+    bounds: { min: [-7, 0, -7], max: [7, 5, 7] },
+  }];
+
+  records(): readonly EquipmentRecord[] {
+    return this.recordsValue;
+  }
+
+  setSelection(): void {}
+
+  async focus(): Promise<void> {}
+
+  async setView(): Promise<void> {}
+
+  snapshot() {
+    return {
+      selectedIds: [],
+      view: 'overview' as const,
+      cameraPosition: [0, 10, 20] as const,
+      cameraTarget: [0, 0, 0] as const,
+    };
+  }
+
+  async execute(command: unknown) {
+    this.commands.push(command);
+    return {
+      ok: true,
+      selectionIds: ['ice3-virtual-wwtp/equipment/SC-101'],
+      message: '已定位二沉池 A',
+    };
+  }
+
+  onSelection(): () => void {
+    return () => {};
+  }
+
+  onUserCameraIntent(): () => void {
+    return () => {};
+  }
+
+  async whenReady(): Promise<void> {}
+
+  dispose(): void {}
+}
+
+class FakeView implements SessionView {
+  readonly messages: string[] = [];
+  readonly busyStates: boolean[] = [];
+
+  appendUserMessage(text: string): void {
+    this.messages.push(text);
+  }
+
+  render(): void {}
+
+  renderEquipment(): void {}
+
+  setBusy(busy: boolean): void {
+    this.busyStates.push(busy);
+  }
+
+  setError(): void {}
+}
+
+function scriptedTransport(
+  capture?: (request: Parameters<RunTransport>[0]) => void,
+): RunTransport {
+  return async (request, handlers) => {
+    capture?.(request);
+    handlers.onEvent({
+      type: EventType.RUN_STARTED,
+      threadId: 'thread-1',
+      runId: 'run-1',
+    });
+    handlers.onEvent({
+      type: EventType.TOOL_CALL_START,
+      toolCallId: 'tool-1',
+      toolCallName: 'focus_equipment',
+    });
+    handlers.onEvent({
+      type: EventType.TOOL_CALL_ARGS,
+      toolCallId: 'tool-1',
+      delta: '{"selectionId":"ice3-virtual-wwtp/equipment/SC-101"}',
+    });
+    handlers.onEvent({
+      type: EventType.TOOL_CALL_END,
+      toolCallId: 'tool-1',
+    });
+    handlers.onEvent({
+      type: EventType.RUN_FINISHED,
+      threadId: 'thread-1',
+      runId: 'run-1',
+    });
+    handlers.onDone?.();
+  };
+}
+
+test('routes a complete scene tool call to the controller', async () => {
+  const scene = new FakeScene();
+  const session = createSession({
+    transport: scriptedTransport(),
+    scene,
+    view: new FakeView(),
+    threadId: 'thread-1',
+  });
+
+  await session.send('定位二沉池');
+
+  expect(scene.commands).toEqual([{
+    type: 'focus',
+    selectionIds: ['ice3-virtual-wwtp/equipment/SC-101'],
+  }]);
+  expect(session.state.status).toBe('idle');
+});
+
+test('manual scene intent cancels pending autoplay', async () => {
+  let calls = 0;
+  const transport: RunTransport = async (_request, handlers) => {
+    calls += 1;
+    handlers.onDone?.();
+  };
+  const session = createSession({
+    transport,
+    scene: new FakeScene(),
+    view: new FakeView(),
+    threadId: 'thread-1',
+    autoplay: { enabled: true, delayMs: 40 },
+  });
+  session.start();
+  session.notifyUserSceneIntent();
+  await new Promise((resolve) => setTimeout(resolve, 70));
+  expect(calls).toBe(0);
+});
+
+test('manual scene intent cancels an active autoplay run', async () => {
+  let started!: () => void;
+  const requestStarted = new Promise<void>((resolve) => {
+    started = resolve;
+  });
+  let signal: AbortSignal | undefined;
+  const transport: RunTransport = async (_request, handlers, nextSignal) => {
+    signal = nextSignal;
+    handlers.onEvent({
+      type: EventType.RUN_STARTED,
+      threadId: 'thread-1',
+      runId: 'run-1',
+    });
+    handlers.onEvent({
+      type: EventType.TEXT_MESSAGE_START,
+      messageId: 'assistant-1',
+      role: 'assistant',
+    });
+    handlers.onEvent({
+      type: EventType.TEXT_MESSAGE_CONTENT,
+      messageId: 'assistant-1',
+      delta: '正在切换视角。',
+    });
+    started();
+    await new Promise<void>((resolve) => {
+      nextSignal?.addEventListener('abort', () => resolve(), { once: true });
+    });
+  };
+  const session = createSession({
+    transport,
+    scene: new FakeScene(),
+    view: new FakeView(),
+    threadId: 'thread-1',
+    autoplay: { enabled: true, delayMs: 0 },
+  });
+
+  session.start();
+  await requestStarted;
+  expect(session.state.items.length).toBeGreaterThan(0);
+
+  session.notifyUserSceneIntent();
+
+  expect(signal?.aborted).toBe(true);
+  expect(session.state.items).toEqual([]);
+  expect(session.state.status).toBe('idle');
+  expect(session.state.runId).toBeNull();
+});
+
+test('a replacement run keeps ownership of the busy state', async () => {
+  let autoplayStarted!: () => void;
+  const autoplayRequestStarted = new Promise<void>((resolve) => {
+    autoplayStarted = resolve;
+  });
+  let manualStarted!: () => void;
+  const manualRequestStarted = new Promise<void>((resolve) => {
+    manualStarted = resolve;
+  });
+  let finishManual!: () => void;
+  const view = new FakeView();
+  const transport: RunTransport = async (request, handlers, signal) => {
+    const isAutoplay = request.messages.some(
+      (message) => message.content === '带我看一下整个污水处理厂',
+    );
+    if (isAutoplay) {
+      handlers.onEvent({
+        type: EventType.RUN_STARTED,
+        threadId: 'thread-1',
+        runId: 'autoplay-run',
+      });
+      autoplayStarted();
+      await new Promise<void>((resolve) => {
+        signal?.addEventListener('abort', () => resolve(), { once: true });
+      });
+      return;
+    }
+    manualStarted();
+    await new Promise<void>((resolve) => {
+      finishManual = resolve;
+    });
+  };
+  const session = createSession({
+    transport,
+    scene: new FakeScene(),
+    view,
+    threadId: 'thread-1',
+    autoplay: { enabled: true, delayMs: 0 },
+  });
+
+  session.start();
+  await autoplayRequestStarted;
+  const replacement = session.send('定位二沉池');
+  await manualRequestStarted;
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  expect(view.busyStates.at(-1)).toBe(true);
+
+  finishManual();
+  await replacement;
+  expect(view.busyStates.at(-1)).toBe(false);
+});
+
+test('sends the complete equipment catalog to the Agent', async () => {
+  let captured: Parameters<RunTransport>[0] | undefined;
+  const session = createSession({
+    transport: scriptedTransport((request) => {
+      captured = request;
+    }),
+    scene: new FakeScene(),
+    view: new FakeView(),
+    threadId: 'thread-1',
+  });
+  await session.send('找一台二沉池');
+  const catalog = captured?.context?.find(
+    (entry) => entry.description === 'equipment catalog',
+  );
+  expect(catalog).toBeDefined();
+  expect(catalog?.value).toContain('SC-101');
+  expect(catalog?.value).toContain('二沉池 A');
+});

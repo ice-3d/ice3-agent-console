@@ -1,0 +1,206 @@
+import type {
+  ThreadItem,
+  ThreadState,
+} from '../protocol/reducer.js';
+import { renderMarkdown } from './markdown.js';
+
+interface LocalUserMessage {
+  readonly id: string;
+  readonly text: string;
+}
+
+export class ChatPanel {
+  readonly element: HTMLElement;
+  readonly form: HTMLFormElement;
+  readonly input: HTMLTextAreaElement;
+  readonly submit: HTMLButtonElement;
+  readonly stateLabel: HTMLElement;
+  private readonly scroller: HTMLElement;
+  private readonly localUsers: LocalUserMessage[] = [];
+  private listener: ((text: string) => void) | null = null;
+
+  constructor(host: HTMLElement) {
+    const document = host.ownerDocument;
+    this.element = document.createElement('aside');
+    this.element.className = 'conversation-panel';
+    this.element.setAttribute('aria-label', '设备助手');
+    this.element.innerHTML = `
+      <header class="conversation-header">
+        <div>
+          <span class="eyebrow">ICE3 FIELD AGENT</span>
+          <h1>工业现场助手</h1>
+        </div>
+        <div class="conversation-header__actions">
+          <span class="agent-state" data-role="agent-state">就绪</span>
+          <button class="conversation-toggle" type="button"
+            data-role="conversation-toggle" aria-expanded="true"
+            aria-label="收起对话面板">›</button>
+        </div>
+      </header>
+      <div class="conversation-context">
+        <span data-role="agent-mode">剧本模式</span>
+        <span data-role="agent-transport">服务端</span>
+      </div>
+      <section class="conversation-scroll" data-role="conversation-scroll"
+        aria-live="polite"></section>
+      <form class="composer" data-role="composer">
+        <label for="agent-command">向现场助手提问</label>
+        <textarea id="agent-command" data-role="composer-input"
+          rows="2" placeholder="例如：定位二沉池 A"></textarea>
+        <button type="submit" data-role="composer-submit">发送</button>
+      </form>
+    `;
+    host.append(this.element);
+    this.scroller = this.element.querySelector(
+      '[data-role="conversation-scroll"]',
+    )!;
+    this.form = this.element.querySelector('[data-role="composer"]')!;
+    this.input = this.element.querySelector('[data-role="composer-input"]')!;
+    this.submit = this.element.querySelector(
+      '[data-role="composer-submit"]',
+    )!;
+    this.stateLabel = this.element.querySelector(
+      '[data-role="agent-state"]',
+    )!;
+    const toggle = this.element.querySelector<HTMLButtonElement>(
+      '[data-role="conversation-toggle"]',
+    )!;
+    toggle.addEventListener('click', () => {
+      const collapsed = this.element.dataset.collapsed !== 'true';
+      this.element.dataset.collapsed = String(collapsed);
+      toggle.setAttribute('aria-expanded', String(!collapsed));
+      toggle.setAttribute(
+        'aria-label',
+        collapsed ? '展开对话面板' : '收起对话面板',
+      );
+      toggle.textContent = collapsed ? '‹' : '›';
+    });
+    this.form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = this.input.value.trim();
+      if (!value || this.submit.disabled) return;
+      this.appendUserMessage(value);
+      this.input.value = '';
+      this.listener?.(value);
+    });
+  }
+
+  onSubmit(listener: (text: string) => void): void {
+    this.listener = listener;
+  }
+
+  appendUserMessage(text: string, id = `local-${Date.now()}`): void {
+    this.localUsers.push({ id, text });
+    this.scroller.append(messageElement(
+      this.element.ownerDocument,
+      'user',
+      text,
+      false,
+    ));
+    this.scrollToEnd();
+  }
+
+  render(state: ThreadState): void {
+    this.scroller.replaceChildren();
+    const stateUserTexts = new Set(state.items.flatMap((item) => (
+      item.kind === 'text' && item.role === 'user' ? [item.text] : []
+    )));
+    for (const local of this.localUsers) {
+      if (!stateUserTexts.has(local.text)) {
+        this.scroller.append(messageElement(
+          this.element.ownerDocument,
+          'user',
+          local.text,
+          false,
+        ));
+      }
+    }
+    for (const item of state.items) {
+      this.scroller.append(this.renderItem(item));
+    }
+    if (state.items.length === 0 && this.localUsers.length === 0) {
+      const intro = this.element.ownerDocument.createElement('article');
+      intro.className = 'message message--assistant message--intro';
+      intro.innerHTML = [
+        '<p>选择设备，或者直接问我：</p>',
+        '<p><strong>查看全厂 · 定位二沉池 · 讲解好氧池</strong></p>',
+      ].join('');
+      this.scroller.append(intro);
+    }
+    this.scrollToEnd();
+  }
+
+  setBusy(busy: boolean): void {
+    this.submit.disabled = busy;
+    this.input.disabled = busy;
+    this.stateLabel.textContent = busy ? '思考中' : '就绪';
+    this.stateLabel.dataset.active = String(busy);
+  }
+
+  setMode(mode: 'scripted' | 'model', transport: 'server' | 'local'): void {
+    this.element.querySelector<HTMLElement>('[data-role="agent-mode"]')!
+      .textContent = mode === 'scripted' ? '剧本模式' : '模型模式';
+    this.element.querySelector<HTMLElement>('[data-role="agent-transport"]')!
+      .textContent = transport === 'server' ? '服务端' : '纯前端';
+  }
+
+  setError(message: string | null): void {
+    this.element.dataset.error = String(Boolean(message));
+    let error = this.element.querySelector<HTMLElement>('.conversation-error');
+    if (!message) {
+      error?.remove();
+      return;
+    }
+    if (!error) {
+      error = this.element.ownerDocument.createElement('p');
+      error.className = 'conversation-error';
+      this.element.querySelector('[data-role="conversation-scroll"]')!
+        .append(error);
+    }
+    error.textContent = message;
+  }
+
+  private renderItem(item: ThreadItem): HTMLElement {
+    if (item.kind === 'text') {
+      const element = messageElement(
+        this.element.ownerDocument,
+        item.role,
+        item.text,
+        !item.done,
+      );
+      if (item.role !== 'user') {
+        element.innerHTML = renderMarkdown(item.text);
+      }
+      return element;
+    }
+    const element = this.element.ownerDocument.createElement('article');
+    element.className = 'tool-status';
+    const label = item.name.replaceAll('_', ' ');
+    element.textContent = item.parseError
+      ? `${label} 参数无效：${item.parseError}`
+      : item.status === 'result'
+        ? `${label} 已完成`
+        : `${label} 执行中`;
+    return element;
+  }
+
+  private scrollToEnd(): void {
+    queueMicrotask(() => {
+      this.scroller.scrollTop = this.scroller.scrollHeight;
+    });
+  }
+}
+
+function messageElement(
+  document: Document,
+  role: string,
+  text: string,
+  streaming: boolean,
+): HTMLElement {
+  const element = document.createElement('article');
+  element.className = `message message--${role}`;
+  element.dataset.role = 'message';
+  element.dataset.streaming = String(streaming);
+  element.textContent = text;
+  return element;
+}

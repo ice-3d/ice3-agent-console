@@ -1,0 +1,60 @@
+{
+  "name": "ice3-agent-console",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "3D industrial scene console driven by an event-stream Agent",
+  "engines": {
+    "node": "^24.0.0 || >=26.0.0",
+    "npm": ">=11"
+  },
+  "imports": {
+    "#test-expect": "./tests/assertions.ts"
+  },
+  "scripts": {
+    "predev": "npm --prefix ../ice3-engine run build && node scripts/generate-equipment-manifest.mjs",
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "webpack serve --mode development",
+    "dev:api": "tsx watch server/index.ts",
+    "prebuild": "npm --prefix ../ice3-engine run build && node scripts/generate-equipment-manifest.mjs",
+    "build": "webpack --mode production",
+    "postbuild": "node scripts/copy-demo-assets.mjs",
+    "prebuild:demo": "npm --prefix ../ice3-engine run build && node scripts/generate-equipment-manifest.mjs",
+    "build:demo": "webpack --mode production --env demo",
+    "postbuild:demo": "node scripts/copy-demo-assets.mjs && node scripts/demo-agent-marker.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "test": "node scripts/run-tests.mjs",
+    "test:e2e": "playwright test",
+    "verify": "npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "@ag-ui/core": "1.0.3",
+    "@ice3/assets": "file:../ice3-engine/packages/assets",
+    "@ice3/core": "file:../ice3-engine/packages/core",
+    "@ice3/renderer": "file:../ice3-engine/packages/renderer",
+    "@ice3/runtime": "file:../ice3-engine/packages/runtime",
+    "ice3": "file:../ice3-engine/packages/ice3",
+    "markdown-it": "15.0.3",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@playwright/test": "1.64.1",
+    "@types/jsdom": "30.0.0",
+    "@types/markdown-it": "14.2.0",
+    "@types/node": "24.19.2",
+    "css-loader": "7.1.5",
+    "esbuild": "0.25.10",
+    "esbuild-loader": "4.5.0",
+    "expect": "30.5.2",
+    "html-webpack-plugin": "5.6.8",
+    "http-server": "^14.1.1",
+    "jsdom": "30.1.3",
+    "style-loader": "4.0.0",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "webpack": "5.112.2",
+    "webpack-cli": "7.2.3",
+    "webpack-dev-server": "6.1.0"
+  }
+}
