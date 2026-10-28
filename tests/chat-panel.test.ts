@@ -46,3 +46,19 @@ test('submits a typed message and clears the input', () => {
   expect(messages).toEqual(['查看全厂']);
   expect(panel.input.value).toBe('');
 });
+
+test('collapses and restores the conversation panel', () => {
+  const dom = new JSDOM('<main></main>');
+  const panel = new ChatPanel(
+    dom.window.document.querySelector('main') as unknown as HTMLElement,
+  );
+  const toggle = panel.element.querySelector<HTMLButtonElement>(
+    '[data-role="conversation-toggle"]',
+  )!;
+  expect(toggle.getAttribute('aria-expanded')).toBe('true');
+  toggle.click();
+  expect(panel.element.dataset.collapsed).toBe('true');
+  expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  toggle.click();
+  expect(panel.element.dataset.collapsed).toBe('false');
+});

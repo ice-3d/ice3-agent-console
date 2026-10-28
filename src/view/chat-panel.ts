@@ -30,7 +30,12 @@ export class ChatPanel {
           <span class="eyebrow">ICE3 FIELD AGENT</span>
           <h1>工业现场助手</h1>
         </div>
-        <span class="agent-state" data-role="agent-state">就绪</span>
+        <div class="conversation-header__actions">
+          <span class="agent-state" data-role="agent-state">就绪</span>
+          <button class="conversation-toggle" type="button"
+            data-role="conversation-toggle" aria-expanded="true"
+            aria-label="收起对话面板">›</button>
+        </div>
       </header>
       <div class="conversation-context">
         <span data-role="agent-mode">剧本模式</span>
@@ -57,6 +62,19 @@ export class ChatPanel {
     this.stateLabel = this.element.querySelector(
       '[data-role="agent-state"]',
     )!;
+    const toggle = this.element.querySelector<HTMLButtonElement>(
+      '[data-role="conversation-toggle"]',
+    )!;
+    toggle.addEventListener('click', () => {
+      const collapsed = this.element.dataset.collapsed !== 'true';
+      this.element.dataset.collapsed = String(collapsed);
+      toggle.setAttribute('aria-expanded', String(!collapsed));
+      toggle.setAttribute(
+        'aria-label',
+        collapsed ? '展开对话面板' : '收起对话面板',
+      );
+      toggle.textContent = collapsed ? '‹' : '›';
+    });
     this.form.addEventListener('submit', (event) => {
       event.preventDefault();
       const value = this.input.value.trim();
@@ -124,6 +142,22 @@ export class ChatPanel {
       .textContent = mode === 'scripted' ? '剧本模式' : '模型模式';
     this.element.querySelector<HTMLElement>('[data-role="agent-transport"]')!
       .textContent = transport === 'server' ? '服务端' : '纯前端';
+  }
+
+  setError(message: string | null): void {
+    this.element.dataset.error = String(Boolean(message));
+    let error = this.element.querySelector<HTMLElement>('.conversation-error');
+    if (!message) {
+      error?.remove();
+      return;
+    }
+    if (!error) {
+      error = this.element.ownerDocument.createElement('p');
+      error.className = 'conversation-error';
+      this.element.querySelector('[data-role="conversation-scroll"]')!
+        .append(error);
+    }
+    error.textContent = message;
   }
 
   private renderItem(item: ThreadItem): HTMLElement {

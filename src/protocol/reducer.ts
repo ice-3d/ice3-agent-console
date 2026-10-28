@@ -266,6 +266,15 @@ export function reduceThread(state: ThreadState, action: Action): Reduction {
         },
         effects,
       };
+    case '@local/error':
+      return {
+        state: {
+          ...base,
+          status: 'error',
+          error: String(action.message ?? 'Agent 执行失败'),
+        },
+        effects,
+      };
     default:
       return unknownEvent(state);
   }
