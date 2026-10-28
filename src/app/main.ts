@@ -8,6 +8,7 @@ import { ConsoleStatus } from '../view/status.js';
 import { runAgentServer } from '../protocol/client.js';
 import { runAgentLocally } from '../protocol/local-agent.js';
 import type { ThreadState } from '../protocol/reducer.js';
+import { resolveVisibleViewport } from '../scene/focus-framing.js';
 import { resolveAutoplay, resolveDemoMode } from './mode.js';
 import {
   createSession,
@@ -57,8 +58,27 @@ export async function startConsole(host: HTMLElement): Promise<void> {
 
   try {
     let session: AgentConsoleSession | null = null;
+    const visibleSceneViewport = () => {
+      const stageBounds = stage.element.getBoundingClientRect();
+      const panelBounds = chat.element.getBoundingClientRect();
+      return resolveVisibleViewport(
+        {
+          x: 0,
+          y: 0,
+          width: stageBounds.width,
+          height: stageBounds.height,
+        },
+        {
+          x: panelBounds.left - stageBounds.left,
+          y: panelBounds.top - stageBounds.top,
+          width: panelBounds.width,
+          height: panelBounds.height,
+        },
+      );
+    };
     const scene = await createSceneController({
       stage: stage.element,
+      visibleViewport: visibleSceneViewport,
       onUserCameraIntent: () => session?.notifyUserSceneIntent(),
     });
     session = createSession({

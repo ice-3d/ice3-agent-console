@@ -233,6 +233,9 @@ right edge.
 - black background;
 - wastewater-plant view loaded by default;
 - existing orbit, zoom, pan, keyboard, and picking behavior;
+- equipment focus is centered in the unobscured stage region beside or above
+  the conversation panel, with camera distance derived from the equipment
+  bounds and viewport aspect rather than a fixed zoom multiplier;
 - selection emphasis supplied by the engine;
 - loading, LOD, and failure status;
 - no permanent equipment label clutter.
