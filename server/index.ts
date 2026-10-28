@@ -3,6 +3,8 @@ import { pathToFileURL } from 'node:url';
 import { RunAgentInputSchema } from '@ag-ui/core/schemas';
 import type { ICEServerConfig } from './config.js';
 import { loadServerConfig } from './config.js';
+import { createModelAgent } from './agents/model.js';
+import { createModelClient } from './agents/model-client.js';
 import { createScriptedAgent } from './agents/scripted.js';
 import type { AgentRun } from './agents/types.js';
 import { encodeKeepAlive, encodeSse, SSE_HEADERS } from './transport/sse.js';
@@ -112,7 +114,9 @@ async function runAgent(
 export async function createAgentServer(
   config: ICEServerConfig,
 ): Promise<RunningAgentServer> {
-  const agent = createScriptedAgent({ delayMs: config.paceMs });
+  const agent = config.mode === 'model' && config.model
+    ? createModelAgent(createModelClient(config.model))
+    : createScriptedAgent({ delayMs: config.paceMs });
   const server = http.createServer((request, response) => {
     if (request.method === 'OPTIONS') {
       response.writeHead(204, CORS_HEADERS);
