@@ -38,6 +38,11 @@ areas before returning to the overview. Each stop combines narration, camera
 motion, and equipment selection. A mouse, keyboard, device selection, typed
 message, or quick action ends the tour and hands control back to the user.
 
+Equipment focus uses the part of the stage that remains visible beside or above
+the conversation panel, rather than the geometric center of the full canvas.
+The camera distance is calculated from the equipment bounds, viewport aspect,
+and a bounded screen-fill ratio so larger equipment remains fully readable.
+
 ## Real-model server
 
 Set the following environment variables before `npm run dev`:
