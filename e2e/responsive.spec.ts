@@ -54,3 +54,29 @@ test('keeps all ICE3 project links visible below the composer', async ({
     panelBox!.y + panelBox!.height,
   );
 });
+
+test('keeps the composer input and send button compact and aligned', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('http://127.0.0.1:8110/?demo=1&autoplay=0');
+  await expect(page.locator('[data-role="scene-status"]'))
+    .toHaveText('场景已就绪', { timeout: 60_000 });
+
+  const input = page.locator('[data-role="composer-input"]');
+  const send = page.locator('[data-role="composer-submit"]');
+  const label = page.locator('label[for="agent-command"]');
+  const inputBox = await input.boundingBox();
+  const sendBox = await send.boundingBox();
+  const labelBox = await label.boundingBox();
+
+  expect(inputBox).not.toBeNull();
+  expect(sendBox).not.toBeNull();
+  expect(labelBox).not.toBeNull();
+  expect(inputBox!.height).toBeGreaterThanOrEqual(44);
+  expect(sendBox!.height).toBeGreaterThanOrEqual(44);
+  expect(Math.abs(inputBox!.height - sendBox!.height)).toBeLessThanOrEqual(1);
+  expect(inputBox!.width).toBeGreaterThan(sendBox!.width * 2.5);
+  expect(labelBox!.width).toBeLessThanOrEqual(2);
+  expect(labelBox!.height).toBeLessThanOrEqual(2);
+});
