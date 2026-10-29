@@ -49,6 +49,10 @@ jobs:
         working-directory: ice3-engine
         run: npm ci
 
+      - name: Build Engine dependency
+        working-directory: ice3-engine
+        run: npm run build
+
       - name: Install Agent Console dependencies
         working-directory: ice3-agent-console
         run: npm ci

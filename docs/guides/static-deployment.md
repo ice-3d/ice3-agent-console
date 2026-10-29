@@ -42,7 +42,7 @@ https://ice-3d.github.io/ice3-agent-console/
 
 1. 检出 Agent Console 和 Engine。
 2. 使用 `.nvmrc` 指定的 Node.js 24.22.1。
-3. 安装两个仓库的依赖。
+3. 安装两个仓库的依赖，并先构建 Engine 的公开 package。
 4. 运行文档门禁、类型检查和单元测试。
 5. 执行 `npm run build:demo`。
 6. 将 `dist/` 作为 Pages artifact 发布。
