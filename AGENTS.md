@@ -1,5 +1,10 @@
 # ICE3 Agent Console Repository Rules
 
+> Document ID: ICE3-AGENT-POL-001
+>
+> Status: Active
+>
+> Owner: ICE3 Agent Console maintainers
 ## Architecture
 
 - The 3D stage is the primary interface and remains mounted across conversation updates.

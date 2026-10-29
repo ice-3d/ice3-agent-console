@@ -1,5 +1,10 @@
 # ICE3 Agent Console
 
+> Document ID: ICE3-AGENT-RM-001
+>
+> Status: Active
+>
+> Owner: ICE3 Agent Console maintainers
 3D industrial scene console driven by an Agent event stream.
 
 The default scene is a fully synthetic municipal wastewater treatment plant.

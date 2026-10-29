@@ -1,5 +1,10 @@
 # ICE3 Agent Console Design
 
+> Document ID: ICE3-AGENT-SPEC-001
+>
+> Status: Implemented
+>
+> Owner: ICE3 Agent Console maintainers
 ## Purpose
 
 ICE3 Agent Console is an independent industrial application that combines a
