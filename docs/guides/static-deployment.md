@@ -76,7 +76,7 @@ https://ice-3d.github.io/ice3-agent-console/
 访问统计沿用 2D Agent Console 的 GA4 Measurement ID：
 
 ```text
-G-HW6H6EP0ES
+G-5M03M076TL
 ```
 
 `gtag.js` 只在非本地主机注入。`localhost`、`*.localhost`、`127.0.0.1`、`::1` 和
