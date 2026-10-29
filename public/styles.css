@@ -291,6 +291,34 @@ button {
   cursor: wait;
 }
 
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 9px;
+  min-height: 18px;
+  color: var(--muted);
+}
+
+.project-links__label {
+  color: var(--hint);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.project-links a {
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.project-links a:hover,
+.project-links a:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 .equipment-card {
   position: absolute;
   z-index: 4;

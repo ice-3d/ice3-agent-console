@@ -9,6 +9,37 @@ interface LocalUserMessage {
   readonly text: string;
 }
 
+const PROJECT_LINKS = [
+  {
+    label: 'Console',
+    url: 'https://github.com/ice-3d/ice3-agent-console',
+  },
+  {
+    label: 'Engine',
+    url: 'https://github.com/ice-3d/ice3-engine',
+  },
+  {
+    label: 'Industrial',
+    url: 'https://github.com/ice-3d/ice3-industrial',
+  },
+  {
+    label: 'Toolchain',
+    url: 'https://github.com/ice-3d/ice3-toolchain',
+  },
+  {
+    label: 'Docs',
+    url: 'https://github.com/ice-3d/ice3-doc',
+  },
+  {
+    label: 'Water',
+    url: 'https://github.com/ice-3d/ice3-water-demo',
+  },
+  {
+    label: 'Studio',
+    url: 'https://github.com/ice-3d/ice3-studio',
+  },
+] as const;
+
 export class ChatPanel {
   readonly element: HTMLElement;
   readonly form: HTMLFormElement;
@@ -51,6 +82,14 @@ export class ChatPanel {
             rows="2" placeholder="例如：定位二沉池 A"></textarea>
           <button type="submit" data-role="composer-submit">发送</button>
         </form>
+        <nav class="project-links" data-role="project-links"
+          aria-label="ICE3 开源工程">
+          <span class="project-links__label">开源工程</span>
+          ${PROJECT_LINKS.map((project) => (
+            `<a href="${project.url}" target="_blank"
+              rel="noopener noreferrer">${project.label}</a>`
+          )).join('')}
+        </nav>
       </div>
     `;
     host.append(this.element);

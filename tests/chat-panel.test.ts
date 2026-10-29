@@ -62,3 +62,38 @@ test('collapses and restores the conversation panel', () => {
   toggle.click();
   expect(panel.element.dataset.collapsed).toBe('false');
 });
+
+test('links to every public ICE3 project from the conversation panel', () => {
+  const dom = new JSDOM('<main></main>');
+  const panel = new ChatPanel(
+    dom.window.document.querySelector('main') as unknown as HTMLElement,
+  );
+  const navigation = panel.element.querySelector<HTMLElement>(
+    '[data-role="project-links"]',
+  );
+  const links = [...navigation!.querySelectorAll<HTMLAnchorElement>('a')];
+
+  expect(navigation?.getAttribute('aria-label')).toBe('ICE3 开源工程');
+  expect(links.map((link) => link.textContent)).toEqual([
+    'Console',
+    'Engine',
+    'Industrial',
+    'Toolchain',
+    'Docs',
+    'Water',
+    'Studio',
+  ]);
+  expect(links.map((link) => link.href)).toEqual([
+    'https://github.com/ice-3d/ice3-agent-console',
+    'https://github.com/ice-3d/ice3-engine',
+    'https://github.com/ice-3d/ice3-industrial',
+    'https://github.com/ice-3d/ice3-toolchain',
+    'https://github.com/ice-3d/ice3-doc',
+    'https://github.com/ice-3d/ice3-water-demo',
+    'https://github.com/ice-3d/ice3-studio',
+  ]);
+  for (const link of links) {
+    expect(link.target).toBe('_blank');
+    expect(link.rel).toBe('noopener noreferrer');
+  }
+});
