@@ -13,7 +13,7 @@ conversation and scene actions.
 
 ## Prerequisites
 
-- Node.js 24 LTS or 26+
+- Node.js 24.22.1 LTS
 - npm 11 or newer
 - A WebGL2-capable browser
 

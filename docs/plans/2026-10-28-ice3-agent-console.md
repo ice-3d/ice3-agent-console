@@ -11,7 +11,7 @@
 
 **Architecture:** The application is an independent TypeScript package. A browser scene adapter wraps only public `ice3` APIs; protocol code reduces AG-UI events into chat and tool state; a scene executor applies validated commands; and server or browser-local Agent transports emit the same event stream.
 
-**Tech Stack:** Node.js 24, TypeScript 7, webpack 5, `@ag-ui/core` 1.0.3, native Node test, Playwright 1.64, and the sibling `ice3` packages.
+**Tech Stack:** Node.js 24.22.1 LTS, TypeScript 7, webpack 5, `@ag-ui/core` 1.0.3, native Node test, Playwright 1.64, and the sibling `ice3` packages.
 
 **Spec:** [`ICE3-AGENT-SPEC-001`](../specs/2026-10-28-ice3-agent-console-design.md)
 

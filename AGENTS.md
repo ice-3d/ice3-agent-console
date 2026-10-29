@@ -18,7 +18,7 @@
 
 - Develop on a feature branch; merge to `main` only after full verification passes.
 - Every behavioral change follows RED-GREEN-REFACTOR.
-- Use Node 24 LTS from `.nvmrc`.
+- Use Node.js 24.22.1 LTS from `.nvmrc`.
 - Do not introduce development tooling from the prohibited package families named in the workspace policy.
 - Static builds must work without a backend or model credentials.
 - Static output includes only the synthetic runtime asset tree.

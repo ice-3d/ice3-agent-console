@@ -33,7 +33,7 @@ Agent concepts to the engine or industrial core.
 
 Requirements:
 
-- Node.js 24 LTS or 26+
+- Node.js 24.22.1 LTS
 - npm 11 or newer
 - A current Chromium or WebKit browser with WebGL2
 
