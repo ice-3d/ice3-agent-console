@@ -1,3 +1,5 @@
+import { DEMO_ASSET } from '../../shared/demo-asset.js';
+
 export class StageView {
   readonly element: HTMLElement;
 
@@ -10,7 +12,7 @@ export class StageView {
       <div class="scene-backdrop" aria-hidden="true"></div>
       <div class="brand-lockup">
         <span class="brand-mark">ICE3</span>
-        <span>虚拟市政污水处理厂</span>
+        <span>${DEMO_ASSET.label}</span>
       </div>
     `;
     host.append(this.element);

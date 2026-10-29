@@ -266,7 +266,9 @@ Quick command 与 typed message 使用相同 Agent input path。
 
 ## Asset 与部署
 
-开发应用可以直接从同级 `ice3-engine` 仓库读取虚构污水处理厂 Asset。
+开发应用可以直接从同级 `ice3-engine` 仓库读取虚构污水处理厂 Asset。本仓库的
+autoplay、内置剧本、服务端脚本 Agent 和测试只针对该虚构 Asset；其它 3D 模型通过
+独立的 custom deployment 配置接入，不作为默认示例切换项。
 
 普通构建解析公开 `ice3` package，只把被引用的 Runtime Asset tree 复制到应用 output。
 
@@ -330,7 +332,7 @@ Source、build script、test fixture、screenshot 或 deployment output 永不�
 - 用户可以通过 typed command 和 quick command 定位、选择、聚焦和清除 equipment。
 - 同一 Agent tool call 在 server 和 browser-local mode 中都能工作。
 - 已配置 model 可以在不改变 UI 的情况下驱动同一 Scene。
-- Static build 无需 backend 即可加载 3D 工厂和 scripted Agent。
+- Static build 无需 backend 即可加载虚构污水处理厂和 scripted Agent。
 - Engine 和 Toolchain 不因理解 Agent 概念而被修改。
 - Package、browser 和 deployment test 全部通过。
 

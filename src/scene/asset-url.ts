@@ -1,6 +1,11 @@
-export function resolveWastewaterAssetUrl(baseUri: string): string {
+import { DEMO_ASSET } from '../../shared/demo-asset.js';
+
+export function resolveDemoAssetUrl(
+  baseUri: string,
+  relativePath: string,
+): string {
   return new URL(
-    'assets/wastewater-plant/tiled/tileset.json',
+    `${DEMO_ASSET.rootPath}/${relativePath}`,
     baseUri,
   ).toString();
 }

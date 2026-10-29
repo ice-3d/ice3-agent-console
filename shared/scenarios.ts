@@ -1,4 +1,5 @@
 import type { SceneToolName } from './contract.js';
+import { demoEquipmentSelectionId } from './demo-asset.js';
 
 export interface ScenarioStep {
   readonly text: string;
@@ -29,7 +30,7 @@ export interface QuickActionGroup {
 }
 
 const equipment = (tag: string): string => (
-  `ice3-virtual-wwtp/equipment/${tag}`
+  demoEquipmentSelectionId(tag)
 );
 
 const focus = (tag: string): ScenarioStep['tool'] => ({

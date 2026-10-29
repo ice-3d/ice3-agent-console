@@ -12,6 +12,10 @@ Scene。默认模型是一座完全虚构的市政污水处理厂。
 应用支持确定性的浏览器本地 Agent、服务端脚本 Agent，以及可选的兼容模型接口。对话和
 Scene 状态更新时，3D 舞台始终保持挂载。
 
+所有内置 autoplay、快捷操作、脚本 Agent 和 E2E 只针对这座虚构污水处理厂，不提供
+其它演示 Asset 的切换入口。其它已获准使用的 3D 模型应按
+[接入其它 3D 模型](docs/guides/other-models.md)配置为独立部署。
+
 ## 能力
 
 | 领域 | 能力 |
@@ -64,6 +68,8 @@ URL 控制参数：
 
 ## Real-Model 服务端
 
+这里的 “Real-Model” 指 AI 推理服务，不是 3D 场景模型。
+
 同时配置以下三个变量：
 
 ```bash
@@ -108,6 +114,7 @@ npm run verify
 - [本地开发](docs/guides/local-development.md)
 - [静态部署](docs/guides/static-deployment.md)
 - [Real-Model 服务端](docs/guides/real-model-server.md)
+- [接入其它 3D 模型](docs/guides/other-models.md)
 - [事件和 Scene 工具协议](docs/reference/protocol.md)
 - [架构决策](docs/decisions/README.md)
 

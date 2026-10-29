@@ -1,16 +1,17 @@
 import type { RunAgentInput } from '@ag-ui/core';
+import { demoEquipmentSelectionId } from '../../shared/demo-asset.js';
 import { matchScenario } from '../../shared/scenarios.js';
 import type { TextStream } from './events.js';
 import { emitAgentPlan } from './events.js';
 import type { AgentRun } from './types.js';
 
-const AE_101 = 'ice3-virtual-wwtp/equipment/AE-101';
-const AT_101 = 'ice3-virtual-wwtp/equipment/AT-101';
-const CO_101 = 'ice3-virtual-wwtp/equipment/CO-101';
-const FL_101 = 'ice3-virtual-wwtp/equipment/FL-101';
-const P_101 = 'ice3-virtual-wwtp/equipment/P-101';
-const SC_101 = 'ice3-virtual-wwtp/equipment/SC-101';
-const ST_101 = 'ice3-virtual-wwtp/equipment/ST-101';
+const AE_101 = demoEquipmentSelectionId('AE-101');
+const AT_101 = demoEquipmentSelectionId('AT-101');
+const CO_101 = demoEquipmentSelectionId('CO-101');
+const FL_101 = demoEquipmentSelectionId('FL-101');
+const P_101 = demoEquipmentSelectionId('P-101');
+const SC_101 = demoEquipmentSelectionId('SC-101');
+const ST_101 = demoEquipmentSelectionId('ST-101');
 
 function includesAny(text: string, words: readonly string[]): boolean {
   return words.some((word) => text.includes(word));

@@ -35,6 +35,7 @@ Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine 
 | Session | 管理单次 run、cancellation、autoplay 和 tool-result update |
 | Scene controller | 校验允许的 tool argument 并调用公开 ICE3 API |
 | Browser Scene | 管理 camera、Selection pulse、panel Bounds 和 stage lifecycle |
+| Demo Asset 配置 | 集中定义虚构污水处理厂的 identity、标题、Tileset 和 manifest 路径 |
 | Local transport | 在浏览器中运行确定性脚本 Agent |
 | Server transport | 通过 SSE 流式传输服务端输出 |
 | Model adapter | 将兼容 chat-completion tool call 转换为 event stream |
@@ -68,4 +69,5 @@ Bounds 和短暂脉冲，随后保持 highlight。Focus target 使用未被 conv
 - `ICE3-AGENT-RM-001` — [README](../README.md)
 - `ICE3-AGENT-REF-001` — [Event 和 Scene Tool protocol](reference/protocol.md)
 - `ICE3-AGENT-ADR-001` — [Agent 和 Scene 边界](decisions/0001-agent-scene-boundary.md)
+- `ICE3-AGENT-GUIDE-004` — [接入其它 3D 模型](guides/other-models.md)
 - `ICE3-DOC-ARC-001` — [ICE3 家族架构](https://github.com/ice-3d/ice3-doc/blob/main/docs/architecture.md)

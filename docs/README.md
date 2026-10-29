@@ -22,6 +22,7 @@
 | `ICE3-AGENT-GUIDE-001` | [本地开发](guides/local-development.md) | Active | 运行和调试服务端模式 |
 | `ICE3-AGENT-GUIDE-002` | [静态部署](guides/static-deployment.md) | Active | 构建并托管无凭据演示 |
 | `ICE3-AGENT-GUIDE-003` | [Real-Model 服务端](guides/real-model-server.md) | Active | 配置兼容的 Agent endpoint |
+| `ICE3-AGENT-GUIDE-004` | [接入其它 3D 模型](guides/other-models.md) | Active | 将已预处理的另一个 Scene 与设备清单接入应用 |
 
 ## 协议与决策
 
@@ -37,3 +38,4 @@
 |---|---|---|---|
 | `ICE3-AGENT-SPEC-001` | [Console 设计](specs/2026-10-28-ice3-agent-console-design.md) | Implemented | 已实现的界面和行为设计 |
 | `ICE3-AGENT-PLAN-001` | [Console 实施计划](plans/2026-10-28-ice3-agent-console.md) | Implemented | 历史实施和验证计划 |
+| `ICE3-AGENT-PLAN-002` | [污水处理厂专属演示改造](plans/2026-10-29-wastewater-only-agent-demo.md) | Implemented | 固定内置演示资产并记录其它模型接入方法 |
