@@ -1,5 +1,10 @@
 # ICE3 Agent Console Repository Rules
 
+> Document ID: ICE3-AGENT-POL-001
+>
+> Status: Active
+>
+> Owner: ICE3 Agent Console maintainers
 ## Architecture
 
 - The 3D stage is the primary interface and remains mounted across conversation updates.
@@ -31,3 +36,8 @@ npm run verify
 npm run build:demo
 npm run test:e2e
 ```
+
+## Related Documents
+
+- `ICE3-AGENT-IDX-001` — [Documentation index](docs/README.md)
+- `ICE3-AGENT-ARC-001` — [Application architecture](docs/architecture.md)

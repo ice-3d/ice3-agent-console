@@ -26,7 +26,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
     "test": "node scripts/run-tests.mjs",
     "test:e2e": "playwright test",
-    "verify": "npm run typecheck && npm test && npm run build"
+    "docs:check": "node scripts/check-docs.mjs",
+    "verify": "npm run docs:check && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
     "@ag-ui/core": "1.0.3",

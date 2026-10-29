@@ -1,93 +1,119 @@
 # ICE3 Agent Console
 
-3D industrial scene console driven by an Agent event stream.
+> Document ID: ICE3-AGENT-RM-001
+>
+> Status: Active
+>
+> Owner: ICE3 Agent Console maintainers
 
-The default scene is a fully synthetic municipal wastewater treatment plant.
-The first release provides a deterministic offline Agent, an optional real-model
-server adapter, and both server-backed and static-demo builds.
+ICE3 Agent Console demonstrates how a conversational Agent can operate an
+industrial 3D scene through a small, validated tool surface. The default model
+is a fully synthetic municipal wastewater treatment plant.
+
+The application supports a deterministic browser-local Agent, a server-backed
+scripted Agent, and an optional compatible real-model endpoint. The 3D stage
+remains mounted while conversation and scene state update.
+
+## Capabilities
+
+| Area | Capability |
+|---|---|
+| Conversation | Streaming text, tool calls, run errors, and cancellation |
+| Scene | Equipment discovery, selection, focus, highlight, camera views, and clear |
+| Transport | Browser-local scripted mode or server-side event stream |
+| Camera | Guided multi-stop tours with responsive stage framing |
+| Selection | Strong yellow pulse and persistent selection |
+| Presentation | Grouped built-in scenarios and quick actions |
+| Deployment | Server-backed development mode and credential-free static demo |
+
+The console is an application. It depends on public engine APIs and does not add
+Agent concepts to the engine or industrial core.
+
+## Quick Start
+
+Requirements:
+
+- Node.js 24 LTS or 26+
+- npm 11 or newer
+- A current Chromium or WebKit browser with WebGL2
 
 ```bash
+git clone https://github.com/ice-3d/ice3-agent-console.git
+cd ice3-agent-console
 nvm use
 npm install
 npm run dev
 ```
 
-The application runs at `http://127.0.0.1:8110`; the Agent service runs at
-`http://127.0.0.1:8099`. Opening the page starts the guided wastewater-plant
-tour automatically after the scene becomes ready.
+Open `http://127.0.0.1:8110/`; the Agent service listens on
+`http://127.0.0.1:8099/`. The scene starts an overview tour after loading.
+
+## Browser-Local Demo
 
 ```bash
 npm run build:demo
 npx http-server dist -p 8111 -c-1
 ```
 
-Demo builds run the same scripted Agent entirely in the browser and do not
-require the Agent service. URL overrides:
+Open `http://127.0.0.1:8111/`. Static demo builds use the deterministic local
+Agent and require no API key or server.
 
-- `?demo=1` or `?demo=0` select browser-local or server transport.
-- `?autoplay=1` or `?autoplay=0` control the opening walkthrough.
+URL controls:
 
-Normal builds default to server transport. Demo builds default to browser-local
-transport. Every build starts with the guided tour; `?autoplay=0` makes the
-opening quiet for debugging or focused tests. Invalid query values fall back to
-the build default.
+- `?demo=1` or `?demo=0` chooses local or server transport.
+- `?autoplay=1` or `?autoplay=0` controls the opening tour.
 
-The opening tour establishes the plant overview, then moves through the inlet,
-anaerobic, aerobic, secondary-clarifier, coagulation, filtration, and sludge
-areas before returning to the overview. Each stop combines narration, camera
-motion, and equipment selection. A mouse, keyboard, device selection, typed
-message, or quick action ends the tour and hands control back to the user.
+Invalid values fall back to the build default.
 
-Equipment focus uses the part of the stage that remains visible beside or above
-the conversation panel, rather than the geometric center of the full canvas.
-The camera distance is calculated from the equipment bounds, viewport aspect,
-and a bounded screen-fill ratio so larger equipment remains fully readable.
-Selecting an equipment through the Agent, the opening tour, or direct scene
-interaction briefly pulses the yellow emphasis six times and then leaves the
-selection permanently highlighted. The pulse is disabled when the operating
-system requests reduced motion.
+## Real-Model Server
 
-The composer also exposes a grouped deterministic scenario library:
-
-- process tours: intake, AAO biology, secondary clarification, advanced
-  treatment, and sludge treatment;
-- system topics: aeration, chemical dosing, effluent monitoring, and emergency
-  storage/return;
-- quick actions: full-plant overview and clear focus.
-
-Every scenario uses the same six application-level scene tools and works in
-both server-backed and browser-local modes.
-
-## Real-model server
-
-Set the following environment variables before `npm run dev`:
+Configure all three variables:
 
 ```bash
 export ICE_AGENT_MODEL_BASE_URL='https://model.example/v1'
 export ICE_AGENT_MODEL_API_KEY='replace-with-your-secret'
 export ICE_AGENT_MODEL_NAME='industrial-agent'
+npm run dev
 ```
 
-The server sends the six approved scene tools to a chat-completions-compatible
-endpoint. The key remains on the server and is never returned by `/health` or
-included in browser events. An unavailable configured model produces an error;
-it does not silently fall back to scripted output.
+The key stays on the server. `/health` reports mode and endpoint host without
+returning credentials. A configured but unavailable model produces an error
+instead of silently switching to scripted output.
 
-## Static assets
+See [real-model server](docs/guides/real-model-server.md) for details.
 
-The development server reads the synthetic wastewater assets from
-`../ice3-engine/examples/m1/assets`. `npm run build` and `npm run build:demo`
-copy only the runtime `tiled/` tree into `dist/assets/wastewater-plant/`.
+## Scene Tools
 
-Source and prepared GLBs are deliberately excluded. The runtime uses relative
-URLs, so the built directory can be served below a repository path.
+The only scene tools exposed to the Agent are:
 
-## Scene tools
+- `find_equipment`
+- `select_equipment`
+- `focus_equipment`
+- `highlight_equipment`
+- `set_camera_view`
+- `clear_scene_focus`
 
-The application-level tools are `find_equipment`, `select_equipment`,
-`focus_equipment`, `highlight_equipment`, `set_camera_view`, and
-`clear_scene_focus`. They are implemented by the console through public `ice3`
-APIs; they are not engine APIs.
+Unknown tools are rejected. Malformed arguments are displayed without execution.
+
+## Verification
+
+```bash
+npm run docs:check
+npm run typecheck
+npm test
+npm run test:e2e
+npm run verify
+```
+
+## Documentation
+
+- [Documentation index](docs/README.md)
+- [Application architecture](docs/architecture.md)
+- [Local development](docs/guides/local-development.md)
+- [Static deployment](docs/guides/static-deployment.md)
+- [Real-model server](docs/guides/real-model-server.md)
+- [Event and scene-tool protocol](docs/reference/protocol.md)
+- [Architecture decisions](docs/decisions/README.md)
 
 ## AI-assisted development
 

@@ -1,5 +1,10 @@
 # ICE3 Agent Console Design
 
+> Document ID: ICE3-AGENT-SPEC-001
+>
+> Status: Implemented
+>
+> Owner: ICE3 Agent Console maintainers
 ## Purpose
 
 ICE3 Agent Console is an independent industrial application that combines a
@@ -352,3 +357,9 @@ Core E2E flows run in Chromium and WebKit.
 - The static build loads the 3D plant and scripted Agent without a backend.
 - The engine and toolchain are not modified to understand Agent concepts.
 - All package, browser, and deployment tests pass.
+
+## Related Documents
+
+- `ICE3-AGENT-IDX-001` — [Documentation index](../README.md)
+- `ICE3-AGENT-PLAN-001` — [Implementation plan](../plans/2026-10-28-ice3-agent-console.md)
+- `ICE3-AGENT-ARC-001` — [Application architecture](../architecture.md)

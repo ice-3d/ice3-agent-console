@@ -1,5 +1,10 @@
 # ICE3 Agent Console Implementation Plan
 
+> Document ID: ICE3-AGENT-PLAN-001
+>
+> Status: Implemented
+>
+> Owner: ICE3 Agent Console maintainers
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a runnable 3D industrial Agent Console that combines the synthetic wastewater plant with a persistent scene, a floating conversation panel, deterministic scene tools, an optional real-model server, and a self-contained static demo.
@@ -8,7 +13,7 @@
 
 **Tech Stack:** Node.js 24, TypeScript 7, webpack 5, `@ag-ui/core` 1.0.3, native Node test, Playwright 1.64, and the sibling `ice3` packages.
 
-**Spec:** `docs/superpowers/specs/2026-10-28-ice3-agent-console-design.md`
+**Spec:** [`ICE3-AGENT-SPEC-001`](../specs/2026-10-28-ice3-agent-console-design.md)
 
 ## Global Constraints
 
@@ -1265,3 +1270,8 @@ git commit -m "feat: add static agent console demo"
   collision-free panel layout, scripted overview, device focus, and clear.
 - [ ] Start the demo build from a nested path and manually repeat the same flows.
 - [ ] Run `git status --short` and confirm the worktree is clean.
+
+## Related Documents
+
+- `ICE3-AGENT-IDX-001` — [Documentation index](../README.md)
+- `ICE3-AGENT-SPEC-001` — [Console design](../specs/2026-10-28-ice3-agent-console-design.md)
