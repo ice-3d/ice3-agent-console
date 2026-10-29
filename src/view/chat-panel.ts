@@ -77,9 +77,9 @@ export class ChatPanel {
         aria-live="polite"></section>
       <div class="conversation-composer" data-role="composer-area">
         <form class="composer" data-role="composer">
-          <label for="agent-command">向现场助手提问</label>
+          <label class="sr-only" for="agent-command">向现场助手提问</label>
           <textarea id="agent-command" data-role="composer-input"
-            rows="2" placeholder="例如：定位二沉池 A"></textarea>
+            rows="1" placeholder="例如：定位二沉池 A"></textarea>
           <button type="submit" data-role="composer-submit">发送</button>
         </form>
         <nav class="project-links" data-role="project-links"
