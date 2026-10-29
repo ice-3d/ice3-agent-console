@@ -1,4 +1,4 @@
-# Agent And Scene Boundary
+# Agent 与 Scene 边界
 
 > Document ID: ICE3-AGENT-ADR-001
 >
@@ -6,42 +6,40 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## Context
+## 背景
 
-The Agent needs to inspect and operate the scene, but allowing arbitrary engine
-access would couple the application to private runtime state and make behavior
-unpredictable.
+Agent 需要检查和操作 Scene，但允许任意 Engine 访问会让应用耦合私有 Runtime state，
+并使行为不可预测。
 
-## Decision
+## 决策
 
-The shared protocol exposes six validated scene tools. The scene controller
-executes allowed tools through public `ice3` APIs. Model output cannot access
-renderer internals, GPU objects, private scene nodes, or arbitrary application
-functions.
+共享 protocol 暴露六个经过校验的 Scene Tool。Scene controller 通过公开 `ice3` API
+执行允许的 tool。Model output 不能访问 Renderer internals、GPU object、私有 Scene
+Node 或任意应用 function。
 
-## Considered Alternatives
+## 备选方案
 
-- Give the Agent direct engine object access.
-- Let the server construct scene mutations independently of the browser.
-- Encode scene actions as free-form code.
+- 向 Agent 提供 Engine object 的直接访问。
+- 让服务端脱离浏览器直接构造 Scene mutation。
+- 将 Scene action 编码为自由形式代码。
 
-These alternatives are difficult to validate, cancel, audit, and keep compatible.
+这些方案难以校验、取消、审计并保持兼容。
 
-## Consequences
+## 影响
 
-- Tools have explicit names and argument shapes.
-- The engine and industrial packages stay Agent-independent.
-- New capabilities require deliberate contract changes.
-- Malformed and unknown tool requests can be rejected before mutation.
+- Tool 具有明确名称和 argument shape。
+- Engine 和 industrial package 保持 Agent-independent。
+- 新增 capability 必须有意修改 contract。
+- 格式错误和未知 tool request 可以在 mutation 前拒绝。
 
-## Verification
+## 验证
 
 ```bash
 npm test -- tests
 npm run test:e2e
 ```
 
-## Related Documents
+## 关联文档
 
 - `ICE3-AGENT-REF-001` — [Protocol](../reference/protocol.md)
-- `ICE3-DOC-ADR-004` — [Generic semantic interfaces](https://github.com/ice-3d/ice3-doc/blob/main/docs/decisions/0004-generic-semantic-interfaces.md)
+- `ICE3-DOC-ADR-004` — [通用 semantic interface](https://github.com/ice-3d/ice3-doc/blob/main/docs/decisions/0004-generic-semantic-interfaces.md)

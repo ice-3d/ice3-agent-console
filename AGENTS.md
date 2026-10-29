@@ -1,4 +1,4 @@
-# ICE3 Agent Console Repository Rules
+# ICE3 Agent Console 仓库规则
 
 > Document ID: ICE3-AGENT-POL-001
 >
@@ -6,44 +6,44 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## Architecture
+## 架构
 
-- The 3D stage is the primary interface and remains mounted across conversation updates.
-- Browser scene integration uses only public `ice3` exports.
-- Conversation and Agent behavior stay in this application; they do not enter the engine or industrial core.
-- Agent implementations emit protocol events and never import renderer or GPU internals.
-- Shared tool and event names live in `shared/`; do not duplicate protocol strings across modules.
-- The scripted Agent must run without credentials.
-- A configured model failure is an error, not a reason to silently run the scripted Agent.
-- Only `find_equipment` and `select_equipment` are exposed to the Agent.
+- 3D 舞台是主要界面，在对话更新期间保持挂载。
+- 浏览器 Scene 集成只使用公开的 `ice3` exports。
+- 对话与 Agent 行为留在本应用中，不进入 engine 或 industrial core。
+- Agent 实现只发送 protocol event，不导入 renderer 或 GPU 内部实现。
+- 共享 tool 和 event 名称放在 `shared/`，不得在多个模块中重复定义。
+- 脚本 Agent 必须无需凭据即可运行。
+- 模型已经配置但运行失败时必须报错，不得静默切换为脚本 Agent。
+- Agent 只可使用 Scene 工具。
 
-## Demonstration assets
+## 演示资产
 
-- The checked-in demonstration uses the synthetic wastewater plant.
-- Do not add real customer models, derived models, screenshots, or extracted textures to this repository.
-- Static builds contain only the synthetic runtime asset tree and must work without a backend or credentials.
-- Before completing asset-dependent work, inspect Git status, tracked files, ignore rules, and staged content.
+- 版本库中的演示使用虚构污水处理厂。
+- 不得加入真实客户模型、派生模型、截图或提取纹理。
+- 静态构建只包含虚构的 runtime asset tree，并且无需后端或凭据即可工作。
+- 完成 Asset 相关工作前，检查 Git status、tracked files、ignore rules 和 staged content。
 
-## Delivery
+## 交付
 
-- Develop on a feature branch; merge to `main` only after full verification passes.
-- Every behavioral change follows RED-GREEN-REFACTOR.
-- Use Node.js 24.22.1 LTS from `.nvmrc`.
-- Do not introduce development tooling that an approved ICE3 decision excludes.
-- If an event, tool, asset, or protocol change crosses repositories, update the canonical change in `ice3-doc` and verify the affected consumer.
+- 在功能分支开发，完整验证通过后才可合入 `main`。
+- 每项行为变化遵循 RED-GREEN-REFACTOR。
+- 使用 `.nvmrc` 指定的 Node.js 24.22.1 LTS。
+- 不得引入已被 ICE3 决策排除的开发工具。
+- event、tool、Asset 或 protocol 变更跨仓库时，在 `ice3-doc` 更新权威定义并验证消费方。
 
-## Commit identity
+## 提交身份
 
-- Every Git author and committer name in this repository must be `damoqiongqiu`.
-- Verify the configured and recorded names before committing, merging, or pushing.
+- 本仓库所有 Git author 和 committer 名称必须为 `damoqiongqiu`。
+- 提交、合并或推送前核对配置名称与提交记录。
 
-## Naming and legal boundary
+## 命名与法律边界
 
-- Do not use competitor, vendor, or third-party product names in product documents, source identifiers, comments, examples, diagnostics, or commits.
-- Describe comparisons with neutral category names.
-- Do not link to external research that exposes prohibited names.
+- 产品文档、源码标识、注释、示例、Diagnostic 和 commit 中不得出现竞品、厂商或第三方产品名称。
+- 技术比较使用中性类别描述。
+- 不得链接会暴露禁止名称的外部调研资料。
 
-## Verification
+## 验证
 
 ```bash
 npm run verify
@@ -51,7 +51,7 @@ npm run build:demo
 npm run test:e2e
 ```
 
-## Related Documents
+## 关联文档
 
-- `ICE3-AGENT-IDX-001` — [Documentation index](docs/README.md)
-- `ICE3-AGENT-ARC-001` — [Application architecture](docs/architecture.md)
+- `ICE3-AGENT-IDX-001` — [文档索引](docs/README.md)
+- `ICE3-AGENT-ARC-001` — [应用架构](docs/architecture.md)

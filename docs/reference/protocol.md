@@ -6,9 +6,9 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## Run Request
+## Run 请求
 
-The client sends:
+Client 发送：
 
 ```ts
 {
@@ -21,35 +21,35 @@ The client sends:
 }
 ```
 
-## Stream Events
+## Stream Event
 
-The server uses Server-Sent Events. Each `data:` payload is one JSON event.
+Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event。
 
-| Event | Purpose |
+| Event | 用途 |
 |---|---|
-| `RUN_STARTED` | Start a run |
-| `TEXT_MESSAGE_START` | Begin an assistant message |
-| `TEXT_MESSAGE_CONTENT` | Append text |
-| `TEXT_MESSAGE_END` | Finish a text message |
-| `TOOL_CALL_START` | Begin a tool call |
-| `TOOL_CALL_ARGS` | Append JSON argument text |
-| `TOOL_CALL_END` | Finish and parse arguments |
-| `TOOL_CALL_RESULT` | Return tool output |
-| `CUSTOM` | Emit an application event |
-| `RUN_FINISHED` | Complete the run |
-| `RUN_ERROR` | Report a run failure |
+| `RUN_STARTED` | 启动 run |
+| `TEXT_MESSAGE_START` | 开始 assistant message |
+| `TEXT_MESSAGE_CONTENT` | 追加 text |
+| `TEXT_MESSAGE_END` | 结束 text message |
+| `TOOL_CALL_START` | 开始 tool call |
+| `TOOL_CALL_ARGS` | 追加 JSON argument 文本 |
+| `TOOL_CALL_END` | 结束并解析 argument |
+| `TOOL_CALL_RESULT` | 返回 tool output |
+| `CUSTOM` | 发送 application event |
+| `RUN_FINISHED` | 完成 run |
+| `RUN_ERROR` | 报告 run failure |
 
-Unknown events do not alter existing thread state.
+未知 event 不修改既有 thread state。
 
-## Custom Events
+## Custom Event
 
-| Name | Purpose |
+| 名称 | 用途 |
 |---|---|
-| `ice3/anchor` | Identify a narrative scene anchor |
-| `ice3/point-clear` | Signal that the current visual point is complete |
-| `ice3/autoplay-cancelled` | Signal that guided autoplay was cancelled |
+| `ice3/anchor` | 标识叙述对应的 Scene anchor |
+| `ice3/point-clear` | 表示当前视觉要点已完成 |
+| `ice3/autoplay-cancelled` | 表示引导 autoplay 已取消 |
 
-## Scene Tools
+## Scene Tool
 
 ### `find_equipment`
 
@@ -57,7 +57,7 @@ Unknown events do not alter existing thread state.
 { "query": "string", "area": "string" }
 ```
 
-Both fields are optional. Returns matching equipment summaries.
+两个字段都是可选的，返回匹配的 equipment summary。
 
 ### `select_equipment`
 
@@ -65,7 +65,7 @@ Both fields are optional. Returns matching equipment summaries.
 { "selectionIds": ["string"] }
 ```
 
-Requires at least one selection ID.
+至少需要一个 Selection ID。
 
 ### `focus_equipment`
 
@@ -73,7 +73,7 @@ Requires at least one selection ID.
 { "selectionId": "string" }
 ```
 
-Selects the equipment and moves the camera.
+选中 equipment 并移动 camera。
 
 ### `highlight_equipment`
 
@@ -81,7 +81,7 @@ Selects the equipment and moves the camera.
 { "selectionIds": ["string"], "durationMs": 1500 }
 ```
 
-Requires one or more IDs. `durationMs` is optional and non-negative.
+需要一个或多个 ID。`durationMs` 可选且不能为负。
 
 ### `set_camera_view`
 
@@ -89,7 +89,7 @@ Requires one or more IDs. `durationMs` is optional and non-negative.
 { "view": "overview" }
 ```
 
-Allowed views are `overview`, `area`, `equipment`, and `top`.
+允许的 view 为 `overview`、`area`、`equipment` 和 `top`。
 
 ### `clear_scene_focus`
 
@@ -97,18 +97,17 @@ Allowed views are `overview`, `area`, `equipment`, and `top`.
 {}
 ```
 
-Clears selection and highlight, then returns to the overview.
+清除 Selection 和 highlight，然后返回 overview。
 
-## Error Rules
+## Error 规则
 
-- Unknown tool names are rejected.
-- Invalid or malformed JSON arguments are not executed.
-- A failed tool returns an error result for its tool-call ID.
-- A run error does not replace an existing selected scene without a valid tool
-  effect.
+- 未知 tool name 被拒绝。
+- 无效或格式错误的 JSON argument 不执行。
+- Tool 失败时针对其 tool-call ID 返回 error result。
+- Run error 在没有有效 tool effect 时不会替换当前 Scene Selection。
 
-## Related Documents
+## 关联文档
 
-- `ICE3-AGENT-ARC-001` — [Application architecture](../architecture.md)
-- `ICE3-AGENT-GUIDE-003` — [Real-model server](../guides/real-model-server.md)
-- `ICE3-AGENT-ADR-001` — [Agent and scene boundary](../decisions/0001-agent-scene-boundary.md)
+- `ICE3-AGENT-ARC-001` — [应用架构](../architecture.md)
+- `ICE3-AGENT-GUIDE-003` — [Real-Model 服务端](../guides/real-model-server.md)
+- `ICE3-AGENT-ADR-001` — [Agent 和 Scene 边界](../decisions/0001-agent-scene-boundary.md)

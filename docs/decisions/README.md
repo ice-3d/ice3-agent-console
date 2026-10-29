@@ -1,4 +1,4 @@
-# ICE3 Agent Console Architecture Decision Index
+# ICE3 Agent Console 架构决策索引
 
 > Document ID: ICE3-AGENT-IDX-002
 >
@@ -6,14 +6,14 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## Decisions
+## 决策
 
-| ID | Decision | Status | Purpose |
+| ID | 决策 | Status | 用途 |
 |---|---|---|---|
-| `ICE3-AGENT-ADR-001` | [Agent and scene boundary](0001-agent-scene-boundary.md) | Active | Keep Agent orchestration outside engine internals |
-| `ICE3-AGENT-ADR-002` | [Scripted and real-model transport](0002-scripted-and-real-model-transport.md) | Active | Make runtime mode and failure behavior explicit |
+| `ICE3-AGENT-ADR-001` | [Agent 与 Scene 边界](0001-agent-scene-boundary.md) | Active | 让 Agent orchestration 留在 Engine internals 之外 |
+| `ICE3-AGENT-ADR-002` | [Scripted 与 Real-Model transport](0002-scripted-and-real-model-transport.md) | Active | 明确 Runtime mode 与 failure behavior |
 
-## Related Documents
+## 关联文档
 
-- `ICE3-AGENT-IDX-001` — [Documentation index](../README.md)
-- `ICE3-AGENT-ARC-001` — [Application architecture](../architecture.md)
+- `ICE3-AGENT-IDX-001` — [文档索引](../README.md)
+- `ICE3-AGENT-ARC-001` — [应用架构](../architecture.md)

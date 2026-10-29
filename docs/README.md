@@ -1,4 +1,4 @@
-# ICE3 Agent Console Documentation Index
+# ICE3 Agent Console 文档索引
 
 > Document ID: ICE3-AGENT-IDX-001
 >
@@ -6,34 +6,34 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## Start Here
+## 从这里开始
 
-| ID | Title | Status | Purpose |
+| ID | 标题 | Status | 用途 |
 |---|---|---|---|
-| `ICE3-AGENT-RM-001` | [ICE3 Agent Console](../README.md) | Active | Capabilities, modes, quick start, and tool list |
-| `ICE3-AGENT-ARC-001` | [Application Architecture](architecture.md) | Active | Event, scene, transport, and camera flow |
-| `ICE3-AGENT-IDX-002` | [Architecture Decisions](decisions/README.md) | Active | Index of application decisions |
-| `ICE3-AGENT-POL-001` | [Repository Policy](../AGENTS.md) | Active | Architecture and delivery rules |
+| `ICE3-AGENT-RM-001` | [ICE3 Agent Console](../README.md) | Active | 能力、模式、快速开始和工具列表 |
+| `ICE3-AGENT-ARC-001` | [应用架构](architecture.md) | Active | event、Scene、传输和相机流程 |
+| `ICE3-AGENT-IDX-002` | [架构决策](decisions/README.md) | Active | 应用决策索引 |
+| `ICE3-AGENT-POL-001` | [仓库规则](../AGENTS.md) | Active | 架构和交付规则 |
 
-## Guides
+## 指南
 
-| ID | Title | Status | Purpose |
+| ID | 标题 | Status | 用途 |
 |---|---|---|---|
-| `ICE3-AGENT-GUIDE-001` | [Local Development](guides/local-development.md) | Active | Run and debug server-backed mode |
-| `ICE3-AGENT-GUIDE-002` | [Static Deployment](guides/static-deployment.md) | Active | Build and host the credential-free demo |
-| `ICE3-AGENT-GUIDE-003` | [Real-Model Server](guides/real-model-server.md) | Active | Configure a compatible Agent endpoint |
+| `ICE3-AGENT-GUIDE-001` | [本地开发](guides/local-development.md) | Active | 运行和调试服务端模式 |
+| `ICE3-AGENT-GUIDE-002` | [静态部署](guides/static-deployment.md) | Active | 构建并托管无凭据演示 |
+| `ICE3-AGENT-GUIDE-003` | [Real-Model 服务端](guides/real-model-server.md) | Active | 配置兼容的 Agent endpoint |
 
-## Protocol And Decisions
+## 协议与决策
 
-| ID | Title | Status | Purpose |
+| ID | 标题 | Status | 用途 |
 |---|---|---|---|
-| `ICE3-AGENT-REF-001` | [Event and Scene Tool Protocol](reference/protocol.md) | Active | Event stream, tools, payloads, and failures |
-| `ICE3-AGENT-ADR-001` | [Agent and Scene Boundary](decisions/0001-agent-scene-boundary.md) | Active | Keep orchestration outside engine internals |
-| `ICE3-AGENT-ADR-002` | [Scripted and Real-Model Transport](decisions/0002-scripted-and-real-model-transport.md) | Active | Make runtime mode and failure behavior explicit |
+| `ICE3-AGENT-REF-001` | [Event 和 Scene Tool 协议](reference/protocol.md) | Active | event stream、tool、payload 和失败行为 |
+| `ICE3-AGENT-ADR-001` | [Agent 和 Scene 边界](decisions/0001-agent-scene-boundary.md) | Active | 让编排逻辑留在 engine 内部实现之外 |
+| `ICE3-AGENT-ADR-002` | [脚本与 Real-Model 传输](decisions/0002-scripted-and-real-model-transport.md) | Active | 明确 runtime 模式和失败行为 |
 
-## Design History
+## 设计历史
 
-| ID | Title | Status | Purpose |
+| ID | 标题 | Status | 用途 |
 |---|---|---|---|
-| `ICE3-AGENT-SPEC-001` | [Console Design](specs/2026-10-28-ice3-agent-console-design.md) | Implemented | Implemented interface and behavior design |
-| `ICE3-AGENT-PLAN-001` | [Console Implementation](plans/2026-10-28-ice3-agent-console.md) | Implemented | Historical implementation and verification plan |
+| `ICE3-AGENT-SPEC-001` | [Console 设计](specs/2026-10-28-ice3-agent-console-design.md) | Implemented | 已实现的界面和行为设计 |
+| `ICE3-AGENT-PLAN-001` | [Console 实施计划](plans/2026-10-28-ice3-agent-console.md) | Implemented | 历史实施和验证计划 |

@@ -1,4 +1,4 @@
-# ICE3 Agent Console Architecture
+# ICE3 Agent Console 架构
 
 > Document ID: ICE3-AGENT-ARC-001
 >
@@ -6,10 +6,9 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## System Context
+## 系统上下文
 
-The console composes the public engine, a scene controller, an Agent event
-stream, and a conversational interface.
+Console 组合公开 Engine、Scene controller、Agent event stream 和对话界面。
 
 ```text
 user or autoplay prompt
@@ -25,51 +24,48 @@ user or autoplay prompt
        public ICE3 API
 ```
 
-The scene remains mounted across runs. Conversation state never becomes engine
-state.
+Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine state。
 
-## Components
+## 组件
 
-| Component | Responsibility |
+| 组件 | 职责 |
 |---|---|
-| Shared contract | Defines the six scene tools and custom event names |
-| Protocol reducer | Converts streamed model events into text and tool items |
-| Session | Owns one run, cancellation, autoplay, and tool-result updates |
-| Scene controller | Validates approved tool arguments and calls public ICE3 APIs |
-| Browser scene | Owns camera, selection pulse, panel bounds, and stage lifecycle |
-| Local transport | Runs the deterministic scripted Agent in the browser |
-| Server transport | Streams server output over SSE |
-| Model adapter | Converts compatible chat-completion tool calls into the event stream |
+| 共享 contract | 定义六个 Scene Tool 和 custom event name |
+| Protocol reducer | 将流式 model event 转换为 text 和 tool item |
+| Session | 管理单次 run、cancellation、autoplay 和 tool-result update |
+| Scene controller | 校验允许的 tool argument 并调用公开 ICE3 API |
+| Browser Scene | 管理 camera、Selection pulse、panel Bounds 和 stage lifecycle |
+| Local transport | 在浏览器中运行确定性脚本 Agent |
+| Server transport | 通过 SSE 流式传输服务端输出 |
+| Model adapter | 将兼容 chat-completion tool call 转换为 event stream |
 
-## Run Lifecycle
+## Run 生命周期
 
-1. A prompt starts a run with a thread context and optional Scene Snapshot.
-2. The transport emits run, text, tool, custom, completion, or error events.
-3. The reducer assembles streamed text and tool arguments.
-4. Only allowed scene tools with valid JSON arguments become effects.
-5. The scene controller executes each effect through public engine APIs.
-6. Tool results are returned to the conversation.
-7. Manual interaction or a new intent cancels obsolete autoplay.
+1. Prompt 携带 thread context 和可选 Scene Snapshot 启动一次 run。
+2. Transport 发送 run、text、tool、custom、completion 或 error event。
+3. Reducer 组装流式 text 和 tool argument。
+4. 只有参数为合法 JSON 的允许 Scene Tool 才会产生 effect。
+5. Scene controller 通过公开 Engine API 执行每个 effect。
+6. Tool result 返回对话。
+7. 手动交互或新意图会取消过时 autoplay。
 
-## Selected-Scene Behavior
+## Scene 选中行为
 
-Selection is a semantic identity, not a screen coordinate. The runtime turns a
-selection into camera bounds and a short pulse followed by persistent highlight.
-The focus target accounts for the visible stage area not covered by the
-conversation panel.
+Selection 是 semantic identity，不是屏幕坐标。Runtime 将 Selection 转换为 camera
+Bounds 和短暂脉冲，随后保持 highlight。Focus target 使用未被 conversation panel 覆盖的
+可见 stage 区域。
 
-## Failure Boundaries
+## 失败边界
 
-- Unknown tools never execute.
-- Malformed tool arguments are shown and skipped.
-- Unknown protocol events are ignored without corrupting current state.
-- A failed configured model produces an error and does not fall back to scripted
-  mode.
-- Aborted runs release listeners and ignore late events.
+- 未知 tool 永不执行。
+- 格式错误的 tool argument 会展示并跳过。
+- 未知 protocol event 被忽略，不破坏当前 state。
+- 已配置 model 失败时返回 error，不回退到 scripted mode。
+- Aborted run 释放 listener 并忽略 late event。
 
-## Related Documents
+## 关联文档
 
 - `ICE3-AGENT-RM-001` — [README](../README.md)
-- `ICE3-AGENT-REF-001` — [Event and scene-tool protocol](reference/protocol.md)
-- `ICE3-AGENT-ADR-001` — [Agent and scene boundary](decisions/0001-agent-scene-boundary.md)
-- `ICE3-DOC-ARC-001` — [ICE3 family architecture](https://github.com/ice-3d/ice3-doc/blob/main/docs/architecture.md)
+- `ICE3-AGENT-REF-001` — [Event 和 Scene Tool protocol](reference/protocol.md)
+- `ICE3-AGENT-ADR-001` — [Agent 和 Scene 边界](decisions/0001-agent-scene-boundary.md)
+- `ICE3-DOC-ARC-001` — [ICE3 家族架构](https://github.com/ice-3d/ice3-doc/blob/main/docs/architecture.md)

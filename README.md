@@ -6,36 +6,33 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-ICE3 Agent Console demonstrates how a conversational Agent can operate an
-industrial 3D scene through a small, validated tool surface. The default model
-is a fully synthetic municipal wastewater treatment plant.
+ICE3 Agent Console 展示对话式 Agent 如何通过一组小而严格的工具接口操作工业 3D
+Scene。默认模型是一座完全虚构的市政污水处理厂。
 
-The application supports a deterministic browser-local Agent, a server-backed
-scripted Agent, and an optional compatible real-model endpoint. The 3D stage
-remains mounted while conversation and scene state update.
+应用支持确定性的浏览器本地 Agent、服务端脚本 Agent，以及可选的兼容模型接口。对话和
+Scene 状态更新时，3D 舞台始终保持挂载。
 
-## Capabilities
+## 能力
 
-| Area | Capability |
+| 领域 | 能力 |
 |---|---|
-| Conversation | Streaming text, tool calls, run errors, and cancellation |
-| Scene | Equipment discovery, selection, focus, highlight, camera views, and clear |
-| Transport | Browser-local scripted mode or server-side event stream |
-| Camera | Guided multi-stop tours with responsive stage framing |
-| Selection | Strong yellow pulse and persistent selection |
-| Presentation | Grouped built-in scenarios and quick actions |
-| Deployment | Server-backed development mode and credential-free static demo |
+| 对话 | 流式文本、工具调用、运行错误和取消 |
+| Scene | 设备发现、选择、聚焦、高亮、相机视角和清除 |
+| 传输 | 浏览器本地脚本模式或服务端事件流 |
+| 相机 | 多站点引导巡游和响应式舞台取景 |
+| Selection | 醒目的黄色脉冲和持续选中状态 |
+| 展示 | 分组内置剧本和快捷操作 |
+| 部署 | 服务端开发模式和无凭据静态演示 |
 
-The console is an application. It depends on public engine APIs and does not add
-Agent concepts to the engine or industrial core.
+本工程是应用层，依赖公开 engine API，不向 engine 或 industrial core 增加 Agent 概念。
 
-## Quick Start
+## 快速开始
 
-Requirements:
+运行要求：
 
 - Node.js 24.22.1 LTS
-- npm 11 or newer
-- A current Chromium or WebKit browser with WebGL2
+- npm 11 或更高版本
+- 支持 WebGL2 的当前 Chromium 或 WebKit 浏览器
 
 ```bash
 git clone https://github.com/ice-3d/ice3-agent-console.git
@@ -45,29 +42,29 @@ npm install
 npm run dev
 ```
 
-Open `http://127.0.0.1:8110/`; the Agent service listens on
-`http://127.0.0.1:8099/`. The scene starts an overview tour after loading.
+打开 `http://127.0.0.1:8110/`；Agent 服务监听 `http://127.0.0.1:8099/`。Scene 加载完成后
+开始总览巡游。
 
-## Browser-Local Demo
+## 浏览器本地演示
 
 ```bash
 npm run build:demo
 npx http-server dist -p 8111 -c-1
 ```
 
-Open `http://127.0.0.1:8111/`. Static demo builds use the deterministic local
-Agent and require no API key or server.
+打开 `http://127.0.0.1:8111/`。静态演示构建使用确定性的本地 Agent，不需要 API key
+或服务端。
 
-URL controls:
+URL 控制参数：
 
-- `?demo=1` or `?demo=0` chooses local or server transport.
-- `?autoplay=1` or `?autoplay=0` controls the opening tour.
+- `?demo=1` 或 `?demo=0` 选择本地或服务端传输。
+- `?autoplay=1` 或 `?autoplay=0` 控制开场巡游。
 
-Invalid values fall back to the build default.
+无效值回退到构建默认值。
 
-## Real-Model Server
+## Real-Model 服务端
 
-Configure all three variables:
+同时配置以下三个变量：
 
 ```bash
 export ICE_AGENT_MODEL_BASE_URL='https://model.example/v1'
@@ -76,15 +73,14 @@ export ICE_AGENT_MODEL_NAME='industrial-agent'
 npm run dev
 ```
 
-The key stays on the server. `/health` reports mode and endpoint host without
-returning credentials. A configured but unavailable model produces an error
-instead of silently switching to scripted output.
+API key 只保留在服务端。`/health` 报告运行模式和接口 host，不返回凭据。模型已经配置但
+不可用时，应用返回错误，不会静默切换到脚本输出。
 
-See [real-model server](docs/guides/real-model-server.md) for details.
+详见 [Real-Model 服务端](docs/guides/real-model-server.md)。
 
-## Scene Tools
+## Scene 工具
 
-The only scene tools exposed to the Agent are:
+暴露给 Agent 的 Scene 工具仅为：
 
 - `find_equipment`
 - `select_equipment`
@@ -93,9 +89,9 @@ The only scene tools exposed to the Agent are:
 - `set_camera_view`
 - `clear_scene_focus`
 
-Unknown tools are rejected. Malformed arguments are displayed without execution.
+未知工具会被拒绝。参数格式错误时只显示错误，不执行工具。
 
-## Verification
+## 验证
 
 ```bash
 npm run docs:check
@@ -105,20 +101,20 @@ npm run test:e2e
 npm run verify
 ```
 
-## Documentation
+## 文档
 
-- [Documentation index](docs/README.md)
-- [Application architecture](docs/architecture.md)
-- [Local development](docs/guides/local-development.md)
-- [Static deployment](docs/guides/static-deployment.md)
-- [Real-model server](docs/guides/real-model-server.md)
-- [Event and scene-tool protocol](docs/reference/protocol.md)
-- [Architecture decisions](docs/decisions/README.md)
+- [文档索引](docs/README.md)
+- [应用架构](docs/architecture.md)
+- [本地开发](docs/guides/local-development.md)
+- [静态部署](docs/guides/static-deployment.md)
+- [Real-Model 服务端](docs/guides/real-model-server.md)
+- [事件和 Scene 工具协议](docs/reference/protocol.md)
+- [架构决策](docs/decisions/README.md)
 
-## AI-assisted development
+## AI 辅助开发
 
-This project makes substantial use of AI-assisted development. 本项目在设计和实现过程中大量使用了 AI 辅助开发。
+本项目在设计和实现过程中大量使用了 AI 辅助开发。
 
-## License
+## 许可证
 
-This project is licensed under the [MIT License](LICENSE).
+本项目采用 [MIT License](LICENSE) 许可。
