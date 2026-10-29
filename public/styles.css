@@ -414,3 +414,36 @@ button {
     left: 16px;
   }
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+#site-summary a:focus {
+  position: fixed;
+  z-index: 30;
+  left: 50%;
+  bottom: 16px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 8px 14px;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  transform: translateX(-50%);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--accent);
+  white-space: nowrap;
+}

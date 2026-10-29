@@ -29,6 +29,7 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 | Selection | 醒目的黄色脉冲和持续选中状态 |
 | 展示 | 分组内置剧本和快捷操作 |
 | 部署 | 服务端开发模式和无凭据静态演示 |
+| 搜索与统计 | 完整 TDK、结构化数据、robots/sitemap 和 GA4 线上访问统计 |
 
 本工程是应用层，依赖公开 engine API，不向 engine 或 industrial core 增加 Agent 概念。
 

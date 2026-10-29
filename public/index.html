@@ -8,12 +8,173 @@
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0f14'/%3E%3Cpath d='M16 20h32v7H23v10h18v7H16z' fill='%23ffd84d'/%3E%3C/svg%3E"
     />
-    <title>ICE3 Agent Console</title>
+    <title>污水处理厂 3D Agent Console · 工业数字孪生在线演示 · ICE3</title>
+    <meta
+      name="description"
+      content="在线体验 ICE3 Agent Console：在可交互的虚构市政污水处理厂 3D 场景中查看设备、定位工艺段、高亮并跟随 Agent 演示；支持浏览器本地剧本与可选 AI Agent。"
+    />
+    <meta
+      name="keywords"
+      content="ICE3,Agent Console,3D 数字孪生,工业数字孪生,污水处理厂,智慧水务,三维可视化,WebGL2,工业场景,AI Agent,在线演示,场景交互,Tileset,LOD,SCADA"
+    />
+    <meta name="author" content="ICE3" />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#0a0f14" />
+    <link rel="canonical" href="https://ice-3d.github.io/ice3-agent-console/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ICE3 Agent Console" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:url" content="https://ice-3d.github.io/ice3-agent-console/" />
+    <meta property="og:title" content="污水处理厂 3D Agent Console · 工业数字孪生在线演示 · ICE3" />
+    <meta
+      property="og:description"
+      content="在可交互的虚构污水处理厂 3D 场景中查看设备与工艺段，让 Agent 通过 Scene Tool 定位、高亮和切换镜头。无需账号即可体验浏览器本地剧本。"
+    />
+    <meta property="og:image" content="https://ice-3d.github.io/ice3-agent-console/og-cover.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="ICE3 Agent Console：黑色工业 3D 场景中展示污水处理厂设备与工艺管线，右侧浮动 Agent 对话面板"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="污水处理厂 3D Agent Console · 工业数字孪生在线演示 · ICE3" />
+    <meta
+      name="twitter:description"
+      content="可交互污水处理厂 3D 场景与 Agent 演示：设备查询、选择、聚焦、高亮、镜头导航和分层流式加载。"
+    />
+    <meta name="twitter:image" content="https://ice-3d.github.io/ice3-agent-console/og-cover.jpg" />
+    <meta
+      name="twitter:image:alt"
+      content="ICE3 Agent Console 的 3D 污水处理厂和 Agent 对话面板"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://ice-3d.github.io/ice3-agent-console/#website",
+            "url": "https://ice-3d.github.io/ice3-agent-console/",
+            "name": "ICE3 Agent Console",
+            "alternateName": "ICE3 污水处理厂 3D Agent Console",
+            "description": "面向工业数字孪生的 3D Agent Console 在线演示。",
+            "inLanguage": "zh-CN",
+            "publisher": {
+              "@type": "Organization",
+              "name": "ICE3",
+              "url": "https://github.com/ice-3d"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://ice-3d.github.io/ice3-agent-console/#app",
+            "name": "ICE3 Agent Console",
+            "url": "https://ice-3d.github.io/ice3-agent-console/",
+            "description": "使用 Agent 事件流操作工业 3D 场景的在线控制台示例。",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web Browser",
+            "browserRequirements": "JavaScript、WebGL2",
+            "inLanguage": "zh-CN",
+            "isAccessibleForFree": true,
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "CNY"
+            },
+            "screenshot": "https://ice-3d.github.io/ice3-agent-console/og-cover.jpg",
+            "codeRepository": "https://github.com/ice-3d/ice3-agent-console",
+            "keywords": "ICE3,3D 数字孪生,污水处理厂,智慧水务,工业场景,AI Agent,WebGL2,Tileset,LOD",
+            "featureList": [
+              "交互式污水处理厂 3D Scene",
+              "设备查询、选择、聚焦和黄色高亮",
+              "Agent 驱动的相机导航和工艺段巡游",
+              "细模与粗模按相机工作集流式加载",
+              "无需后端和凭据的浏览器本地剧本",
+              "可选的服务端 AI 模型接入"
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      (function () {
+        var host = location.hostname;
+        var isLocal =
+          location.protocol === 'file:'
+          || host === ''
+          || host === 'localhost'
+          || host.endsWith('.localhost')
+          || host === '127.0.0.1'
+          || host === '::1';
+        if (isLocal) return;
+
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HW6H6EP0ES';
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag('js', new Date());
+        window.gtag('config', 'G-HW6H6EP0ES');
+      })();
+    </script>
   </head>
   <body>
     <div id="app">
       <main id="stage" data-role="stage" aria-busy="true"></main>
-      <noscript>此示例需要启用 JavaScript。</noscript>
+      <noscript>
+        <p>
+          这个 3D 演示需要启用 JavaScript 和 WebGL2。页面内容的文字摘要和源码入口仍可在
+          下方的 <a href="#site-summary">页面说明</a> 中查看。
+        </p>
+      </noscript>
     </div>
+    <section id="site-summary" class="sr-only" aria-label="页面内容摘要（文字版）">
+      <h2>ICE3 Agent Console 是什么</h2>
+      <p>
+        ICE3 Agent Console 是一个面向工业数字孪生和智慧水务的 3D 场景在线演示。
+        页面主体是一座完全虚构的市政污水处理厂，包含进水预处理、AAO 生化池、
+        二沉池、深度处理、污泥处理、曝气、加药、出水在线监测和事故池等工艺设备。
+        用户可以在三维场景中选择设备并查看名称、设备编号、工艺段、区域和流程连接。
+      </p>
+      <p>
+        Agent 通过受控的 Scene Tool 查询设备、选择设备、聚焦设备、高亮设备和切换相机。
+        内置剧本可以自动完成全厂巡游和多个工艺专题；场景采用 Prepared GLB，
+        并根据当前相机工作集加载粗模与细模，保持设备选择身份和可见覆盖稳定。
+      </p>
+      <h3>页面能力</h3>
+      <ul>
+        <li>使用鼠标旋转和缩放，使用方向键或 WASD 在场景中移动。</li>
+        <li>点击设备后显示黄色高亮和右上角设备信息浮层。</li>
+        <li>通过对话或快捷剧本查看进水、生化、二沉池、深度处理和污泥处理流程。</li>
+        <li>浏览器本地剧本无需账号、API key 或服务端即可完整运行。</li>
+        <li>部署时也可以配置服务端 AI 模型，并通过同一界面驱动 Scene。</li>
+      </ul>
+      <h3>技术背景</h3>
+      <p>
+        示例建立在独立 ICE3 3D Runtime 之上，使用 WebGL2、OGC 3D Tiles 1.1、
+        Prepared GLB、层级 LOD、静态合批和设备语义标识。浏览器侧不执行模型格式转换，
+        源模型检查、切分和粗模生成由离线工具链完成。
+      </p>
+      <p>
+        源码与相关工程：
+        <a href="https://github.com/ice-3d/ice3-agent-console">Agent Console</a>、
+        <a href="https://github.com/ice-3d/ice3-engine">ICE3 Engine</a>、
+        <a href="https://github.com/ice-3d/ice3-industrial">Industrial Core</a>、
+        <a href="https://github.com/ice-3d/ice3-toolchain">Toolchain</a>、
+        <a href="https://github.com/ice-3d/ice3-doc">Documentation</a>。
+      </p>
+    </section>
   </body>
 </html>
