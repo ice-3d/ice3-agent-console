@@ -1,4 +1,4 @@
-# ICE3 Agent Console Implementation Plan
+# ICE3 Agent Console 实施计划
 
 > Document ID: ICE3-AGENT-PLAN-001
 >
@@ -7,69 +7,73 @@
 > Owner: ICE3 Agent Console maintainers
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a runnable 3D industrial Agent Console that combines the synthetic wastewater plant with a persistent scene, a floating conversation panel, deterministic scene tools, an optional real-model server, and a self-contained static demo.
+**目标：** 构建一个可运行的 3D 工业 Agent Console，将虚构污水处理厂、持续挂载的
+Scene、浮动对话面板、确定性 Scene Tool、可选 Real-Model Server 和自包含 static demo
+组合在一起。
 
-**Architecture:** The application is an independent TypeScript package. A browser scene adapter wraps only public `ice3` APIs; protocol code reduces AG-UI events into chat and tool state; a scene executor applies validated commands; and server or browser-local Agent transports emit the same event stream.
+**架构：** 应用是独立的 TypeScript package。Browser Scene adapter 只包装公开 `ice3`
+API；protocol code 将 AG-UI event reducer 为 chat 和 tool state；Scene executor 执行
+已校验 command；server 或 browser-local Agent transport 发送同一 event stream。
 
-**Tech Stack:** Node.js 24.22.1 LTS, TypeScript 7, webpack 5, `@ag-ui/core` 1.0.3, native Node test, Playwright 1.64, and the sibling `ice3` packages.
+**技术栈：** Node.js 24.22.1 LTS、TypeScript 7、webpack 5、`@ag-ui/core` 1.0.3、
+native Node test、Playwright 1.64 和同级 `ice3` package。
 
-**Spec:** [`ICE3-AGENT-SPEC-001`](../specs/2026-10-28-ice3-agent-console-design.md)
+**规格：** [`ICE3-AGENT-SPEC-001`](../specs/2026-10-28-ice3-agent-console-design.md)
 
-## Global Constraints
+## 全局约束
 
-- Do not introduce development tooling prohibited by the repository naming and
-  technology constraints.
-- Do not use competitor, vendor, or unapproved commercial product names in source, tests, documentation, diagnostics, or commit messages.
-- Keep the 3D scene full-viewport and the conversation panel floating above it.
-- The default demo must work without model credentials.
-- A configured model failure must emit an error and must not silently use the scripted response.
-- Agent code must not import `ice3` renderer internals or manipulate GPU resources.
-- Browser code must use only public exports from `ice3`.
-- Real customer model assets must never be referenced or copied.
-- Static output contains only the synthetic `tiled/` asset tree, never source or prepared GLBs.
-- Asset URLs in static output are relative and work from a repository subpath.
-- Normal build defaults to server transport; demo build defaults to local transport.
-- Normal build defaults to autoplay off; demo build may default to autoplay on.
-- User pointer or keyboard camera input cancels Agent-driven camera motion.
-- Every behavioral change starts with a failing test and ends with the relevant complete test suite green.
+- 不引入仓库命名和技术约束禁止的开发工具。
+- Source、test、documentation、Diagnostic 或 commit message 中不得使用竞品、厂商或未批准商业产品名称。
+- 3D Scene 保持 full-viewport，conversation panel 浮动在其上。
+- 默认 demo 必须无需 model credential。
+- 已配置 model 失败时必须发送 error，不得静默使用 scripted response。
+- Agent code 不得导入 `ice3` Renderer internals 或操作 GPU resource。
+- Browser code 只能使用 `ice3` 的公开 export。
+- 永不引用或复制真实客户模型 Asset。
+- Static output 只包含虚构 `tiled/` Asset tree，不包含 source 或 prepared GLB。
+- Static output 中的 Asset URL 使用相对路径，并可在 repository subpath 下工作。
+- Normal build 默认 server transport；demo build 默认 local transport。
+- Normal build 默认关闭 autoplay；demo build 可以默认开启。
+- 用户 pointer 或 keyboard camera input 取消 Agent-driven camera motion。
+- 每项行为变化先写失败测试，最终以相关完整测试 suite 全绿结束。
 
-## Review Focus
+## 审查重点
 
-- Invalid or absent model configuration: the server must identify the failure clearly and must not fall back to scripted output.
-- Stale or unknown equipment IDs: the scene executor must reject the command without clearing or moving the current scene.
-- User interruption: pointer or keyboard camera input must stop queued Agent camera motion instead of fighting the user.
-- Static hosting under a subpath: every Tileset, chunk, coarse node, script, and stylesheet must resolve through relative URLs.
-- Backend unavailable in server mode: the page must show a recoverable connection error and retain the loaded scene.
+- Model configuration 无效或缺失：Server 必须明确识别失败，不得回退到 scripted output。
+- Equipment ID stale 或未知：Scene executor 必须拒绝 command，不得清除或移动当前 Scene。
+- 用户中断：Pointer 或 keyboard camera input 必须停止排队的 Agent camera motion，不得与用户操作冲突。
+- Subpath 下的 static hosting：所有 Tileset、chunk、coarse Node、script 和 stylesheet 必须通过相对 URL 解析。
+- Server mode 的 backend 不可用：页面必须显示可恢复 connection error，并保留已加载 Scene。
 
 ---
 
-### Task 1: Bootstrap the application and mode switch
+### Task 1：搭建应用与 mode switch
 
-**Files:**
+**文件：**
 
-- Create: `package.json`
-- Create: `tsconfig.json`
-- Create: `tsconfig.server.json`
-- Create: `webpack.config.cjs`
-- Create: `public/index.html`
-- Create: `public/styles.css`
-- Create: `src/entries/boot.ts`
-- Create: `src/app/mode.ts`
-- Create: `scripts/dev.mjs`
-- Create: `scripts/run-tests.mjs`
-- Create: `tests/mode.test.ts`
-- Create: `.gitignore`
-- Create: `AGENTS.md`
-- Create: `README.md`
+- 新建：`package.json`
+- 新建：`tsconfig.json`
+- 新建：`tsconfig.server.json`
+- 新建：`webpack.config.cjs`
+- 新建：`public/index.html`
+- 新建：`public/styles.css`
+- 新建：`src/entries/boot.ts`
+- 新建：`src/app/mode.ts`
+- 新建：`scripts/dev.mjs`
+- 新建：`scripts/run-tests.mjs`
+- 新建：`tests/mode.test.ts`
+- 新建：`.gitignore`
+- 新建：`AGENTS.md`
+- 新建：`README.md`
 
-**Interfaces:**
+**接口：**
 
-- Consumes: no earlier task.
-- Produces: `resolveDemoMode(search: string, demoDefault: boolean): boolean`
-- Produces: `resolveAutoplay(search: string, autoplayDefault: boolean): boolean`
-- Produces: `npm run dev`, `npm run build`, `npm run build:demo`, and `npm test`.
+- 消费：无前置 Task。
+- 产出：`resolveDemoMode(search: string, demoDefault: boolean): boolean`
+- 产出：`resolveAutoplay(search: string, autoplayDefault: boolean): boolean`
+- 产出：`npm run dev`、`npm run build`、`npm run build:demo` 和 `npm test`。
 
-- [ ] **Step 1: Write the failing mode tests**
+- [ ] **步骤 1：编写失败的 mode test**
 
 ```ts
 // tests/mode.test.ts
@@ -97,9 +101,9 @@ test('accepts explicit boolean values', () => {
 });
 ```
 
-- [ ] **Step 2: Add the package and configuration**
+- [ ] **步骤 2：添加 package 和 configuration**
 
-`package.json` uses these exact dependency groups:
+`package.json` 使用以下准确 dependency group：
 
 ```json
 {
@@ -151,24 +155,24 @@ test('accepts explicit boolean values', () => {
 }
 ```
 
-Add `#test-expect` in `imports` pointing to `./tests/assertions.ts`. Create that
-file by re-exporting the engine check helpers used by the sibling projects.
+在 `imports` 中添加 `#test-expect`，指向 `./tests/assertions.ts`。该文件通过重新导出
+同级项目使用的 Engine check helper 创建。
 
-Webpack must:
+Webpack 必须：
 
-- bundle `src/entries/boot.ts` to `dist/boot.[contenthash].js`;
-- generate `dist/index.html` from `public/index.html`;
-- use `output.publicPath: 'auto'`;
-- serve the sibling synthetic asset directory in development at `/assets`;
-- define `__ICE_DEMO__` as `Boolean(env.demo)`.
+- 将 `src/entries/boot.ts` bundle 为 `dist/boot.[contenthash].js`。
+- 从 `public/index.html` 生成 `dist/index.html`。
+- 使用 `output.publicPath: 'auto'`。
+- 开发模式下在 `/assets` 提供同级虚构 Asset 目录。
+- 将 `__ICE_DEMO__` 定义为 `Boolean(env.demo)`。
 
-- [ ] **Step 3: Run the tests to verify RED**
+- [ ] **步骤 3：运行测试验证 RED**
 
 Run: `npm test -- tests/mode.test.ts`
 
-Expected: FAIL because `src/app/mode.ts` does not exist.
+预期：因为 `src/app/mode.ts` 不存在而失败。
 
-- [ ] **Step 4: Implement the mode functions**
+- [ ] **步骤 4：实现 mode function**
 
 ```ts
 // src/app/mode.ts
@@ -190,10 +194,10 @@ export function resolveAutoplay(
 }
 ```
 
-`src/entries/boot.ts` initially mounts an accessible page shell containing the
-scene stage, conversation panel, connection state, and loading state.
+`src/entries/boot.ts` 初始挂载可访问页面壳，包含 Scene stage、conversation panel、
+connection state 和 loading state。
 
-- [ ] **Step 5: Run the mode tests and build**
+- [ ] **步骤 5：运行 mode test 和 build**
 
 Run:
 
@@ -203,10 +207,10 @@ npm run typecheck
 npm run build
 ```
 
-Expected: mode tests PASS, typecheck exits 0, and `dist/index.html` plus one
-hashed script exist.
+预期：Mode test 通过，typecheck exit 0，并生成 `dist/index.html` 和一个带 hash 的
+script。
 
-- [ ] **Step 6: Commit**
+- [ ] **步骤 6：提交**
 
 ```bash
 git add package.json package-lock.json tsconfig.json tsconfig.server.json webpack.config.cjs public src/entries/boot.ts src/app/mode.ts scripts tests/mode.test.ts tests/assertions.ts .gitignore AGENTS.md README.md
@@ -215,26 +219,24 @@ git commit -m "feat: bootstrap agent console"
 
 ---
 
-### Task 2: Define the shared protocol and scene command contract
+### Task 2：定义共享 Protocol 和 Scene command contract
 
-**Files:**
+**文件：**
 
 - Create: `shared/contract.ts`
 - Create: `shared/scene.ts`
 - Create: `src/protocol/types.ts`
 - Test: `tests/contract.test.ts`
 
-**Interfaces:**
+**接口：**
 
-- Consumes: no runtime dependency on earlier UI code.
-- Produces: tool names `find_equipment`, `select_equipment`, `focus_equipment`,
-  `highlight_equipment`, `set_camera_view`, and `clear_scene_focus`.
-- Produces: `SceneCommand`, `SceneCommandResult`, `SceneSnapshot`, and
-  `SceneToolName`.
-- Produces: event names `ice3/anchor`, `ice3/point-clear`, and
-  `ice3/autoplay-cancelled`.
+- 消费：不依赖之前 UI code 的 Runtime。
+- 产出：Tool name `find_equipment`、`select_equipment`、`focus_equipment`、
+  `highlight_equipment`、`set_camera_view` 和 `clear_scene_focus`。
+- 产出：`SceneCommand`、`SceneCommandResult`、`SceneSnapshot` 和 `SceneToolName`。
+- 产出：Event name `ice3/anchor`、`ice3/point-clear` 和 `ice3/autoplay-cancelled`。
 
-- [ ] **Step 1: Write contract tests**
+- [ ] **步骤 1：编写 contract test**
 
 ```ts
 // tests/contract.test.ts
@@ -260,13 +262,13 @@ test('publishes an immutable scene-tool vocabulary', () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
 Run: `npm test -- tests/contract.test.ts`
 
 Expected: FAIL because `shared/contract.ts` does not exist.
 
-- [ ] **Step 3: Implement exact shared types**
+- [ ] **步骤 3：实现准确的共享类型**
 
 ```ts
 // shared/scene.ts
@@ -309,7 +311,7 @@ export interface SceneSnapshot {
 Define `SCENE_TOOLS` as an `Object.freeze([...] as const)` and implement
 `isSceneToolName(value: string): value is SceneToolName`.
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **步骤 4：运行 GREEN**
 
 Run:
 
@@ -320,7 +322,7 @@ npm run typecheck
 
 Expected: PASS with no type errors.
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add shared/contract.ts shared/scene.ts src/protocol/types.ts tests/contract.test.ts
@@ -329,7 +331,7 @@ git commit -m "feat: define scene agent protocol"
 
 ---
 
-### Task 3: Build the AG-UI event reducer
+### Task 3：构建 AG-UI event reducer
 
 **Files:**
 
@@ -346,7 +348,7 @@ git commit -m "feat: define scene agent protocol"
   `toRunAgentInput(request): RunAgentInput`.
 - Produces effect `{ type: 'execute-tool', toolCallId, name, args }`.
 
-- [ ] **Step 1: Write reducer tests**
+- [ ] **步骤 1：编写 reducer test**
 
 ```ts
 // tests/reducer.test.ts
@@ -408,41 +410,41 @@ test('ignores unknown protocol events', () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
-Run: `npm test -- tests/reducer.test.ts tests/run-input.test.ts`
+运行：`npm test -- tests/reducer.test.ts tests/run-input.test.ts`
 
-Expected: FAIL because the reducer and input mapper do not exist.
+预期：因为 reducer 和 input mapper 不存在而失败。
 
-- [ ] **Step 3: Implement reducer behavior**
+- [ ] **步骤 3：实现 reducer 行为**
 
-Handle:
+处理：
 
-- `RUN_STARTED`, `RUN_FINISHED`, and `RUN_ERROR`;
-- text-message start/content/end;
-- tool-call start/args/end/result;
+- `RUN_STARTED`、`RUN_FINISHED` 和 `RUN_ERROR`。
+- Text message 的 start、content 和 end。
+- Tool call 的 start、args、end 和 result。
 - `CUSTOM` event passthrough effects;
 - local user messages and local tool results;
 - unknown external events by returning the previous state unchanged.
 
-Tool arguments are JSON-parsed only at `TOOL_CALL_END`. Parse failure becomes a
-visible tool error item and emits no scene effect.
+Tool argument 只在 `TOOL_CALL_END` 时执行 JSON parse。Parse failure 会生成可见 tool
+error item，并且不发送 Scene effect。
 
-`toRunAgentInput` must omit `resume` when its array is empty and set `tools: []`,
-`context: request.context ?? []`, and `state: request.state ?? {}`.
+当数组为空时，`toRunAgentInput` 必须省略 `resume`，并设置 `tools: []`、
+`context: request.context ?? []` 和 `state: request.state ?? {}`。
 
-- [ ] **Step 4: Run GREEN and full unit tests**
+- [ ] **步骤 4：运行 GREEN 和完整 unit test**
 
-Run:
+运行：
 
 ```bash
 npm test -- tests/reducer.test.ts tests/run-input.test.ts
 npm test
 ```
 
-Expected: PASS.
+预期：通过。
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add src/protocol/reducer.ts src/protocol/run-input.ts tests/reducer.test.ts tests/run-input.test.ts
@@ -451,23 +453,23 @@ git commit -m "feat: reduce agent scene events"
 
 ---
 
-### Task 4: Implement the deterministic Agent and event encoder
+### Task 4：实现确定性 Agent 和 event encoder
 
-**Files:**
+**文件：**
 
 - Create: `server/agents/types.ts`
 - Create: `server/agents/events.ts`
 - Create: `server/agents/scripted.ts`
 - Test: `tests/scripted-agent.test.ts`
 
-**Interfaces:**
+**接口：**
 
-- Consumes: `SceneToolName`, `toRunAgentInput`, and `RunRequest`.
-- Produces: `AgentRun.run(input: RunAgentInput, signal?: AbortSignal):
+- 消费：`SceneToolName`、`toRunAgentInput` 和 `RunRequest`。
+- 产出：`AgentRun.run(input: RunAgentInput, signal?: AbortSignal):
   AsyncIterable<AgentEvent>`.
-- Produces: `createScriptedAgent(options?: { delayMs?: number }): AgentRun`.
+- 产出：`createScriptedAgent(options?: { delayMs?: number }): AgentRun`。
 
-- [ ] **Step 1: Write scripted scenarios as failing tests**
+- [ ] **步骤 1：将 scripted scenario 写成失败测试**
 
 ```ts
 // tests/scripted-agent.test.ts
@@ -519,34 +521,33 @@ test('uses current equipment context for a follow-up explanation', async () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
-Run: `npm test -- tests/scripted-agent.test.ts`
+运行：`npm test -- tests/scripted-agent.test.ts`
 
-Expected: FAIL because the scripted Agent does not exist.
+预期：因为 Scripted Agent 不存在而失败。
 
-- [ ] **Step 3: Implement the agenda planner and emitter**
+- [ ] **步骤 3：实现 agenda planner 和 emitter**
 
-The planner uses explicit phrase sets:
+Planner 使用明确的 phrase set：
 
-- overview: `全厂`, `全景`, `整个厂`;
-- secondary clarifier: `二沉池`;
-- aerobic tank: `好氧池`;
-- clear: `清除`, `复位`, `回到全厂`;
-- current selection: `这个设备`, `这台`, `当前设备`.
+- 全厂 Overview 匹配词：`全厂`、`全景`、`整个厂`。
+- 二沉池匹配词：`二沉池`。
+- 好氧池匹配词：`好氧池`。
+- 清除意图匹配词：`清除`、`复位`、`回到全厂`。
+- 当前 Selection 匹配词：`这个设备`、`这台`、`当前设备`。
 
-The emitter generates valid AG-UI events with stable IDs derived from
-`runId + ordinal`, one short text stream, complete tool calls, and
-`RUN_FINISHED`. Do not emit tool results for commands that the client scene
-executor has not run yet.
+Emitter 使用由 `runId + ordinal` 派生的稳定 ID 生成有效 AG-UI event、一个短 text
+stream、完整 tool call 和 `RUN_FINISHED`。Client Scene executor 尚未运行的 command
+不得发送 tool result。
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **步骤 4：运行 GREEN**
 
-Run: `npm test -- tests/scripted-agent.test.ts`
+运行：`npm test -- tests/scripted-agent.test.ts`
 
-Expected: PASS.
+预期：通过。
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add server/agents/types.ts server/agents/events.ts server/agents/scripted.ts tests/scripted-agent.test.ts
@@ -555,7 +556,7 @@ git commit -m "feat: add deterministic scene agent"
 
 ---
 
-### Task 5: Add the server transport
+### Task 5：增加 Server transport
 
 **Files:**
 
@@ -572,7 +573,7 @@ git commit -m "feat: add deterministic scene agent"
 - Produces: `encodeSse(event: unknown): string`.
 - Produces: `loadServerConfig(env: NodeJS.ProcessEnv): ServerConfig`.
 
-- [ ] **Step 1: Write transport tests**
+- [ ] **步骤 1：编写 transport test**
 
 ```ts
 // tests/server.test.ts
@@ -596,19 +597,19 @@ test('rejects malformed run input before opening SSE', async () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
-Run: `npm test -- tests/server.test.ts tests/server-config.test.ts`
+运行：`npm test -- tests/server.test.ts tests/server-config.test.ts`
 
-Expected: FAIL because the server and encoder do not exist.
+预期：因为 server 和 encoder 不存在而失败。
 
-- [ ] **Step 3: Implement the native HTTP server**
+- [ ] **步骤 3：实现 native HTTP server**
 
-Use `node:http`, `RunAgentInputSchema.safeParse`, a 2 MiB body limit, CORS for
-the local application, heartbeat comments every 15 seconds, and AbortController
-cleanup when the client disconnects.
+使用 `node:http`、`RunAgentInputSchema.safeParse`、2 MiB body limit、面向本地应用的
+CORS、每 15 秒 heartbeat comment，以及 client disconnect 时的 AbortController
+cleanup。
 
-The health response contains:
+Health response 包含：
 
 ```json
 {
@@ -618,21 +619,21 @@ The health response contains:
 }
 ```
 
-When model settings exist, include only the model name and endpoint host in
-health output. Never return an API key.
+存在 model setting 时，health output 只包含 model name 和 endpoint host，永不返回
+API key。
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **步骤 4：运行 GREEN**
 
-Start the API in the test-owned process and run:
+在测试拥有的进程中启动 API 并运行：
 
 ```bash
 npm test -- tests/server.test.ts tests/server-config.test.ts
 ```
 
-Expected: malformed input returns 422; valid input returns `text/event-stream`
-with `RUN_STARTED` and `RUN_FINISHED`.
+预期：格式错误的 input 返回 422；有效 input 返回带 `RUN_STARTED` 和 `RUN_FINISHED`
+的 `text/event-stream`。
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add server/config.ts server/transport/sse.ts server/index.ts tests/server.test.ts tests/server-config.test.ts
@@ -641,29 +642,29 @@ git commit -m "feat: serve agent events"
 
 ---
 
-### Task 6: Implement the 3D scene adapter
+### Task 6：实现 3D Scene adapter
 
-**Files:**
+**文件：**
 
-- Create: `src/scene/types.ts`
-- Create: `src/scene/catalog.ts`
-- Create: `src/scene/camera-controller.ts`
+- 新建：`src/scene/types.ts`
+- 新建：`src/scene/catalog.ts`
+- 新建：`src/scene/camera-controller.ts`
 - Create: `src/scene/controller.ts`
 - Create: `src/scene/asset-url.ts`
 - Test: `tests/scene-catalog.test.ts`
 - Test: `tests/scene-commands.test.ts`
 - Test: `tests/asset-url.test.ts`
 
-**Interfaces:**
+**接口：**
 
-- Consumes: `SceneCommand`, `SceneCommandResult`, `SceneSnapshot`, and public
+- 消费：`SceneCommand`、`SceneCommandResult`、`SceneSnapshot` 和
   exports from `ice3`.
-- Produces: `createSceneController(options): SceneController`.
-- Produces: `SceneController.execute(command): Promise<SceneCommandResult>`,
+- 产出：`createSceneController(options): SceneController`。
+- 产出：`SceneController.execute(command): Promise<SceneCommandResult>`、
   `snapshot()`, `onSelection(listener)`, `onUserCameraIntent(listener)`, and
   `dispose()`.
 
-- [ ] **Step 1: Write failing catalog and command tests**
+- [ ] **步骤 1：编写失败的 catalog 和 command test**
 
 ```ts
 // tests/scene-catalog.test.ts
@@ -721,44 +722,44 @@ test('does not mutate the scene for an unknown equipment ID', async () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
-Run: `npm test -- tests/scene-catalog.test.ts tests/scene-commands.test.ts tests/asset-url.test.ts`
+运行：`npm test -- tests/scene-catalog.test.ts tests/scene-commands.test.ts tests/asset-url.test.ts`
 
-Expected: FAIL because the scene modules do not exist.
+预期：因为 Scene module 不存在而失败。
 
-- [ ] **Step 3: Implement the public-API adapter**
+- [ ] **步骤 3：实现 public-API adapter**
 
-Load the synthetic asset with `ICETilesetLoader` and use only public methods:
+使用 `ICETilesetLoader` 加载虚构 Asset，并且只使用公开 method：
 
-- `queryScene`, `findBySelectionId`, `setSelection`, and `project`;
-- `ICEPerspectiveCamera` methods;
-- a stage-owned orbit controller for user input;
-- scene bounds from the loaded handle.
+- `queryScene`、`findBySelectionId`、`setSelection` 和 `project`。
+- `ICEPerspectiveCamera` method。
+- Stage 自有的 orbit controller，用于用户 input。
+- 从已加载 handle 获取 Scene Bounds。
 
-Camera movement has two modes:
+Camera movement 有两种模式：
 
-- immediate pose for initial framing and tests;
-- eased focus for Agent commands.
+- 初始 framing 和测试使用 immediate pose。
+- Agent command 使用 eased focus。
 
-The controller owns an `AbortController` for Agent camera motion. Pointer or
-navigation-key intent calls `cancelAgentMotion()` before orbit handling.
+Controller 为 Agent camera motion 持有一个 `AbortController`。Pointer 或
+navigation-key intent 在 orbit handling 前调用 `cancelAgentMotion()`。
 
-Asset URL resolution uses `new URL('assets/wastewater-plant/tiled/tileset.json',
-document.baseURI)` so static builds do not assume the site root.
+Asset URL 通过 `new URL('assets/wastewater-plant/tiled/tileset.json',
+document.baseURI)` 解析，使 static build 不假设站点根路径。
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **步骤 4：运行 GREEN**
 
-Run:
+运行：
 
 ```bash
 npm test -- tests/scene-catalog.test.ts tests/scene-commands.test.ts tests/asset-url.test.ts
 npm run typecheck
 ```
 
-Expected: PASS.
+预期：通过。
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add src/scene tests/scene-catalog.test.ts tests/scene-commands.test.ts tests/asset-url.test.ts
@@ -767,13 +768,13 @@ git commit -m "feat: add semantic scene controller"
 
 ---
 
-### Task 7: Build the stage and conversation interface
+### Task 7：构建 Stage 和 Conversation 界面
 
-**Files:**
+**文件：**
 
-- Create: `src/view/stage.ts`
-- Create: `src/view/chat-panel.ts`
-- Create: `src/view/equipment-card.ts`
+- 新建：`src/view/stage.ts`
+- 新建：`src/view/chat-panel.ts`
+- 新建：`src/view/equipment-card.ts`
 - Create: `src/view/quick-actions.ts`
 - Create: `src/view/status.ts`
 - Create: `src/view/markdown.ts`
@@ -782,14 +783,14 @@ git commit -m "feat: add semantic scene controller"
 - Test: `tests/chat-panel.test.ts`
 - Test: `tests/equipment-card.test.ts`
 
-**Interfaces:**
+**接口：**
 
-- Consumes: `ThreadState` and `SceneSnapshot`.
-- Produces: `ChatPanel.appendUserMessage(text)`,
+- 消费：`ThreadState` 和 `SceneSnapshot`。
+- 产出：`ChatPanel.appendUserMessage(text)`、
   `ChatPanel.render(state)`, `ChatPanel.setBusy(boolean)`, and
   `EquipmentCard.show(equipment | null)`.
 
-- [ ] **Step 1: Write accessible view tests**
+- [ ] **步骤 1：编写可访问 view test**
 
 ```ts
 // tests/equipment-card.test.ts
@@ -817,15 +818,15 @@ test('shows equipment identity and hides cleanly', () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
-Run: `npm test -- tests/chat-panel.test.ts tests/equipment-card.test.ts`
+运行：`npm test -- tests/chat-panel.test.ts tests/equipment-card.test.ts`
 
-Expected: FAIL because the view components do not exist.
+预期：因为 view component 不存在而失败。
 
-- [ ] **Step 3: Implement the interface**
+- [ ] **步骤 3：实现界面**
 
-The layout structure is:
+布局结构为：
 
 ```html
 <main id="stage" aria-busy="true"></main>
@@ -839,14 +840,13 @@ The layout structure is:
 <output class="agent-status"></output>
 ```
 
-The conversation panel collapses to a side tab. Its open width is
-`min(420px, 38vw)`. The stage remains full-viewport beneath it. At widths below
-`720px`, the panel can cover the full width but starts collapsed.
+Conversation panel 折叠后成为侧边 tab，展开宽度为 `min(420px, 38vw)`。Stage 在其下方
+保持 full-viewport。宽度低于 `720px` 时，panel 可以覆盖全宽，但初始为折叠状态。
 
-Use semantic buttons, labels, live regions, and keyboard focus. Render assistant
-text with `markdown-it` configured with raw HTML disabled.
+使用语义化 button、label、live region 和 keyboard focus。使用配置为禁用 raw HTML 的
+`markdown-it` 渲染 assistant text。
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **步骤 4：运行 GREEN**
 
 Run:
 
@@ -857,7 +857,7 @@ npm run typecheck
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add src/view public/index.html public/styles.css tests/chat-panel.test.ts tests/equipment-card.test.ts
@@ -866,29 +866,29 @@ git commit -m "feat: add industrial agent interface"
 
 ---
 
-### Task 8: Assemble the application and connect tools to the scene
+### Task 8：组装应用并将 Tool 接入 Scene
 
-**Files:**
+**文件：**
 
-- Create: `src/app/session.ts`
-- Create: `src/app/main.ts`
-- Modify: `src/entries/boot.ts`
+- 新建：`src/app/session.ts`
+- 新建：`src/app/main.ts`
+- 修改：`src/entries/boot.ts`
 - Create: `src/protocol/client.ts`
 - Create: `src/protocol/local-agent.ts`
 - Create: `scripts/demo-agent-marker.mjs`
 - Test: `tests/session.test.ts`
 - Test: `tests/transport.test.ts`
 
-**Interfaces:**
+**接口：**
 
-- Consumes: `SceneController`, `ChatPanel`, `reduceThread`, server Agent, and
+- 消费：`SceneController`、`ChatPanel`、`reduceThread`、server Agent 和
   browser-local Scripted Agent.
-- Produces: `createSession(options): AgentConsoleSession`, including
+- 产出：`createSession(options): AgentConsoleSession`，包括
   `start()`, `send(text)`, `notifyUserSceneIntent()`, and `dispose()`.
-- Produces: `runAgentServer(request, handlers, signal, endpoint?)` and
+- 产出：`runAgentServer(request, handlers, signal, endpoint?)` 和
   `runAgentLocally(request, handlers, signal)`.
 
-- [ ] **Step 1: Write failing integration tests**
+- [ ] **步骤 1：编写失败的 Integration test**
 
 ```ts
 // tests/session.test.ts
@@ -974,38 +974,37 @@ test('server transport reports an unavailable endpoint', async () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
-Run: `npm test -- tests/session.test.ts tests/transport.test.ts`
+运行：`npm test -- tests/session.test.ts tests/transport.test.ts`
 
-Expected: FAIL because session and transports do not exist.
+预期：因为 session 和 transport 不存在而失败。
 
-- [ ] **Step 3: Implement session orchestration**
+- [ ] **步骤 3：实现 session orchestration**
 
-`session.send(text)` performs:
+`session.send(text)` 执行以下步骤：
 
-1. append the user item locally;
-2. snapshot the scene;
-3. build bounded context with selection, camera, and latest scene action;
-4. select server or local transport from `resolveDemoMode`;
-5. reduce every event and execute emitted scene tools in order;
-6. append a local tool result with `ok`, `selectionIds`, and `message`;
-7. update the scene card and status;
-8. ignore stale events after a newer run begins.
+1. 在本地追加 user item。
+2. 创建 Scene snapshot。
+3. 使用 Selection、camera 和最近 Scene action 构建有界 context。
+4. 根据 `resolveDemoMode` 选择 server 或 local transport。
+5. Reducer 每个 event，并按顺序执行发出的 Scene Tool。
+6. 追加包含 `ok`、`selectionIds` 和 `message` 的 local tool result。
+7. 更新 Scene card 和 status。
+8. 新 run 开始后忽略 stale event。
 
-Quick actions call `send()` with their predefined text. Clicking equipment
-updates the selected equipment context and never submits a message.
+Quick action 使用预定义 text 调用 `send()`。点击 equipment 更新 selected equipment
+context，永不提交 message。
 
-Manual pointer or keyboard scene intent reports to the session, cancels
-autoplay, and leaves an already completed Agent command in history.
+手动 pointer 或 keyboard Scene intent 会上报 session、取消 autoplay，并让已经完成的
+Agent command 留在 history 中。
 
-`runAgentServer` accepts an optional endpoint for tests. Network failures and
-non-success responses call `onError`; they never invoke the local scripted
-transport.
+`runAgentServer` 接受测试用可选 endpoint。Network failure 和非成功 response 调用
+`onError`，永不调用 local scripted transport。
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **步骤 4：运行 GREEN**
 
-Run:
+运行：
 
 ```bash
 npm test -- tests/session.test.ts tests/transport.test.ts
@@ -1013,9 +1012,9 @@ npm test
 npm run typecheck
 ```
 
-Expected: PASS.
+预期：通过。
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add src/app/session.ts src/app/main.ts src/entries/boot.ts src/protocol/client.ts src/protocol/local-agent.ts scripts/demo-agent-marker.mjs tests/session.test.ts tests/transport.test.ts
@@ -1024,9 +1023,9 @@ git commit -m "feat: connect agent events to 3d scene"
 
 ---
 
-### Task 9: Add the real-model server adapter
+### Task 9：增加 Real-Model Server adapter
 
-**Files:**
+**文件：**
 
 - Create: `server/agents/model.ts`
 - Create: `server/agents/model-client.ts`
@@ -1036,7 +1035,7 @@ git commit -m "feat: connect agent events to 3d scene"
 - Test: `tests/model-agent.test.ts`
 - Test: `tests/model-client.test.ts`
 
-- [ ] **Step 1: Write failing adapter tests**
+- [ ] **步骤 1：编写失败的 adapter test**
 
 ```ts
 // tests/model-agent.test.ts
@@ -1070,15 +1069,15 @@ test('emits a provider failure instead of scripted fallback', async () => {
 });
 ```
 
-- [ ] **Step 2: Run RED**
+- [ ] **步骤 2：运行 RED**
 
-Run: `npm test -- tests/model-agent.test.ts tests/model-client.test.ts`
+运行：`npm test -- tests/model-agent.test.ts tests/model-client.test.ts`
 
-Expected: FAIL because model modules do not exist.
+预期：因为 model module 不存在而失败。
 
-- [ ] **Step 3: Implement the provider-neutral model boundary**
+- [ ] **步骤 3：实现 provider-neutral model boundary**
 
-Environment variables:
+Environment variable：
 
 ```text
 ICE_AGENT_MODEL_BASE_URL
@@ -1086,27 +1085,25 @@ ICE_AGENT_MODEL_API_KEY
 ICE_AGENT_MODEL_NAME
 ```
 
-The request format follows a supported chat-completions-compatible service.
-The adapter maps model text and tool calls into the same event emitter used by
-the scripted Agent. Accept only the six tools in `SCENE_TOOLS`; reject unknown
-names and malformed arguments before emitting a tool call.
+Request format 遵循受支持的 chat-completions-compatible service。Adapter 将 model
+text 和 tool call 映射到 Scripted Agent 使用的同一 event emitter。只接受
+`SCENE_TOOLS` 中的六个 tool；发送 tool call 前拒绝未知 name 和格式错误的 argument。
 
-The API key is used only in the server request header. Tests use a fake
-`fetch` implementation and assert that the key never appears in event data,
-health responses, or errors.
+API key 只用于 server request header。测试使用 fake `fetch` implementation，并断言
+key 永不出现在 event data、health response 或 error 中。
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **步骤 4：运行 GREEN**
 
-Run:
+运行：
 
 ```bash
 npm test -- tests/model-agent.test.ts tests/model-client.test.ts
 npm run typecheck
 ```
 
-Expected: PASS.
+预期：通过。
 
-- [ ] **Step 5: Commit**
+- [ ] **步骤 5：提交**
 
 ```bash
 git add server/agents/model.ts server/agents/model-client.ts server/agents/tool-schema.ts server/config.ts server/index.ts tests/model-agent.test.ts tests/model-client.test.ts
@@ -1115,26 +1112,26 @@ git commit -m "feat: add real model agent adapter"
 
 ---
 
-### Task 10: Build the self-contained demo and verify end to end
+### Task 10：构建自包含 Demo 并执行端到端验证
 
-**Files:**
+**文件：**
 
-- Create: `scripts/copy-demo-assets.mjs`
-- Create: `playwright.config.ts`
-- Create: `e2e/server-mode.spec.ts`
+- 新建：`scripts/copy-demo-assets.mjs`
+- 新建：`playwright.config.ts`
+- 新建：`e2e/server-mode.spec.ts`
 - Create: `e2e/static-mode.spec.ts`
 - Create: `e2e/responsive.spec.ts`
 - Modify: `package.json`
 - Modify: `webpack.config.cjs`
 - Modify: `README.md`
 
-**Interfaces:**
+**接口：**
 
-- Consumes: all previous tasks.
-- Produces: `npm run build:demo` and a `dist/` tree runnable from a subpath.
-- Produces: static output at `dist/assets/wastewater-plant/tiled/`.
+- 消费：所有前置 Task。
+- 产出：`npm run build:demo` 和可从 subpath 运行的 `dist/` tree。
+- 产出：位于 `dist/assets/wastewater-plant/tiled/` 的 static output。
 
-- [ ] **Step 1: Write failing browser tests**
+- [ ] **步骤 1：编写失败的 browser test**
 
 ```ts
 // e2e/static-mode.spec.ts
@@ -1175,46 +1172,45 @@ test('loads the wastewater plant and completes a scene command', async ({
 });
 ```
 
-- [ ] **Step 2: Implement asset copying and deployment configuration**
+- [ ] **步骤 2：实现 Asset 复制和 deployment configuration**
 
-`copy-demo-assets.mjs` copies only:
+`copy-demo-assets.mjs` 只复制：
 
 ```text
 ../ice3-engine/examples/m1/assets/wastewater-plant/tiled
 ```
 
-to:
+到：
 
 ```text
 dist/assets/wastewater-plant/tiled
 ```
 
-It removes an existing destination first, copies into a temporary sibling
-directory, then renames into place. It never copies `source/` or `prepared/`.
+它先移除既有 destination，将内容复制到同级 temporary directory，再 rename 到目标。
+永不复制 `source/` 或 `prepared/`。
 
-`build:demo` becomes:
+`build:demo` 变为：
 
 ```json
 "build:demo": "webpack --mode production --env demo && node scripts/copy-demo-assets.mjs"
 ```
 
-Webpack serves the sibling asset root through `devServer.static`. The generated
-HTML uses relative script and stylesheet URLs.
+Webpack 通过 `devServer.static` 提供同级 Asset root。生成的 HTML 使用相对 script 和
+stylesheet URL。
 
-- [ ] **Step 3: Add Playwright web servers**
+- [ ] **步骤 3：增加 Playwright web server**
 
-Use:
+使用：
 
-- web application: `npm run dev:web -- --port 8110`
-- Agent API: `ICE_AGENT_PACE=0 npm run dev:api`
-- static demo test: `npx http-server dist -p 8111 -c-1` after `build:demo`
+- Web 应用：`npm run dev:web -- --port 8110`。
+- Agent API：`ICE_AGENT_PACE=0 npm run dev:api`。
+- Static demo test：执行 `build:demo` 后运行 `npx http-server dist -p 8111 -c-1`。
 
-Run Chromium and WebKit projects. The static test must observe zero requests to
-the Agent API.
+运行 Chromium 和 WebKit project。Static test 必须观察不到任何 Agent API request。
 
-- [ ] **Step 4: Write the README**
+- [ ] **步骤 4：编写 README**
 
-Document:
+编写以下 command 的文档：
 
 ```bash
 npm install
@@ -1226,12 +1222,12 @@ npm run verify
 npm run test:e2e
 ```
 
-Document URL switches, server environment variables, asset copying, static
-asset exclusions, and the distinction between scene commands and engine APIs.
+记录 URL switch、server environment variable、Asset 复制、static Asset exclusion，
+以及 Scene command 与 Engine API 的区别。
 
-- [ ] **Step 5: Run the complete verification**
+- [ ] **步骤 5：运行完整验证**
 
-Run:
+运行：
 
 ```bash
 npm run verify
@@ -1239,16 +1235,16 @@ npm run build:demo
 npm run test:e2e
 ```
 
-Expected:
+预期：
 
-- typecheck exits 0;
-- all unit and integration tests pass;
-- production and demo builds succeed;
-- Chromium and WebKit tests pass;
-- static requests never target the Agent API;
-- no source or prepared GLB exists under `dist/assets/`.
+- typecheck exit 0。
+- 所有 unit 和 integration test 通过。
+- production 和 demo build 成功。
+- Chromium 和 WebKit test 通过。
+- Static request 永不访问 Agent API。
+- `dist/assets/` 下不存在 source 或 prepared GLB。
 
-- [ ] **Step 6: Commit**
+- [ ] **步骤 6：提交**
 
 ```bash
 git add scripts/copy-demo-assets.mjs playwright.config.ts e2e package.json package-lock.json webpack.config.cjs README.md
@@ -1257,21 +1253,20 @@ git commit -m "feat: add static agent console demo"
 
 ---
 
-## Final Verification
+## 最终验证
 
-- [ ] Run `npm run verify`.
-- [ ] Run `npm run build:demo`.
-- [ ] Run `npm run test:e2e`.
-- [ ] Confirm `dist/assets/wastewater-plant/tiled/tileset.json` exists.
-- [ ] Confirm `dist/assets/wastewater-plant/source` does not exist.
-- [ ] Confirm `dist/assets/wastewater-plant/prepared` does not exist.
-- [ ] Confirm no configured API key appears in any `dist/` file.
-- [ ] Start the normal application and manually verify 3D orbit, zoom, selection,
-  collision-free panel layout, scripted overview, device focus, and clear.
-- [ ] Start the demo build from a nested path and manually repeat the same flows.
-- [ ] Run `git status --short` and confirm the worktree is clean.
+- [ ] 运行 `npm run verify`。
+- [ ] 运行 `npm run build:demo`。
+- [ ] 运行 `npm run test:e2e`。
+- [ ] 确认 `dist/assets/wastewater-plant/tiled/tileset.json` 存在。
+- [ ] 确认 `dist/assets/wastewater-plant/source` 不存在。
+- [ ] 确认 `dist/assets/wastewater-plant/prepared` 不存在。
+- [ ] 确认任何 `dist/` 文件都不包含已配置 API key。
+- [ ] 启动普通应用并手动验证 3D orbit、zoom、Selection、无碰撞 panel layout、scripted overview、device focus 和 clear。
+- [ ] 从嵌套路径启动 demo build，并手动重复相同 flow。
+- [ ] 运行 `git status --short`，确认 worktree 干净。
 
-## Related Documents
+## 关联文档
 
-- `ICE3-AGENT-IDX-001` — [Documentation index](../README.md)
-- `ICE3-AGENT-SPEC-001` — [Console design](../specs/2026-10-28-ice3-agent-console-design.md)
+- `ICE3-AGENT-IDX-001` — [文档索引](../README.md)
+- `ICE3-AGENT-SPEC-001` — [Console 设计](../specs/2026-10-28-ice3-agent-console-design.md)
