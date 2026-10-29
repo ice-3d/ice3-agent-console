@@ -56,6 +56,32 @@ server transport。
 GitHub Pages 只提供静态文件，没有 `8099` Agent service。线上应使用默认地址或
 `?demo=1`；`?demo=0` 会尝试连接不存在的后端。
 
+## 搜索与访问统计
+
+静态页面包含：
+
+- 面向搜索结果的 title、description、keywords 和 canonical URL。
+- Open Graph、Twitter Card 与 `1200×630` 社交分享图。
+- `WebSite` 和 `SoftwareApplication` JSON-LD。
+- 视觉隐藏但可访问的页面文字摘要，为不执行 WebGL 的爬虫说明场景内容。
+- 指向 ICE3 家族仓库的可抓取链接。
+- `robots.txt` 和 `sitemap.xml`。
+
+canonical 与 sitemap 的正式地址均为：
+
+```text
+https://ice-3d.github.io/ice3-agent-console/
+```
+
+访问统计沿用 2D Agent Console 的 GA4 Measurement ID：
+
+```text
+G-HW6H6EP0ES
+```
+
+`gtag.js` 只在非本地主机注入。`localhost`、`*.localhost`、`127.0.0.1`、`::1` 和
+`file:` 页面不会发送统计请求，避免开发调试和 E2E 污染生产数据。
+
 ## 发布文件
 
 Static build 包含：
