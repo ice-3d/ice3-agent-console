@@ -10,10 +10,19 @@
 
 - The 3D stage is the primary interface and remains mounted across conversation updates.
 - Browser scene integration uses only public `ice3` exports.
-- Agent implementations emit a shared protocol event stream and do not import renderer or GPU internals.
-- Shared tool and event names live in `shared/`; do not duplicate protocol strings.
+- Conversation and Agent behavior stay in this application; they do not enter the engine or industrial core.
+- Agent implementations emit protocol events and never import renderer or GPU internals.
+- Shared tool and event names live in `shared/`; do not duplicate protocol strings across modules.
 - The scripted Agent must run without credentials.
 - A configured model failure is an error, not a reason to silently run the scripted Agent.
+- Only `find_equipment` and `select_equipment` are exposed to the Agent.
+
+## Demonstration assets
+
+- The checked-in demonstration uses the synthetic wastewater plant.
+- Do not add real customer models, derived models, screenshots, or extracted textures to this repository.
+- Static builds contain only the synthetic runtime asset tree and must work without a backend or credentials.
+- Before completing asset-dependent work, inspect Git status, tracked files, ignore rules, and staged content.
 
 ## Delivery
 
@@ -21,8 +30,7 @@
 - Every behavioral change follows RED-GREEN-REFACTOR.
 - Use Node.js 24.22.1 LTS from `.nvmrc`.
 - Do not introduce development tooling that an approved ICE3 decision excludes.
-- Static builds must work without a backend or model credentials.
-- Static output includes only the synthetic runtime asset tree.
+- If an event, tool, asset, or protocol change crosses repositories, update the canonical change in `ice3-doc` and verify the affected consumer.
 
 ## Commit identity
 
@@ -33,23 +41,7 @@
 
 - Do not use competitor, vendor, or third-party product names in product documents, source identifiers, comments, examples, diagnostics, or commits.
 - Describe comparisons with neutral category names.
-- Do not link to external materials that expose prohibited names. Keep any necessary research outside product repositories and subject it to legal review.
-- Never reference or copy real customer model assets into this repository.
-
-## Customer asset protection
-
-- Real customer model assets remain in a controlled local directory outside every repository.
-- Original models and derived assets must not enter source, tests, examples, documentation, screenshots, logs, build output, packages, or Git history.
-- Derived assets include converted models, simplified models, previews, thumbnails, extracted textures, and other identifiable content.
-- Do not stage, commit, push, or upload customer assets or derivative data to any remote service.
-- Tests, demos, and public builds use synthetic, sanitized, or explicitly redistributable assets.
-- Before completing asset-related work, inspect Git status, tracked files, ignore rules, and staged content.
-
-## Cross-repository contracts
-
-- `ice3-doc` is the single source of truth for formats, metrics, budgets, compatibility rules, shared diagnostics, and other cross-project contracts.
-- This repository documents its own implementation and links to the canonical contract instead of independently maintaining a complete copy.
-- A contract change requires checking every consumer in the ICE3 family and passing the frozen contract or conformance tests.
+- Do not link to external research that exposes prohibited names.
 
 ## Verification
 
