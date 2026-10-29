@@ -19,6 +19,7 @@ test('serves production TDK and keeps GA disabled on localhost', async ({ page }
     .toHaveAttribute('href', 'https://ice-3d.github.io/ice3-agent-console/');
   await expect(page.locator('meta[property="og:url"]'))
     .toHaveAttribute('content', 'https://ice-3d.github.io/ice3-agent-console/');
+  expect(await page.content()).toContain('G-5M03M076TL');
 
   const raw = await page.locator('script[type="application/ld+json"]').textContent();
   const graph = (JSON.parse(raw ?? '{}') as {

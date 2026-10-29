@@ -95,7 +95,8 @@ test('publishes crawl entry points and a meaningful canvas text alternative', ()
 });
 
 test('loads GA4 only outside local and file URLs', () => {
-  expect(html).toContain("'G-HW6H6EP0ES'");
+  expect(html).toContain("'G-5M03M076TL'");
+  expect(html).not.toContain('G-HW6H6EP0ES');
   expect(html).toContain("host === 'localhost'");
   expect(html).toContain("host === '127.0.0.1'");
   expect(html).toContain("host === '::1'");
