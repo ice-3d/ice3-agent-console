@@ -16,7 +16,9 @@
 - npm 11 或更高版本
 - 支持 WebGL2 的浏览器
 
-未配置 model variable 时，本地 Agent service 默认使用 scripted mode。
+未配置 model variable 时，本地 Agent service 默认使用 scripted mode。默认 Scene 固定
+为虚构污水处理厂；加载其它合规 3D 模型的方法见
+[接入其它 3D 模型](other-models.md)。
 
 ## 操作步骤
 
@@ -57,4 +59,5 @@ npm run test:e2e
 - `ICE3-AGENT-RM-001` — [README](../../README.md)
 - `ICE3-AGENT-GUIDE-002` — [静态部署](static-deployment.md)
 - `ICE3-AGENT-GUIDE-003` — [Real-Model 服务端](real-model-server.md)
+- `ICE3-AGENT-GUIDE-004` — [接入其它 3D 模型](other-models.md)
 - `ICE3-AGENT-REF-001` — [Protocol](../reference/protocol.md)

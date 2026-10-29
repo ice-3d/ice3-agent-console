@@ -1,6 +1,8 @@
 import { expect } from '#test-expect';
+import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 import { SCENE_TOOLS } from '../shared/contract.js';
+import { DEMO_ASSET_ID } from '../shared/demo-asset.js';
 import {
   QUICK_ACTION_GROUPS,
   SCRIPTED_SCENARIOS,
@@ -41,6 +43,30 @@ test('every static scenario uses approved tools and focuses equipment', () => {
       expect(SCENE_TOOLS).toContain(step.tool.name);
       expect(step.text.length).toBeGreaterThan(0);
     }
+  }
+});
+
+test('every built-in scene action targets equipment in the synthetic wastewater demo', async () => {
+  const manifest = JSON.parse(await readFile(
+    'public/assets/wastewater-plant/equipment.json',
+    'utf8',
+  )) as {
+    equipment: Array<{ selectionId: string }>;
+  };
+  const knownIds = new Set(
+    manifest.equipment.map((item) => item.selectionId),
+  );
+  const prefix = `${DEMO_ASSET_ID}/equipment/`;
+  const focusTargets = SCRIPTED_SCENARIOS.flatMap((scenario) => (
+    scenario.steps
+      .filter((step) => step.tool.name === 'focus_equipment')
+      .map((step) => String(step.tool.args.selectionId))
+  ));
+
+  expect(focusTargets.length).toBeGreaterThan(0);
+  for (const selectionId of focusTargets) {
+    expect(selectionId.startsWith(prefix)).toBe(true);
+    expect(knownIds.has(selectionId)).toBe(true);
   }
 });
 

@@ -1,18 +1,26 @@
 import { expect } from '#test-expect';
 import { test } from 'node:test';
-import { resolveWastewaterAssetUrl } from '../src/scene/asset-url.js';
+import { resolveDemoAssetUrl } from '../src/scene/asset-url.js';
 
-test('resolves the synthetic asset relative to the deployed page', () => {
-  expect(resolveWastewaterAssetUrl(
+test('resolves demo Tileset and manifest relative to the deployed page', () => {
+  expect(resolveDemoAssetUrl(
     'https://example.com/apps/agent-console/',
+    'tiled/tileset.json',
   )).toBe(
     'https://example.com/apps/agent-console/assets/wastewater-plant/tiled/tileset.json',
+  );
+  expect(resolveDemoAssetUrl(
+    'https://example.com/apps/agent-console/',
+    'equipment.json',
+  )).toBe(
+    'https://example.com/apps/agent-console/assets/wastewater-plant/equipment.json',
   );
 });
 
 test('preserves a query-free path from a nested page URL', () => {
-  expect(resolveWastewaterAssetUrl(
+  expect(resolveDemoAssetUrl(
     'https://example.com/apps/agent-console/index.html?demo=1',
+    'tiled/tileset.json',
   )).toBe(
     'https://example.com/apps/agent-console/assets/wastewater-plant/tiled/tileset.json',
   );

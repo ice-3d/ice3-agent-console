@@ -12,7 +12,8 @@ import type {
   SceneCommandResult,
   SceneSnapshot,
 } from '../../shared/scene.js';
-import { resolveWastewaterAssetUrl } from './asset-url.js';
+import { DEMO_ASSET } from '../../shared/demo-asset.js';
+import { resolveDemoAssetUrl } from './asset-url.js';
 import { moveCamera, type CameraPose } from './camera-controller.js';
 import { SceneCommandExecutor } from './controller.js';
 import type {
@@ -72,9 +73,9 @@ export async function createSceneController(
   options: BrowserSceneOptions,
 ): Promise<SceneController> {
   const assetBaseUri = options.assetBaseUri ?? document.baseURI;
-  const manifestResponse = await fetch(new URL(
-    'assets/wastewater-plant/equipment.json',
+  const manifestResponse = await fetch(resolveDemoAssetUrl(
     assetBaseUri,
+    DEMO_ASSET.manifestPath,
   ));
   if (!manifestResponse.ok) {
     throw new Error(
@@ -108,7 +109,7 @@ export async function createSceneController(
   });
   const loader = new ICETilesetLoader(engine, { camera });
   const handle: ICETilesetHandle = await loader.open(
-    resolveWastewaterAssetUrl(assetBaseUri),
+    resolveDemoAssetUrl(assetBaseUri, DEMO_ASSET.tilesetPath),
   );
   let orbit = new ICEOrbitController(engine, camera).start();
   engine.setScene(handle.scene).setCamera(camera).start();

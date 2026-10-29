@@ -45,8 +45,13 @@ Static build 包含：
 无后端部署路径可以打开并加载虚构污水处理厂，并通过 local event stream 执行所有内置
 场景。
 
+默认 static build 不包含其它演示 Asset。需要发布其它合规 3D 模型时，必须保留完整的
+Prepared Tileset 和设备清单，并按 [接入其它 3D 模型](other-models.md)调整 custom
+deployment。
+
 ## 关联文档
 
 - `ICE3-AGENT-RM-001` — [README](../../README.md)
 - `ICE3-AGENT-ARC-001` — [架构](../architecture.md)
+- `ICE3-AGENT-GUIDE-004` — [接入其它 3D 模型](other-models.md)
 - `ICE3-AGENT-ADR-002` — [Transport policy](../decisions/0002-scripted-and-real-model-transport.md)
