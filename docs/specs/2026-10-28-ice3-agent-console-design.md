@@ -1,57 +1,54 @@
-# ICE3 Agent Console Design
+# ICE3 Agent Console 设计
 
 > Document ID: ICE3-AGENT-SPEC-001
 >
 > Status: Implemented
 >
 > Owner: ICE3 Agent Console maintainers
-## Purpose
+## 目标
 
-ICE3 Agent Console is an independent industrial application that combines a
-full-viewport 3D scene with a conversational Agent. The 3D scene remains the
-primary interface. The conversation panel controls and explains that scene
-instead of replacing it with a sequence of message cards.
+ICE3 Agent Console 是一个独立的工业应用，将全视口 3D Scene 与对话式 Agent 结合。
+3D Scene 始终是主要界面。对话面板用于控制和解释 Scene，而不是用一串消息卡片替代
+Scene。
 
-The first release is a complete vertical slice for the synthetic municipal
-wastewater treatment plant:
+首个版本是围绕虚构市政污水处理厂的完整垂直切片：
 
-- load the wastewater workspace and its LOD assets;
-- orbit, zoom, pan, select, focus, and highlight equipment;
-- answer a small deterministic set of operational questions;
-- provide a real-model adapter behind the same event interface;
-- produce both a server-backed build and a self-contained static demo build.
+- 加载污水处理厂 workspace 及其 LOD Asset。
+- 旋转、缩放、平移、选择、聚焦和高亮 equipment。
+- 回答一组规模有限且确定性的运行问题。
+- 在统一 event interface 后提供 Real-Model adapter。
+- 同时生成服务端构建和自包含 static demo build。
 
-The engine, toolchain, and industrial semantics remain independent of this
-application. The Agent Console consumes their public interfaces and does not
-move Agent behavior into the engine or domain model.
+Engine、Toolchain 和 industrial semantic 保持独立。Agent Console 只消费其公开
+interface，不把 Agent 行为迁入 Engine 或领域模型。
 
-## Scope
+## 范围
 
-### First release
+### 首个版本
 
-- Full-screen 3D wastewater-plant stage.
-- Floating, collapsible conversation panel.
-- Equipment information overlay.
-- Compact quick-command dock.
-- Scripted Agent enabled by default.
-- Real-model Agent adapter enabled by server configuration.
-- Server transport using AG-UI events and server-sent events.
-- Browser-local transport for a static demo build.
-- Camera and equipment tools implemented through public scene APIs.
-- Chromium and WebKit end-to-end coverage.
+- 全屏 3D 污水处理厂舞台。
+- 可折叠浮动对话面板。
+- Equipment information overlay。
+- 紧凑 quick-command dock。
+- 默认启用 scripted Agent。
+- 通过服务端配置启用 Real-Model Agent adapter。
+- 使用 AG-UI event 和 Server-Sent Events 的 server transport。
+- Static demo build 使用 browser-local transport。
+- camera 和 equipment tool 通过公开 Scene API 实现。
+- Chromium 和 WebKit 端到端覆盖。
 
-### Deferred
+### 暂缓
 
-- Authorization, multi-tenant identity, and persistent conversation storage.
-- Charts, editable forms, control commands, and approval workflows.
-- Combined 2D and 3D business views.
-- Multi-user collaboration and shared camera sessions.
-- Real-time process telemetry.
-- Authoring or editing 3D geometry from the console.
+- 授权、多租户 identity 和持久化 conversation storage。
+- 图表、可编辑表单、control command 和审批 workflow。
+- 组合式 2D/3D 业务视图。
+- 多用户协作和共享 camera session。
+- 实时过程遥测。
+- 从 Console 创建或编辑 3D Geometry。
 
-## Architecture
+## 架构
 
-The project is a single TypeScript package with four runtime boundaries:
+项目是单个 TypeScript package，包含四个 Runtime 边界：
 
 ```text
 ice3-agent-console/
@@ -68,7 +65,7 @@ ice3-agent-console/
 └── e2e/
 ```
 
-The dependency direction is:
+依赖方向为：
 
 ```text
 view -> protocol -> shared
@@ -77,289 +74,268 @@ scene -> public `ice3` package + shared
 server -> agents + transport + shared
 ```
 
-`src/scene` is the only browser module permitted to construct or mutate engine
-objects. `server` and Agent implementations must not import renderer internals
-or access GPU resources.
+`src/scene` 是唯一允许构造或修改 Engine object 的浏览器模块。`server` 和 Agent 实现
+不得导入 renderer internals 或访问 GPU resource。
 
-## Application Composition
+## 应用组合
 
-`src/app` owns startup and shutdown:
+`src/app` 负责启动和停止：
 
-1. create the perspective camera, engine, orbit controller, and tileset loader;
-2. load the synthetic wastewater tileset;
-3. create the scene controller;
-4. create the per-session event reducer and view;
-5. select the configured local or server Agent transport;
-6. expose diagnostics needed by tests without exposing engine internals.
+1. 创建 PerspectiveCamera、Engine、orbit controller 和 Tileset loader。
+2. 加载虚构污水处理厂 Tileset。
+3. 创建 Scene controller。
+4. 创建每个 session 的 event reducer 和 view。
+5. 选择配置的 local 或 server Agent transport。
+6. 暴露测试所需 Diagnostic，同时不暴露 Engine internals。
 
-Disposal reverses the process and must be idempotent.
+Disposal 按相反顺序执行，并且必须幂等。
 
 ## Scene Controller
 
-The scene controller adapts public `ice3` capabilities into application-level
-commands. It owns:
+Scene controller 将公开 `ice3` capability 转换为应用级 command。它负责：
 
-- current equipment catalog and metadata;
-- current selection;
-- camera overview and equipment focus;
-- temporary highlight state;
-- loading and LOD status snapshots;
-- cancellation of Agent-driven camera movement when the user starts
-  interacting.
+- 当前 equipment catalog 和 metadata。
+- 当前 Selection。
+- camera overview 与 equipment focus。
+- 临时 highlight state。
+- loading 和 LOD status snapshot。
+- 用户开始交互时取消 Agent 驱动的 camera movement。
 
-The first-release semantic commands are:
+首版 semantic command 为：
 
-| Command | Input | Result |
+| Command | 输入 | 结果 |
 | --- | --- | --- |
-| `find_equipment` | text, tag, stage, kind, or area | ranked equipment matches |
-| `select_equipment` | one or more selection IDs | updated selection and card |
-| `focus_equipment` | selection ID and optional framing | selected device and camera focus |
-| `highlight_equipment` | selection IDs and optional duration | temporary visible emphasis |
-| `set_camera_view` | overview, area, equipment, or top | animated camera change |
-| `clear_scene_focus` | none | clear selection, highlight, and restore overview |
+| `find_equipment` | text、tag、stage、kind 或 area | 排序后的 equipment match |
+| `select_equipment` | 一个或多个 Selection ID | 更新 Selection 和 card |
+| `focus_equipment` | Selection ID 和可选 framing | 选中设备并聚焦 camera |
+| `highlight_equipment` | Selection ID 和可选 duration | 临时可见强调 |
+| `set_camera_view` | overview、area、equipment 或 top | 动画切换 camera |
+| `clear_scene_focus` | 无 | 清除 Selection/highlight 并恢复 overview |
 
-These names belong only to the Agent Console. They do not imply that ICE3 has
-an AI-specific API.
+这些名称只属于 Agent Console，不表示 ICE3 提供 AI 专用 API。
 
-Every command returns a structured result containing its status, affected
-selection IDs, and a display-safe message. Invalid IDs and unavailable
-equipment do not mutate the scene.
+每个 command 返回结构化结果，包含 status、受影响的 Selection ID 和可安全展示的
+message。无效 ID 和不可用 equipment 不修改 Scene。
 
 ## Agent Protocol
 
-The Agent Console reuses the AG-UI event model established by the 2D product:
+Agent Console 复用 2D 产品建立的 AG-UI event model：
 
-- run lifecycle events;
-- streamed text messages;
-- tool-call start, argument, completion, and result events;
-- state snapshots and deltas;
-- application custom events;
-- run errors.
+- run lifecycle event。
+- 流式 text message。
+- tool-call start、argument、completion 和 result event。
+- state snapshot 和 delta。
+- application custom event。
+- run error。
 
-Tool-call names and custom event names live in `shared/contract.ts` and are
-imported by both the browser and server. No component duplicates those string
-literals.
+Tool-call name 和 custom event name 位于 `shared/contract.ts`，由 browser 和 server
+共同导入。任何组件都不得重复定义这些 string literal。
 
-Application custom events cover transient scene intent that is not durable
-state:
+Application custom event 表示非持久化 Scene intent：
 
-- pointer or emphasis requests;
-- camera-view requests;
-- scene-feedback acknowledgement.
+- pointer 或 emphasis request。
+- camera-view request。
+- Scene feedback acknowledgement。
 
-Durable facts, such as the selected equipment and the active scene view, live
-in session state.
+Selected equipment 和 active Scene view 等持久事实保存在 session state。
 
-Each Agent run receives bounded context:
+每次 Agent run 接收有边界的 context：
 
-- current selected equipment;
-- current camera target and whether the view is overview or focused;
-- visible equipment summary;
-- latest user scene action, if any;
-- conversation history supplied by the client.
+- 当前 selected equipment。
+- 当前 camera target，以及当前是 overview 还是 focused。
+- visible equipment summary。
+- 最近的用户 Scene action（如有）。
+- Client 提供的 conversation history。
 
-The context is structured data. The client does not concatenate scene facts
-into the user's message.
+Context 是结构化数据。Client 不把 Scene fact 拼接到用户 message 中。
 
-## Agent Implementations
+## Agent 实现
 
-Both implementations satisfy one `AgentRun` interface and emit the same event
-types.
+两种实现都满足同一个 `AgentRun` interface，并发送相同 event type。
 
 ### Scripted Agent
 
-The deterministic first-release scenarios are:
+首版确定性场景包括：
 
-- play a guided opening tour from the full-plant overview through inlet,
-  anaerobic, aerobic, secondary-clarifier, coagulation, filtration, and sludge
-  equipment before returning to the overview;
-- provide grouped static tours for intake, AAO biology, secondary clarification,
-  advanced treatment, sludge treatment, aeration, chemical dosing, effluent
-  monitoring, and emergency storage/return;
-- locate and explain a named equipment group;
-- focus and highlight the current selection;
-- explain the selected device;
-- clear emphasis and restore overview.
+- 从全厂 overview 开始，依次巡游进水、厌氧、好氧、二沉池、混凝、过滤和污泥设备，
+  最后回到 overview。
+- 为 intake、AAO biology、secondary clarification、advanced treatment、sludge
+  treatment、aeration、chemical dosing、effluent monitoring 和 emergency
+  storage/return 提供分组静态巡游。
+- 定位并解释指定 equipment group。
+- 聚焦并高亮当前 Selection。
+- 解释选中 device。
+- 清除强调并恢复 overview。
 
-The implementation must be deterministic and require no network or
-credentials.
+实现必须具有确定性，并且不需要 network 或 credential。
 
 ### Real-Model Agent
 
-The server detects model configuration and constructs a real-model adapter.
-Configuration uses environment variables and never reaches the browser.
+Server 检测 model configuration 并构造 Real-Model adapter。Configuration 使用
+environment variable，永不进入浏览器。
 
-The adapter:
+Adapter 负责：
 
-- sends the approved scene tools;
-- validates tool calls before returning them to the client;
-- streams text and reasoning-safe progress events;
-- preserves tool-call IDs across streaming updates;
-- aborts provider work when the client disconnects;
-- reports unavailable or invalid model configuration explicitly.
+- 发送经批准的 Scene Tool。
+- 返回 client 前校验 tool call。
+- 流式发送 text 和 reasoning-safe progress event。
+- 跨流式 update 保持 tool-call ID。
+- 在 client disconnect 时终止 provider work。
+- 明确报告不可用或无效 model configuration。
 
-The adapter is provider-neutral internally. The initial transport may use a
-widely supported chat-completions-compatible endpoint, but no model-specific
-behavior may enter the scene controller or view.
+Adapter 内部保持 provider-neutral。初始 transport 可以使用广泛支持的
+chat-completions-compatible endpoint，但 model-specific behavior 不得进入 Scene
+controller 或 view。
 
-Failure to reach a configured model is an error. It must not silently produce
-the scripted response.
+无法连接已配置 model 属于 error，不得静默生成 scripted response。
 
-## Runtime Modes
+## Runtime 模式
 
-Two independent axes determine behavior:
+行为由两个独立维度决定：
 
 ### Transport
 
-- `server`: browser calls the local Agent endpoint over SSE.
-- `demo`: the same scripted Agent runs in the browser with no backend.
+- `server`：browser 通过 SSE 调用本地 Agent endpoint。
+- `demo`：相同 scripted Agent 在 browser 内运行，不需要 backend。
 
-Normal builds default to `server`. Demo builds default to `demo`.
-`?demo=1` and `?demo=0` override the build default. Invalid values fall back to
-the build default.
+普通构建默认使用 `server`，demo build 默认使用 `demo`。`?demo=1` 和 `?demo=0`
+覆盖 build default。无效值回退到 build default。
 
 ### Autoplay
 
-- All builds of this demonstration default to the guided opening tour.
-- `?autoplay=1` and `?autoplay=0` override the build default.
+- 该演示的所有构建默认播放引导开场巡游。
+- `?autoplay=1` 和 `?autoplay=0` 覆盖 build default。
 
-The two axes are independent. Any manual conversation or scene interaction
-cancels autoplay and Agent-driven camera motion.
+两个维度互相独立。任何手动 conversation 或 Scene interaction 都会取消 autoplay 和
+Agent 驱动的 camera movement。
 
-The guided opening tour is a multi-event Agent run. Every stop streams narration,
-selects the relevant equipment, and moves the camera before the next stop starts.
-Programmatic selections caused by tour tools are not user intent and must not
-cancel the run; pointer, keyboard, or explicit user selection does cancel it.
+引导开场巡游是一次多 event Agent run。每个 stop 流式发送讲解、选择相关 equipment，
+并在下一 stop 开始前移动 camera。Tour tool 引起的 programmatic Selection 不是用户
+意图，不得取消 run；pointer、keyboard 或显式用户 Selection 会取消。
 
-## Interface
+## 界面
 
-The 3D stage occupies the full viewport. The conversation panel floats over the
-right edge.
+3D 舞台占据全 viewport，conversation panel 浮动在右侧边缘。
 
 ### Stage
 
-- black background;
-- wastewater-plant view loaded by default;
-- existing orbit, zoom, pan, keyboard, and picking behavior;
-- equipment focus is centered in the unobscured stage region beside or above
-  the conversation panel, with camera distance derived from the equipment
-  bounds and viewport aspect rather than a fixed zoom multiplier;
-- selection emphasis supplied by the engine, including a short yellow pulse
-  whenever the selected equipment changes; the pulse finishes in the selected
-  state and is replaced or cancelled when the user takes control;
-- reduced-motion preferences keep the yellow emphasis static;
-- loading, LOD, and failure status;
-- no permanent equipment label clutter.
+- 黑色背景。
+- 默认加载污水处理厂 view。
+- 保留既有 orbit、zoom、pan、keyboard 和 picking 行为。
+- Equipment focus 居中于 conversation panel 旁边或上方的未遮挡区域；camera distance
+  根据 equipment Bounds 和 viewport aspect 计算，不使用固定 zoom multiplier。
+- Selection 强调由 Engine 提供；选中 equipment 变化时播放短暂黄色 pulse。Pulse 以
+  selected state 结束；用户接管时替换或取消。
+- Reduced-motion preference 下黄色强调保持静态。
+- 显示 loading、LOD 和 failure status。
+- 不保留永久 equipment label 遮挡。
 
 ### Conversation Panel
 
-- expandable and collapsible;
-- streamed assistant text;
-- user messages;
-- concise tool execution status;
-- visible Agent mode and transport mode;
-- accessible keyboard behavior;
-- error states that keep the previous scene visible.
+- 可展开和折叠。
+- 流式 assistant text。
+- User message。
+- 简洁 tool execution status。
+- 显示 Agent mode 和 transport mode。
+- 支持可访问 keyboard behavior。
+- Error state 保持之前 Scene 可见。
 
 ### Equipment Overlay
 
-The equipment card appears separately from the conversation panel and shows:
+Equipment card 与 conversation panel 分开显示：
 
-- display name;
-- equipment tag;
-- process stage;
-- area;
-- connection count;
-- current selection state.
+- 显示名称。
+- equipment tag。
+- 工艺阶段。
+- 区域。
+- 连接数量。
+- 当前 Selection 状态。
 
-It must not cover the selected equipment when the scene focuses on it.
+Scene 聚焦选中 equipment 时，overlay 不得遮挡该 equipment。
 
-### Quick Commands
+### Quick Command
 
-The first release exposes:
+首版提供：
 
-- full-plant overview;
-- locate secondary clarifier;
-- explain aerobic tank;
-- clear selection and focus.
+- 全厂 overview。
+- 定位 secondary clarifier。
+- 解释 aerobic tank。
+- 清除 Selection 和 focus。
 
-Quick commands use the same Agent input path as typed messages.
+Quick command 与 typed message 使用相同 Agent input path。
 
-## Assets and Deployment
+## Asset 与部署
 
-The development application may read the synthetic wastewater assets directly
-from the sibling `ice3-engine` repository.
+开发应用可以直接从同级 `ice3-engine` 仓库读取虚构污水处理厂 Asset。
 
-Normal builds resolve the public `ice3` package and copy only the referenced
-runtime asset tree into the application output.
+普通构建解析公开 `ice3` package，只把被引用的 Runtime Asset tree 复制到应用 output。
 
-Demo builds are self-contained:
+Demo build 自包含：
 
-- Tileset and runtime slices use relative URLs;
-- source GLBs and development-only intermediate files are excluded;
-- the browser-local Agent is included;
-- no server or model credentials are required;
-- output works when served from a repository subpath.
+- Tileset 和 Runtime slice 使用相对 URL。
+- 排除 source GLB 和仅开发使用的 intermediate file。
+- 包含 browser-local Agent。
+- 不需要 server 或 model credential。
+- 从 repository subpath 提供服务时 output 仍可用。
 
-Real customer assets must never be referenced by source, build scripts, test
-fixtures, screenshots, or deployment output.
+Source、build script、test fixture、screenshot 或 deployment output 永不引用真实
+客户 Asset。
 
-## Error Handling
+## Error 处理
 
-- Invalid AG-UI input returns HTTP 422 with structured issues.
-- Provider failures emit `RUN_ERROR` without silently falling back.
-- Unknown tools or equipment produce a tool error and no scene mutation.
-- Missing runtime assets show a persistent, accessible load error.
-- Lost model connections preserve the complete prior scene and conversation.
-- User pointer or keyboard navigation cancels Agent camera motion.
-- Static demo mode does not attempt network transport by default.
+- 无效 AG-UI input 返回带结构化 issue 的 HTTP 422。
+- Provider failure 发送 `RUN_ERROR`，不静默回退。
+- 未知 tool 或 equipment 产生 tool error，不修改 Scene。
+- Runtime Asset 缺失时显示持续且可访问的 load error。
+- Model connection 丢失时保留之前完整 Scene 和 conversation。
+- 用户 pointer 或 keyboard navigation 取消 Agent camera movement。
+- Static demo mode 默认不尝试 network transport。
 
-## Testing
+## 测试
 
 ### Unit
 
-- transport and autoplay mode resolution;
-- AG-UI event reducer ordering and streamed text;
-- tool-call state transitions;
-- scene command validation;
-- equipment query and metadata mapping;
-- scripted Agent determinism;
-- model configuration without exposing credentials.
+- Transport 和 autoplay mode 解析。
+- AG-UI event reducer 顺序和 streamed text。
+- Tool-call state transition。
+- Scene command validation。
+- Equipment query 和 metadata mapping。
+- Scripted Agent 确定性。
+- Model configuration 不暴露 credential。
 
 ### Integration
 
-- all scripted tools execute against a scene-controller test double that
-  implements only the public command contract;
-- invalid tools and IDs leave scene state unchanged;
-- server emits valid AG-UI SSE responses;
-- client disconnect aborts a model request.
+- 所有 scripted tool 针对只实现公开 command contract 的 Scene controller test double
+  执行。
+- 无效 tool 和 ID 不修改 Scene state。
+- Server 发送有效 AG-UI SSE response。
+- Client disconnect 终止 model request。
 
 ### End-to-end
 
-- server mode loads the wastewater plant and completes an overview command;
-- scripted mode locates and focuses a named device;
-- selecting a device updates the equipment overlay;
-- Agent highlight is visible and can be cleared;
-- autoplay yields to user interaction;
-- static build runs without backend requests;
-- responsive layout remains usable at desktop and narrow widths.
+- Server mode 加载污水处理厂并完成 overview command。
+- Scripted mode 定位和聚焦指定 device。
+- 选中 device 更新 equipment overlay。
+- Agent highlight 可见且可清除。
+- Autoplay 让位于用户 interaction。
+- Static build 不发送 backend request。
+- 响应式布局在桌面和窄屏下保持可用。
 
-Core E2E flows run in Chromium and WebKit.
+核心 E2E flow 在 Chromium 和 WebKit 中运行。
 
-## Acceptance Criteria
+## 验收标准
 
-- The application starts with the synthetic wastewater plant visible.
-- No model credential is needed for the default demonstration.
-- A user can locate, select, focus, and clear equipment through both typed and
-  quick commands.
-- The same Agent tool calls work in server and browser-local modes.
-- A configured model can drive the same scene without UI changes.
-- The static build loads the 3D plant and scripted Agent without a backend.
-- The engine and toolchain are not modified to understand Agent concepts.
-- All package, browser, and deployment tests pass.
+- 应用启动时可见虚构污水处理厂。
+- 默认演示不需要 model credential。
+- 用户可以通过 typed command 和 quick command 定位、选择、聚焦和清除 equipment。
+- 同一 Agent tool call 在 server 和 browser-local mode 中都能工作。
+- 已配置 model 可以在不改变 UI 的情况下驱动同一 Scene。
+- Static build 无需 backend 即可加载 3D 工厂和 scripted Agent。
+- Engine 和 Toolchain 不因理解 Agent 概念而被修改。
+- Package、browser 和 deployment test 全部通过。
 
-## Related Documents
+## 关联文档
 
-- `ICE3-AGENT-IDX-001` — [Documentation index](../README.md)
-- `ICE3-AGENT-PLAN-001` — [Implementation plan](../plans/2026-10-28-ice3-agent-console.md)
-- `ICE3-AGENT-ARC-001` — [Application architecture](../architecture.md)
+- `ICE3-AGENT-IDX-001` — [文档索引](../README.md)
+- `ICE3-AGENT-PLAN-001` — [实施计划](../plans/2026-10-28-ice3-agent-console.md)
+- `ICE3-AGENT-ARC-001` — [应用架构](../architecture.md)
