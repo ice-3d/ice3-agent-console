@@ -71,6 +71,8 @@ jobs:
 
       - name: Build static demo
         working-directory: ice3-agent-console
+        env:
+          ICE3_EQUIPMENT_MANIFEST_REUSE: "1"
         run: npm run build:demo
 
       - name: Upload Pages artifact
