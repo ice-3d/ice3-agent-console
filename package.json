@@ -2,6 +2,7 @@
   "name": "ice3-agent-console",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "3D industrial scene console driven by an event-stream Agent",
   "engines": {
