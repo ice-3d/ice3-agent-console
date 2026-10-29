@@ -26,6 +26,34 @@ npx http-server dist -p 8111 -c-1
 
 预期：`http://127.0.0.1:8111/` 无需 Agent service 或 model credential 即可运行。
 
+## GitHub Pages
+
+线上演示地址：
+
+```text
+https://ice-3d.github.io/ice3-agent-console/
+```
+
+仓库使用 [Deploy demo to Pages](../../.github/workflows/deploy-pages.yml) 在 `main`
+更新后自动构建并发布。Workflow 会同时检出公开的 `ice3-engine` 仓库，因为当前静态
+构建需要读取同级 Engine package 和虚构污水处理厂 Runtime Asset。
+
+发布流程：
+
+1. 检出 Agent Console 和 Engine。
+2. 使用 `.nvmrc` 指定的 Node.js 24.22.1。
+3. 安装两个仓库的依赖。
+4. 运行文档门禁、类型检查和单元测试。
+5. 执行 `npm run build:demo`。
+6. 将 `dist/` 作为 Pages artifact 发布。
+
+仓库 Settings 中的 Pages Source 必须保持为 `GitHub Actions`。不要把 151 MiB 左右的
+完整 `dist/` 提交到 `main`，也不要改用普通 `npm run build`，因为普通构建默认选择
+server transport。
+
+GitHub Pages 只提供静态文件，没有 `8099` Agent service。线上应使用默认地址或
+`?demo=1`；`?demo=0` 会尝试连接不存在的后端。
+
 ## 发布文件
 
 Static build 包含：
