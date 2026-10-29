@@ -6,6 +6,8 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
+[![ICE3 污水处理厂 3D Agent Console 在线演示](public/og-cover.jpg)](https://ice-3d.github.io/ice3-agent-console/)
+
 ICE3 Agent Console 展示对话式 Agent 如何通过一组小而严格的工具接口操作工业 3D
 Scene。默认模型是一座完全虚构的市政污水处理厂。
 
@@ -32,6 +34,15 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 | 搜索与统计 | 完整 TDK、结构化数据、robots/sitemap 和 GA4 线上访问统计 |
 
 本工程是应用层，依赖公开 engine API，不向 engine 或 industrial core 增加 Agent 概念。
+
+## 界面预览
+
+| Agent 工艺巡游 | 聚焦设备 |
+|---|---|
+| [![Agent 正在讲解污水处理厂二沉池，右侧显示对话和剩余污泥泵信息](docs/images/readme-agent-tour.jpg)](https://ice-3d.github.io/ice3-agent-console/) | [![收起对话面板后查看聚焦的污水处理设备与设备信息浮层](docs/images/readme-scene-focus.jpg)](https://ice-3d.github.io/ice3-agent-console/) |
+
+左图展示 Agent 按工艺段自动移动镜头并讲解设备；右图展示收起对话面板后的聚焦场景。
+两张图均来自版本库中的虚构污水处理厂示例。
 
 ## 快速开始
 
