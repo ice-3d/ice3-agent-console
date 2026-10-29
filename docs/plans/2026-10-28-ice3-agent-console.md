@@ -1270,3 +1270,8 @@ git commit -m "feat: add static agent console demo"
   collision-free panel layout, scripted overview, device focus, and clear.
 - [ ] Start the demo build from a nested path and manually repeat the same flows.
 - [ ] Run `git status --short` and confirm the worktree is clean.
+
+## Related Documents
+
+- `ICE3-AGENT-IDX-001` — [Documentation index](../README.md)
+- `ICE3-AGENT-SPEC-001` — [Console design](../specs/2026-10-28-ice3-agent-console-design.md)

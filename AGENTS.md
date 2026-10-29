@@ -36,3 +36,8 @@ npm run verify
 npm run build:demo
 npm run test:e2e
 ```
+
+## Related Documents
+
+- `ICE3-AGENT-IDX-001` — [Documentation index](docs/README.md)
+- `ICE3-AGENT-ARC-001` — [Application architecture](docs/architecture.md)
