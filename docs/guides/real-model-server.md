@@ -1,4 +1,4 @@
-# ICE3 Agent Console Real-Model Server
+# ICE3 Agent Console Real-Model 服务端
 
 > Document ID: ICE3-AGENT-GUIDE-003
 >
@@ -6,14 +6,13 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## Intended Outcome
+## 目标结果
 
-Connect the console to a compatible model endpoint without exposing credentials
-to the browser.
+将 Console 连接到兼容 model endpoint，同时不向浏览器暴露凭据。
 
-## Configuration
+## 配置
 
-Set all three variables:
+同时设置以下三个变量：
 
 ```bash
 export ICE_AGENT_MODEL_BASE_URL='https://model.example/v1'
@@ -22,32 +21,29 @@ export ICE_AGENT_MODEL_NAME='industrial-agent'
 npm run dev
 ```
 
-Optional server settings:
+可选服务端设置：
 
-- `ICE_AGENT_PORT`, default `8099`.
-- `ICE_AGENT_PACE`, default `18` milliseconds for scripted output pacing.
+- `ICE_AGENT_PORT`，默认值为 `8099`。
+- `ICE_AGENT_PACE`，脚本输出节奏，默认值为 `18` 毫秒。
 
-## Request Path
+## 请求路径
 
-The server posts a chat-completions-compatible request containing the six
-approved scene-tool definitions. It converts compatible text and tool-call
-responses into the shared event stream.
+服务端发送兼容 chat-completion 的请求，其中包含六个批准的 Scene Tool 定义。它将兼容
+text 和 tool-call response 转换为共享 event stream。
 
-## Credential Rules
+## 凭据规则
 
-- Keep the key only in server environment variables.
-- Never place credentials in URL parameters, built assets, logs, or browser
-  events.
-- `/health` exposes mode, model name, and endpoint host only.
+- API key 只保存在服务端 environment variable。
+- 不得将凭据放入 URL parameter、build asset、log 或 browser event。
+- `/health` 只暴露 mode、model name 和 endpoint host。
 
-## Failure Behavior
+## 失败行为
 
-If some model variables are present but others are missing, the service starts in
-an invalid state and reports the missing names. If a configured endpoint fails,
-the console reports an error; it does not silently run the scripted Agent.
+部分 model variable 存在而其他缺失时，service 以无效状态启动并报告缺失名称。已配置
+endpoint 失败时，Console 报告 error，不静默运行 scripted Agent。
 
-## Related Documents
+## 关联文档
 
 - `ICE3-AGENT-REF-001` — [Protocol](../reference/protocol.md)
 - `ICE3-AGENT-ADR-002` — [Transport policy](../decisions/0002-scripted-and-real-model-transport.md)
-- `ICE3-AGENT-GUIDE-001` — [Local development](local-development.md)
+- `ICE3-AGENT-GUIDE-001` — [本地开发](local-development.md)
