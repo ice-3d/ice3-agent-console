@@ -1,6 +1,6 @@
 {
   "name": "ice3-agent-console",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -31,11 +31,7 @@
   },
   "dependencies": {
     "@ag-ui/core": "1.0.3",
-    "@ice3/assets": "file:../ice3-engine/packages/assets",
-    "@ice3/core": "file:../ice3-engine/packages/core",
-    "@ice3/renderer": "file:../ice3-engine/packages/renderer",
-    "@ice3/runtime": "file:../ice3-engine/packages/runtime",
-    "ice3": "file:../ice3-engine/packages/ice3",
+    "ice3": "0.2.0",
     "markdown-it": "15.0.3",
     "zod": "^4.6.7"
   },

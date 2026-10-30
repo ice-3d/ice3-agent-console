@@ -38,6 +38,17 @@ interface BrowserSceneOptions {
   readonly onUserCameraIntent?: () => void;
 }
 
+type SceneEngineFactory = (
+  options: Readonly<{ renderer: 'webgl2' }>,
+) => ICE3;
+
+export async function initializeSceneEngine(
+  stage: HTMLElement,
+  createEngine: SceneEngineFactory = (options) => new ICE3(options),
+): Promise<ICE3> {
+  return createEngine({ renderer: 'webgl2' }).initAsync(stage);
+}
+
 interface EquipmentManifest {
   readonly equipment: readonly {
     readonly selectionId: string;
@@ -97,7 +108,7 @@ export async function createSceneController(
     })),
   );
 
-  const engine = new ICE3().init(options.stage);
+  const engine = await initializeSceneEngine(options.stage);
   engine.setBackgroundColor('#000000');
   const camera = new ICEPerspectiveCamera({
     id: 'agent-console-camera',
