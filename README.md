@@ -26,7 +26,7 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 |---|---|
 | 对话 | 流式文本、工具调用、运行错误和取消 |
 | Scene | 设备发现、选择、聚焦、高亮、相机视角和清除 |
-| 渲染 | 自动选择能力完整的 WebGPU，不可用时回退 WebGL2 |
+| 渲染 | 默认使用稳定的 WebGL2；WebGPU 作为实验性能力显式启用 |
 | 传输 | 浏览器本地脚本模式或服务端事件流 |
 | 相机 | 多站点引导巡游和响应式舞台取景 |
 | Selection | 醒目的黄色脉冲和持续选中状态 |
@@ -51,7 +51,7 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 
 - Node.js 24.22.1 LTS
 - npm 11 或更高版本
-- 支持 WebGL2 的当前 Chromium 或 WebKit 浏览器；现代 WebGPU 环境会优先使用 WebGPU
+- 支持 WebGL2 的现代浏览器；WebGPU 为实验性显式选项
 
 ```bash
 git clone https://github.com/ice-3d/ice3-agent-console.git
