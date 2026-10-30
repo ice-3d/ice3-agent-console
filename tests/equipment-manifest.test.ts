@@ -13,9 +13,9 @@ test('contains stable identities and finite bounds for every device', async () =
       bounds: { min: number[]; max: number[] };
     }>;
   };
-  expect(manifest.equipment).toHaveLength(65);
+  expect(manifest.equipment.length).toBeGreaterThanOrEqual(200);
   expect(new Set(manifest.equipment.map((item) => item.selectionId)).size)
-    .toBe(65);
+    .toBe(manifest.equipment.length);
   for (const item of manifest.equipment) {
     expect(item.selectionId).toContain(`/equipment/${item.tag}`);
     expect([...item.bounds.min, ...item.bounds.max].every(Number.isFinite))
