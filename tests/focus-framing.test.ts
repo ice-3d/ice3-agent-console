@@ -1,6 +1,3 @@
-import {
-  projectWorldPoint,
-} from '@ice3/runtime';
 import { ICEPerspectiveCamera } from 'ice3';
 import { expect } from '#test-expect';
 import { test } from 'node:test';
@@ -60,6 +57,27 @@ test('centers an equipment focus in the desktop area left of the panel', () => {
   expect(right - left).toBeLessThan(visible.width * 0.8);
   expect(bottom - top).toBeLessThan(visible.height * 0.8);
 });
+
+function projectWorldPoint(
+  camera: ICEPerspectiveCamera,
+  position: readonly [number, number, number],
+  viewport: Readonly<{ x: number; y: number; width: number; height: number }>,
+) {
+  const matrix = camera.getViewProjectionMatrix(
+    viewport.width / viewport.height,
+  ).elements;
+  const [x, y, z] = position;
+  const clip = [
+    matrix[0]! * x + matrix[4]! * y + matrix[8]! * z + matrix[12]!,
+    matrix[1]! * x + matrix[5]! * y + matrix[9]! * z + matrix[13]!,
+    matrix[2]! * x + matrix[6]! * y + matrix[10]! * z + matrix[14]!,
+    matrix[3]! * x + matrix[7]! * y + matrix[11]! * z + matrix[15]!,
+  ] as const;
+  return {
+    x: viewport.x + (clip[0] / clip[3] + 1) * viewport.width / 2,
+    y: viewport.y + (1 - clip[1] / clip[3]) * viewport.height / 2,
+  };
+}
 
 test('centers an equipment focus above the mobile conversation panel', () => {
   const viewport = { width: 390, height: 844 };
