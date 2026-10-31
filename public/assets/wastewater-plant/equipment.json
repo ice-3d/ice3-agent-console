@@ -1095,7 +1095,8 @@
       "stage": "advanced",
       "area": "AdvancedTreatmentArea",
       "connections": [
-        "tertiary-clarifier-2"
+        "tertiary-clarifier-2",
+        "main-23-CL-301-UV-101"
       ],
       "bounds": {
         "min": [
@@ -1117,7 +1118,8 @@
       "stage": "advanced",
       "area": "AdvancedTreatmentArea",
       "connections": [
-        "tertiary-clarifier-3"
+        "tertiary-clarifier-3",
+        "main-25-CL-401-UV-101"
       ],
       "bounds": {
         "min": [
@@ -1326,7 +1328,7 @@
       "tag": "CV-201",
       "name": "进水止回阀 B",
       "stage": "intake",
-      "area": "AdvancedTreatmentArea",
+      "area": "IntakeArea",
       "connections": [
         "headworks-2-3",
         "headworks-2-4"
@@ -1349,7 +1351,7 @@
       "tag": "CV-301",
       "name": "进水止回阀 C",
       "stage": "intake",
-      "area": "AdvancedTreatmentArea",
+      "area": "IntakeArea",
       "connections": [
         "headworks-3-3",
         "headworks-3-4"
@@ -1372,7 +1374,7 @@
       "tag": "CV-401",
       "name": "进水止回阀 D",
       "stage": "intake",
-      "area": "AdvancedTreatmentArea",
+      "area": "IntakeArea",
       "connections": [
         "headworks-4-3",
         "headworks-4-4"
@@ -3148,7 +3150,7 @@
       "tag": "P-103",
       "name": "进水泵 C",
       "stage": "intake",
-      "area": "AdvancedTreatmentArea",
+      "area": "IntakeArea",
       "connections": [
         "headworks-2-2",
         "headworks-2-3",
@@ -3173,7 +3175,7 @@
       "tag": "P-104",
       "name": "进水泵 D",
       "stage": "intake",
-      "area": "AdvancedTreatmentArea",
+      "area": "IntakeArea",
       "connections": [
         "headworks-4-2",
         "headworks-4-3"
@@ -3803,7 +3805,8 @@
       "stage": "advanced",
       "area": "AdvancedTreatmentArea",
       "connections": [
-        "tertiary-feed-2"
+        "tertiary-feed-2",
+        "main-22-SC-301-P-TF-301"
       ],
       "bounds": {
         "min": [
@@ -3825,7 +3828,8 @@
       "stage": "advanced",
       "area": "AdvancedTreatmentArea",
       "connections": [
-        "tertiary-feed-3"
+        "tertiary-feed-3",
+        "main-24-SC-401-P-TF-401"
       ],
       "bounds": {
         "min": [
@@ -4315,7 +4319,8 @@
       "connections": [
         "train-301-clarifier",
         "train-301-ras-in",
-        "was-extra-01"
+        "was-extra-01",
+        "main-22-SC-301-P-TF-301"
       ],
       "bounds": {
         "min": [
@@ -4339,7 +4344,8 @@
       "connections": [
         "train-401-clarifier",
         "train-401-ras-in",
-        "was-extra-02"
+        "was-extra-02",
+        "main-24-SC-401-P-TF-401"
       ],
       "bounds": {
         "min": [
@@ -4702,7 +4708,9 @@
         "service-water-pac",
         "service-water-pam",
         "service-water-na",
-        "service-water-carbon"
+        "service-water-carbon",
+        "main-23-CL-301-UV-101",
+        "main-25-CL-401-UV-101"
       ],
       "bounds": {
         "min": [
