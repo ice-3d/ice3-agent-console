@@ -1,6 +1,59 @@
 {
   "assetId": "ice3-virtual-wwtp",
-  "equipment": [
+  "displayExposure": 1.42,
+  "materialSlots": [
+    {
+      "id": "tank-biological",
+      "color": "#8ea6b2",
+      "role": "tank"
+    },
+    {
+      "id": "tank-clarifier",
+      "color": "#9aa8b3",
+      "role": "tank"
+    },
+    {
+      "id": "tank-sludge",
+      "color": "#7c8a80",
+      "role": "tank"
+    },
+    {
+      "id": "pump-unit",
+      "color": "#6f7d86",
+      "role": "equipment"
+    },
+    {
+      "id": "blower-unit",
+      "color": "#76838c",
+      "role": "equipment"
+    },
+    {
+      "id": "valve-unit",
+      "color": "#8a8f93",
+      "role": "equipment"
+    },
+    {
+      "id": "process-unit",
+      "color": "#7f96a0",
+      "role": "equipment"
+    },
+    {
+      "id": "chemical-dosing",
+      "color": "#a89878",
+      "role": "equipment"
+    },
+    {
+      "id": "intake-unit",
+      "color": "#87949b",
+      "role": "equipment"
+    },
+    {
+      "id": "equipment-steel",
+      "color": "#8b949b",
+      "role": "equipment"
+    }
+  ],
+  "bindings": [
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AE-101",
       "tag": "AE-101",
@@ -24,7 +77,8 @@
           6.747499853372574,
           43.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AE-201",
@@ -49,7 +103,8 @@
           6.747499853372574,
           61.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AE-301",
@@ -75,7 +130,8 @@
           6.747499853372574,
           267.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AE-401",
@@ -101,7 +157,8 @@
           6.747499853372574,
           322.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AE-501",
@@ -127,7 +184,8 @@
           6.747499853372574,
           377.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AE-601",
@@ -153,7 +211,8 @@
           6.747499853372574,
           432.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-COD-101",
@@ -175,7 +234,8 @@
           3.535000115633011,
           34.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-COD-201",
@@ -197,7 +257,8 @@
           3.535000115633011,
           90.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-NH3-101",
@@ -219,7 +280,8 @@
           3.535000115633011,
           37.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-NH3-201",
@@ -241,7 +303,8 @@
           3.535000115633011,
           100.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-TN-101",
@@ -263,7 +326,8 @@
           3.535000115633011,
           43.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-TN-201",
@@ -285,7 +349,8 @@
           3.535000115633011,
           120.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-TP-101",
@@ -307,7 +372,8 @@
           3.535000115633011,
           40.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-TP-201",
@@ -329,7 +395,8 @@
           3.535000115633011,
           110.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-TU-101",
@@ -351,7 +418,8 @@
           3.535000115633011,
           46.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AIT-TU-201",
@@ -373,7 +441,8 @@
           3.535000115633011,
           130.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ALKALI-101",
@@ -395,7 +464,8 @@
           7.823400586843491,
           518.2000000476837
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ALKALI-102",
@@ -418,7 +488,8 @@
           3.3095136880874634,
           516.3999999761581
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AT-101",
@@ -445,7 +516,8 @@
           6.747499853372574,
           43.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AT-201",
@@ -471,7 +543,8 @@
           6.747499853372574,
           61.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AT-301",
@@ -495,7 +568,8 @@
           6.747499853372574,
           267.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AT-401",
@@ -519,7 +593,8 @@
           6.747499853372574,
           322.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AT-501",
@@ -543,7 +618,8 @@
           6.747499853372574,
           377.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AT-601",
@@ -571,7 +647,8 @@
           6.747499853372574,
           432.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AX-101",
@@ -598,7 +675,8 @@
           6.747499853372574,
           43.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AX-201",
@@ -625,7 +703,8 @@
           6.747499853372574,
           61.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AX-301",
@@ -650,7 +729,8 @@
           6.747499853372574,
           267.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AX-401",
@@ -675,7 +755,8 @@
           6.747499853372574,
           322.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AX-501",
@@ -700,7 +781,8 @@
           6.747499853372574,
           377.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/AX-601",
@@ -725,7 +807,8 @@
           6.747499853372574,
           432.5
         ]
-      }
+      },
+      "slot": "tank-biological"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BISULFITE-101",
@@ -747,7 +830,8 @@
           7.823400586843491,
           503.2000000476837
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BISULFITE-102",
@@ -770,7 +854,8 @@
           3.3095136880874634,
           501.39999997615814
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-101",
@@ -794,7 +879,8 @@
           3.8116278648376465,
           94.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-102",
@@ -818,7 +904,8 @@
           3.8116278648376465,
           94.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-201",
@@ -840,7 +927,8 @@
           3.8116278648376465,
           472.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-301",
@@ -862,7 +950,8 @@
           3.8116278648376465,
           472.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-401",
@@ -884,7 +973,8 @@
           3.8116278648376465,
           472.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-501",
@@ -906,7 +996,8 @@
           3.8116278648376465,
           472.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-B-301",
@@ -928,7 +1019,8 @@
           3.8116278648376465,
           244.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-B-401",
@@ -950,7 +1042,8 @@
           3.8116278648376465,
           299.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-B-501",
@@ -972,7 +1065,8 @@
           3.8116278648376465,
           354.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/BLW-B-601",
@@ -994,7 +1088,8 @@
           3.8116278648376465,
           409.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CARBON-101",
@@ -1017,7 +1112,8 @@
           7.823400586843491,
           73.20000004768372
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CARBON-102",
@@ -1040,7 +1136,8 @@
           3.3095136880874634,
           71.39999997615814
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CL-101",
@@ -1063,7 +1160,8 @@
           6.1750002801418304,
           52.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CL-201",
@@ -1086,7 +1184,8 @@
           6.1750002801418304,
           177.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CL-301",
@@ -1109,7 +1208,8 @@
           6.1750002801418304,
           302.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CL-401",
@@ -1132,7 +1232,8 @@
           6.1750002801418304,
           427.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CO-101",
@@ -1158,7 +1259,8 @@
           5.470000386238098,
           50.40000009536743
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CO-201",
@@ -1182,7 +1284,8 @@
           5.470000386238098,
           175.40000009536743
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CO-301",
@@ -1206,7 +1309,8 @@
           5.470000386238098,
           300.40000009536743
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CO-401",
@@ -1230,7 +1334,8 @@
           5.470000386238098,
           425.40000009536743
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CONV-101",
@@ -1252,7 +1357,8 @@
           3.065000057220459,
           70.5
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CONV-201",
@@ -1275,7 +1381,8 @@
           3.065000057220459,
           75.5
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CONV-301",
@@ -1297,7 +1404,8 @@
           3.065000057220459,
           75.5
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CV-101",
@@ -1321,7 +1429,8 @@
           2.3799999356269836,
           46.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CV-201",
@@ -1344,7 +1453,8 @@
           2.3799999356269836,
           261.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CV-301",
@@ -1367,7 +1477,8 @@
           2.3799999356269836,
           301.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/CV-401",
@@ -1390,7 +1501,8 @@
           2.3799999356269836,
           341.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DIG-101",
@@ -1413,7 +1525,8 @@
           12.959999680519104,
           108.22575426101685
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DIG-102",
@@ -1437,7 +1550,8 @@
           12.959999680519104,
           110.22575426101685
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DIG-103",
@@ -1464,7 +1578,8 @@
           12.959999680519104,
           66.22575426101685
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DIG-104",
@@ -1488,7 +1603,8 @@
           12.959999680519104,
           66.22575426101685
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DIG-105",
@@ -1513,7 +1629,8 @@
           12.959999680519104,
           66.22575426101685
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DIG-106",
@@ -1536,7 +1653,8 @@
           12.959999680519104,
           66.22575426101685
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DRY-101",
@@ -1559,7 +1677,8 @@
           6.511000007390976,
           85.25
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DRY-201",
@@ -1582,7 +1701,8 @@
           6.511000007390976,
           38.25
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DRY-301",
@@ -1605,7 +1725,8 @@
           6.511000007390976,
           38.25
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DT-101",
@@ -1630,7 +1751,8 @@
           4.804999947547913,
           50.37800073623657
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DT-201",
@@ -1654,7 +1776,8 @@
           4.804999947547913,
           205.3779969215393
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DT-301",
@@ -1677,7 +1800,8 @@
           4.804999947547913,
           395.3779969215393
         ]
-      }
+      },
+      "slot": "tank-sludge"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DW-101",
@@ -1720,7 +1844,8 @@
           3.551200032234192,
           48.93860101699829
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DWG-101",
@@ -1745,7 +1870,8 @@
           3.7840000092983246,
           86
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DWG-201",
@@ -1768,7 +1894,8 @@
           3.7840000092983246,
           104
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DWG-301",
@@ -1791,7 +1918,8 @@
           3.7840000092983246,
           104
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/DWG-401",
@@ -1814,7 +1942,8 @@
           3.7840000092983246,
           104
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/EQ-101",
@@ -1836,7 +1965,8 @@
           3.959999918937683,
           24.40000009536743
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FAN-101",
@@ -1859,7 +1989,8 @@
           3.8116278648376465,
           98.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FAN-201",
@@ -1882,7 +2013,8 @@
           3.8116278648376465,
           112.09999990463257
         ]
-      }
+      },
+      "slot": "blower-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FECL3-101",
@@ -1904,7 +2036,8 @@
           7.823400586843491,
           503.2000000476837
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FECL3-102",
@@ -1927,7 +2060,8 @@
           3.3095136880874634,
           501.39999997615814
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FIT-101",
@@ -1950,7 +2084,8 @@
           3.535000115633011,
           54.87125778198242
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-101",
@@ -1977,7 +2112,8 @@
           5.677500367164612,
           49.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-201",
@@ -2000,7 +2136,8 @@
           5.677500367164612,
           129.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-301",
@@ -2023,7 +2160,8 @@
           5.677500367164612,
           129.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-401",
@@ -2046,7 +2184,8 @@
           5.677500367164612,
           204.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-501",
@@ -2069,7 +2208,8 @@
           5.677500367164612,
           204.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-601",
@@ -2092,7 +2232,8 @@
           5.677500367164612,
           279.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-701",
@@ -2115,7 +2256,8 @@
           5.677500367164612,
           279.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FL-801",
@@ -2138,7 +2280,8 @@
           5.677500367164612,
           354.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/FLARE-101",
@@ -2160,7 +2303,8 @@
           9.899000018835068,
           106.79999995231628
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GAC-101",
@@ -2183,7 +2327,8 @@
           5.677500367164612,
           49.90000009536743
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GC-101",
@@ -2206,7 +2351,8 @@
           4.809999883174896,
           49.83446025848389
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GC-201",
@@ -2229,7 +2375,8 @@
           4.809999883174896,
           234.8344602584839
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GC-301",
@@ -2252,7 +2399,8 @@
           4.809999883174896,
           304.8344602584839
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GC-401",
@@ -2275,7 +2423,8 @@
           4.809999883174896,
           374.8344602584839
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-101",
@@ -2300,7 +2449,8 @@
           3.584999978542328,
           47.340001583099365
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-102",
@@ -2323,7 +2473,8 @@
           3.584999978542328,
           47.340001583099365
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-201",
@@ -2347,7 +2498,8 @@
           3.584999978542328,
           262.34000158309937
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-202",
@@ -2370,7 +2522,8 @@
           3.584999978542328,
           262.34000158309937
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-301",
@@ -2393,7 +2546,8 @@
           3.584999978542328,
           302.34000158309937
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-302",
@@ -2416,7 +2570,8 @@
           3.584999978542328,
           302.34000158309937
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-401",
@@ -2439,7 +2594,8 @@
           3.584999978542328,
           342.34000158309937
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GR-402",
@@ -2462,7 +2618,8 @@
           3.584999978542328,
           342.34000158309937
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GW-101",
@@ -2484,7 +2641,8 @@
           3.614184707403183,
           36.39999997615814
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GW-201",
@@ -2507,7 +2665,8 @@
           3.614184707403183,
           191.39999997615814
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GW-301",
@@ -2530,7 +2689,8 @@
           3.614184707403183,
           411.39999997615814
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/GW-401",
@@ -2553,7 +2713,8 @@
           3.614184707403183,
           471.39999997615814
         ]
-      }
+      },
+      "slot": "intake-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/IN-001",
@@ -2575,7 +2736,8 @@
           4.32000008225441,
           49.47981548309326
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/IN-002",
@@ -2597,7 +2759,8 @@
           4.32000008225441,
           264.47981548309326
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/IN-003",
@@ -2619,7 +2782,8 @@
           4.32000008225441,
           304.47981548309326
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/IN-004",
@@ -2641,7 +2805,8 @@
           4.32000008225441,
           344.47981548309326
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-301",
@@ -2664,7 +2829,8 @@
           2.3799999356269836,
           31.100000023841858
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-401",
@@ -2686,7 +2852,8 @@
           2.3799999356269836,
           171.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-402",
@@ -2708,7 +2875,8 @@
           2.3799999356269836,
           296.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-403",
@@ -2730,7 +2898,8 @@
           2.3799999356269836,
           421.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-404",
@@ -2752,7 +2921,8 @@
           2.3799999356269836,
           451.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-CHEM-201",
@@ -2775,7 +2945,8 @@
           2.3799999356269836,
           456.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-CHEM-202",
@@ -2798,7 +2969,8 @@
           2.3799999356269836,
           456.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-CHEM-203",
@@ -2821,7 +2993,8 @@
           2.3799999356269836,
           456.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/MOV-CHEM-204",
@@ -2844,7 +3017,8 @@
           2.3799999356269836,
           456.10000002384186
         ]
-      }
+      },
+      "slot": "valve-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/NACLO-101",
@@ -2869,7 +3043,8 @@
           7.823400586843491,
           73.20000004768372
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/NACLO-102",
@@ -2892,7 +3067,8 @@
           3.3095136880874634,
           71.39999997615814
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ODR-101",
@@ -2914,7 +3090,8 @@
           3.8116278648376465,
           98.09999990463257
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ODR-102",
@@ -2937,7 +3114,8 @@
           3.8116278648376465,
           98.09999990463257
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ODR-201",
@@ -2959,7 +3137,8 @@
           3.8116278648376465,
           62.09999990463257
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ODR-301",
@@ -2982,7 +3161,8 @@
           3.8116278648376465,
           62.09999990463257
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ODR-401",
@@ -3005,7 +3185,8 @@
           3.8116278648376465,
           62.09999990463257
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/OUT-101",
@@ -3028,7 +3209,8 @@
           4.32000008225441,
           58.47981548309326
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/OZ-101",
@@ -3051,7 +3233,8 @@
           4.804999947547913,
           50.37800073623657
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/OZ-201",
@@ -3074,7 +3257,8 @@
           4.804999947547913,
           240.3779969215393
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/OZ-301",
@@ -3097,7 +3281,8 @@
           4.804999947547913,
           360.3779969215393
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-101",
@@ -3120,7 +3305,8 @@
           3.3095136880874634,
           42.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-102",
@@ -3143,7 +3329,8 @@
           3.3095136880874634,
           50.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-103",
@@ -3168,7 +3355,8 @@
           3.3095136880874634,
           246.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-104",
@@ -3191,7 +3379,8 @@
           3.3095136880874634,
           356.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-BW-301",
@@ -3215,7 +3404,8 @@
           3.3095136880874634,
           31.399999976158142
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-DIG-201",
@@ -3238,7 +3428,8 @@
           3.3095136880874634,
           116.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-DIG-202",
@@ -3261,7 +3452,8 @@
           3.3095136880874634,
           116.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-EQ-101",
@@ -3284,7 +3476,8 @@
           3.3095136880874634,
           21.399999976158142
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-IRC-301",
@@ -3307,7 +3500,8 @@
           3.3095136880874634,
           279.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-IRC-401",
@@ -3330,7 +3524,8 @@
           3.3095136880874634,
           334.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-IRC-501",
@@ -3353,7 +3548,8 @@
           3.3095136880874634,
           389.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-IRC-601",
@@ -3376,7 +3572,8 @@
           3.3095136880874634,
           444.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-111",
@@ -3399,7 +3596,8 @@
           3.3095136880874634,
           37.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-112",
@@ -3422,7 +3620,8 @@
           3.3095136880874634,
           55.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-211",
@@ -3444,7 +3643,8 @@
           3.3095136880874634,
           211.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-212",
@@ -3466,7 +3666,8 @@
           3.3095136880874634,
           251.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-311",
@@ -3488,7 +3689,8 @@
           3.3095136880874634,
           331.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-LIFT-312",
@@ -3510,7 +3712,8 @@
           3.3095136880874634,
           371.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-101",
@@ -3537,7 +3740,8 @@
           3.3095136880874634,
           75.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-201",
@@ -3564,7 +3768,8 @@
           3.3095136880874634,
           75.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-301",
@@ -3588,7 +3793,8 @@
           3.3095136880874634,
           106.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-401",
@@ -3612,7 +3818,8 @@
           3.3095136880874634,
           146.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-501",
@@ -3636,7 +3843,8 @@
           3.3095136880874634,
           306.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-RAS-601",
@@ -3660,7 +3868,8 @@
           3.3095136880874634,
           346.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-SL-101",
@@ -3683,7 +3892,8 @@
           3.3095136880874634,
           83.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-SL-201",
@@ -3706,7 +3916,8 @@
           3.3095136880874634,
           101.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-SL-301",
@@ -3729,7 +3940,8 @@
           3.3095136880874634,
           101.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-SL-401",
@@ -3752,7 +3964,8 @@
           3.3095136880874634,
           101.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-SL-501",
@@ -3774,7 +3987,8 @@
           3.3095136880874634,
           101.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-TF-201",
@@ -3796,7 +4010,8 @@
           3.3095136880874634,
           101.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-TF-301",
@@ -3819,7 +4034,8 @@
           3.3095136880874634,
           341.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-TF-401",
@@ -3842,7 +4058,8 @@
           3.3095136880874634,
           471.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-UTIL-101",
@@ -3865,7 +4082,8 @@
           3.3095136880874634,
           511.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-UTIL-102",
@@ -3888,7 +4106,8 @@
           3.3095136880874634,
           511.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-UTIL-103",
@@ -3911,7 +4130,8 @@
           3.3095136880874634,
           511.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-UTIL-104",
@@ -3934,7 +4154,8 @@
           3.3095136880874634,
           511.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-WAS-301",
@@ -3957,7 +4178,8 @@
           3.3095136880874634,
           75.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-WAS-401",
@@ -3979,7 +4201,8 @@
           3.3095136880874634,
           441.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/P-WAS-402",
@@ -4001,7 +4224,8 @@
           3.3095136880874634,
           471.39999997615814
         ]
-      }
+      },
+      "slot": "pump-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PAC-101",
@@ -4024,7 +4248,8 @@
           7.823400586843491,
           73.20000004768372
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PAC-102",
@@ -4047,7 +4272,8 @@
           3.3095136880874634,
           71.39999997615814
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PAM-101",
@@ -4071,7 +4297,8 @@
           7.823400586843491,
           73.20000004768372
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PAM-102",
@@ -4094,7 +4321,8 @@
           3.3095136880874634,
           71.39999997615814
         ]
-      }
+      },
+      "slot": "chemical-dosing"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PC-101",
@@ -4118,7 +4346,8 @@
           6.255000054836273,
           51.689884185791016
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PC-201",
@@ -4141,7 +4370,8 @@
           6.255000054836273,
           116.68988037109375
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PC-301",
@@ -4164,7 +4394,8 @@
           6.255000054836273,
           316.68988037109375
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/PC-401",
@@ -4187,7 +4418,8 @@
           6.255000054836273,
           436.68988037109375
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/POLY-101",
@@ -4209,7 +4441,8 @@
           7.823400586843491,
           518.2000000476837
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/POLY-102",
@@ -4232,7 +4465,8 @@
           3.3095136880874634,
           516.3999999761581
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-1001",
@@ -4255,7 +4489,8 @@
           6.1750002801418304,
           427.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-101",
@@ -4282,7 +4517,8 @@
           6.1750002801418304,
           43.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-201",
@@ -4308,7 +4544,8 @@
           6.1750002801418304,
           61.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-301",
@@ -4333,7 +4570,8 @@
           6.1750002801418304,
           127.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-401",
@@ -4358,7 +4596,8 @@
           6.1750002801418304,
           127.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-501",
@@ -4381,7 +4620,8 @@
           6.1750002801418304,
           227.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-601",
@@ -4404,7 +4644,8 @@
           6.1750002801418304,
           227.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-701",
@@ -4427,7 +4668,8 @@
           6.1750002801418304,
           327.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-801",
@@ -4450,7 +4692,8 @@
           6.1750002801418304,
           327.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SC-901",
@@ -4473,7 +4716,8 @@
           6.1750002801418304,
           427.90000009536743
         ]
-      }
+      },
+      "slot": "tank-clarifier"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SILO-101",
@@ -4496,7 +4740,8 @@
           9.640200018882751,
           85.29999995231628
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SILO-201",
@@ -4519,7 +4764,8 @@
           9.640200018882751,
           38.299999952316284
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SILO-301",
@@ -4542,7 +4788,8 @@
           9.640200018882751,
           38.299999952316284
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/SILO-401",
@@ -4565,7 +4812,8 @@
           9.640200018882751,
           38.299999952316284
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ST-101",
@@ -4592,7 +4840,8 @@
           6.025000184774399,
           88.75
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ST-201",
@@ -4616,7 +4865,8 @@
           6.025000184774399,
           66.75
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ST-301",
@@ -4640,7 +4890,8 @@
           6.025000184774399,
           66.75
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/ST-401",
@@ -4664,7 +4915,8 @@
           6.025000184774399,
           66.75
         ]
-      }
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/UF-101",
@@ -4689,7 +4941,8 @@
           5.159999966621399,
           50.42179727554321
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/UV-101",
@@ -4723,7 +4976,8 @@
           3.534999966621399,
           48.850000858306885
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/UV-201",
@@ -4746,7 +5000,8 @@
           3.534999966621399,
           258.8500123023987
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/UV-301",
@@ -4778,7 +5033,8 @@
           3.534999966621399,
           333.8500123023987
         ]
-      }
+      },
+      "slot": "process-unit"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/V-OUT-101",
@@ -4801,7 +5057,8 @@
           2.3799999356269836,
           55.10000002384186
         ]
-      }
+      },
+      "slot": "equipment-steel"
     }
   ]
 }
