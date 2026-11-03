@@ -6,12 +6,12 @@ import { emitAgentPlan } from './events.js';
 import type { AgentRun } from './types.js';
 
 const AE_101 = demoEquipmentSelectionId('AE-101');
-const AT_101 = demoEquipmentSelectionId('AT-101');
-const CO_101 = demoEquipmentSelectionId('CO-101');
+const AE_103 = demoEquipmentSelectionId('AE-103');
+const CHEM_101_D = demoEquipmentSelectionId('CHEM-101-D');
+const DW_101 = demoEquipmentSelectionId('DW-101');
 const FL_101 = demoEquipmentSelectionId('FL-101');
-const P_101 = demoEquipmentSelectionId('P-101');
+const PS_101_P = demoEquipmentSelectionId('PS-101-P');
 const SC_101 = demoEquipmentSelectionId('SC-101');
-const ST_101 = demoEquipmentSelectionId('ST-101');
 
 function includesAny(text: string, words: readonly string[]): boolean {
   return words.some((word) => text.includes(word));
@@ -46,7 +46,7 @@ const OPENING_TOUR: readonly TextStream[] = [
     text: '镜头推进到进水端。进水依次经过粗格栅、提升泵和细格栅，先完成水量提升与大颗粒拦截。',
     tool: {
       name: 'focus_equipment',
-      args: { selectionId: P_101 },
+      args: { selectionId: PS_101_P },
     },
     holdMs: 1_800,
   },
@@ -54,7 +54,7 @@ const OPENING_TOUR: readonly TextStream[] = [
     text: '随后进入厌氧池。这里主要进行释磷和有机物水解，为后续缺氧、好氧反应建立条件。',
     tool: {
       name: 'focus_equipment',
-      args: { selectionId: AT_101 },
+      args: { selectionId: AE_101 },
     },
     holdMs: 1_800,
   },
@@ -62,7 +62,7 @@ const OPENING_TOUR: readonly TextStream[] = [
     text: '好氧池通过曝气完成有机物降解和硝化反应，混合液再回流到缺氧段完成脱氮。',
     tool: {
       name: 'focus_equipment',
-      args: { selectionId: AE_101 },
+      args: { selectionId: AE_103 },
     },
     holdMs: 1_800,
   },
@@ -78,7 +78,7 @@ const OPENING_TOUR: readonly TextStream[] = [
     text: '出水进入混凝沉淀池，通过投加药剂进一步去除悬浮物和磷，为后续过滤降低负荷。',
     tool: {
       name: 'focus_equipment',
-      args: { selectionId: CO_101 },
+      args: { selectionId: CHEM_101_D },
     },
     holdMs: 1_800,
   },
@@ -94,7 +94,7 @@ const OPENING_TOUR: readonly TextStream[] = [
     text: '最后查看污泥区。浓缩、脱水和外运构成剩余污泥处理主线，上清液与滤液回流至前端。',
     tool: {
       name: 'focus_equipment',
-      args: { selectionId: ST_101 },
+      args: { selectionId: DW_101 },
     },
     holdMs: 1_800,
   },

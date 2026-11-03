@@ -26,32 +26,15 @@ jobs:
         with:
           path: ice3-agent-console
 
-      - name: Checkout Engine dependency
-        uses: actions/checkout@v7
-        with:
-          repository: ice-3d/ice3-engine
-          ref: main
-          path: ice3-engine
-
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
           node-version-file: ice3-agent-console/.nvmrc
           cache: npm
-          cache-dependency-path: |
-            ice3-agent-console/package-lock.json
-            ice3-engine/package-lock.json
+          cache-dependency-path: ice3-agent-console/package-lock.json
 
       - name: Configure Pages
         uses: actions/configure-pages@v6
-
-      - name: Install Engine dependencies
-        working-directory: ice3-engine
-        run: npm ci
-
-      - name: Build Engine dependency
-        working-directory: ice3-engine
-        run: npm run build
 
       - name: Install Agent Console dependencies
         working-directory: ice3-agent-console
@@ -71,8 +54,6 @@ jobs:
 
       - name: Build static demo
         working-directory: ice3-agent-console
-        env:
-          ICE3_EQUIPMENT_MANIFEST_REUSE: "1"
         run: npm run build:demo
 
       - name: Upload Pages artifact

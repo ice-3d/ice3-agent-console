@@ -33,6 +33,66 @@ test('runs a grouped system scenario in the static build', async ({ page }) => {
   await expect(page.locator('[data-role="selection-tag"]'))
     .toHaveText('BLW-101', { timeout: 10_000 });
   await expect(page.locator('[data-role="selection-tag"]'))
-    .toHaveText('AE-101', { timeout: 10_000 });
+    .toHaveText('BLW-101-A', { timeout: 10_000 });
   expect(backendRequests).toEqual([]);
+});
+
+test('keeps the selected equipment highlighted during scenario playback', async ({
+  page,
+}) => {
+  await page.goto('http://127.0.0.1:8111/?demo=1&autoplay=0');
+  await expect(page.locator('[data-role="scene-status"]'))
+    .toHaveText('场景已就绪', { timeout: 60_000 });
+
+  await page.getByRole('button', { name: 'AAO 生化段', exact: true }).click();
+  await expect(page.locator('[data-role="selection-tag"]'))
+    .toHaveText('RWS-101', { timeout: 20_000 });
+  await page.waitForTimeout(1_200);
+
+  const yellowPixels = await page.evaluate(() => {
+    const canvas = document.querySelector('canvas');
+    const gl = canvas?.getContext('webgl2');
+    const panel = document.querySelector('.conversation-panel');
+    if (!canvas || !gl || !panel) {
+      throw new Error('scene canvas or conversation panel is missing');
+    }
+    const width = canvas.width;
+    const height = canvas.height;
+    const visibleWidth = Math.max(
+      0,
+      Math.min(width, Math.round(panel.getBoundingClientRect().left)),
+    );
+    const pixels = new Uint8Array(width * height * 4);
+    gl.readPixels(
+      0,
+      0,
+      width,
+      height,
+      gl.RGBA,
+      gl.UNSIGNED_BYTE,
+      pixels,
+    );
+    let count = 0;
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < visibleWidth; x += 1) {
+        const offset = (y * width + x) * 4;
+        const red = pixels[offset]!;
+        const green = pixels[offset + 1]!;
+        const blue = pixels[offset + 2]!;
+        if (
+          red > 180
+          && green > 120
+          && green < 245
+          && blue < 90
+          && red > green + 15
+          && green > blue + 50
+        ) {
+          count += 1;
+        }
+      }
+    }
+    return count;
+  });
+
+  expect(yellowPixels).toBeGreaterThan(500);
 });

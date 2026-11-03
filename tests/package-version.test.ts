@@ -9,7 +9,7 @@ test('uses the published Engine package version', async () => {
     readonly dependencies: Readonly<Record<string, string>>;
   };
 
-  expect(manifest.dependencies.ice3).toBe('0.2.0');
+  expect(manifest.dependencies.ice3).toBe('0.2.1');
   expect(Object.keys(manifest.dependencies).filter(
     (name) => name.startsWith('@ice3/'),
   )).toEqual([]);
@@ -28,9 +28,9 @@ test('locks the Engine package to the npm registry', async () => {
   };
   const installed = lockfile.packages['node_modules/ice3'];
 
-  expect(installed?.version).toBe('0.2.0');
+  expect(installed?.version).toBe('0.2.1');
   expect(installed?.resolved).toBe(
-    'https://registry.npmjs.org/ice3/-/ice3-0.2.0.tgz',
+    'https://registry.npmjs.org/ice3/-/ice3-0.2.1.tgz',
   );
   expect(installed?.integrity?.startsWith('sha512-')).toBe(true);
   expect(installed?.link).toBeUndefined();

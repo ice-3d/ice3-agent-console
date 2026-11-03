@@ -13,14 +13,14 @@
     "#test-expect": "./tests/assertions.ts"
   },
   "scripts": {
-    "predev": "npm --prefix ../ice3-engine run build && ICE3_EQUIPMENT_MANIFEST_REUSE=1 node scripts/generate-equipment-manifest.mjs",
+    "predev": "node scripts/generate-equipment-manifest.mjs",
     "dev": "node scripts/dev.mjs",
     "dev:web": "webpack serve --mode development",
     "dev:api": "tsx watch server/index.ts",
-    "prebuild": "npm --prefix ../ice3-engine run build && ICE3_EQUIPMENT_MANIFEST_REUSE=1 node scripts/generate-equipment-manifest.mjs",
+    "prebuild": "node scripts/generate-equipment-manifest.mjs",
     "build": "webpack --mode production",
     "postbuild": "node scripts/copy-public-files.mjs && node scripts/copy-demo-assets.mjs",
-    "prebuild:demo": "npm --prefix ../ice3-engine run build && ICE3_EQUIPMENT_MANIFEST_REUSE=1 node scripts/generate-equipment-manifest.mjs",
+    "prebuild:demo": "node scripts/generate-equipment-manifest.mjs",
     "build:demo": "webpack --mode production --env demo",
     "postbuild:demo": "node scripts/copy-public-files.mjs && node scripts/copy-demo-assets.mjs && node scripts/demo-agent-marker.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
@@ -31,12 +31,11 @@
   },
   "dependencies": {
     "@ag-ui/core": "1.0.3",
-    "ice3": "0.2.0",
+    "ice3": "0.2.1",
     "markdown-it": "15.0.3",
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@gltf-transform/core": "^4.5.1",
     "@playwright/test": "1.64.1",
     "@types/jsdom": "30.0.0",
     "@types/markdown-it": "14.2.0",
