@@ -30,6 +30,8 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 | 传输 | 浏览器本地脚本模式或服务端事件流 |
 | 相机 | 多站点引导巡游和响应式舞台取景 |
 | Selection | 醒目的黄色脉冲和持续选中状态 |
+| Asset | Studio Tileset fine/coarse 分块加载、设备绑定和按需驱逐 |
+| 首屏 | 内联 loading，在完整 CSS 与 JavaScript 启动前稳定显示 |
 | 展示 | 分组内置剧本和快捷操作 |
 | 部署 | 服务端开发模式和无凭据静态演示 |
 | 搜索与统计 | 完整 TDK、结构化数据、robots/sitemap 和 GA4 线上访问统计 |
@@ -131,6 +133,7 @@ npm run verify
 - [Real-Model 服务端](docs/guides/real-model-server.md)
 - [接入其它 3D 模型](docs/guides/other-models.md)
 - [事件和 Scene 工具协议](docs/reference/protocol.md)
+- [Runtime Asset 交付](docs/reference/asset-delivery.md)
 - [架构决策](docs/decisions/README.md)
 
 ## AI 辅助开发

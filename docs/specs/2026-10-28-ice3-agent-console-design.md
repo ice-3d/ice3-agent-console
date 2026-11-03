@@ -2,9 +2,12 @@
 
 > Document ID: ICE3-AGENT-SPEC-001
 >
-> Status: Implemented
+> Status: Historical
 >
 > Owner: ICE3 Agent Console maintainers
+
+> **历史状态：** 本文保留初始 Console 设计记录。当前 Tileset 分块、业务 Selection、
+> 首屏 loading 和发布链路以 [Runtime Asset 交付](../reference/asset-delivery.md) 为准。
 ## 目标
 
 ICE3 Agent Console 是一个独立的工业应用，将全视口 3D Scene 与对话式 Agent 结合。

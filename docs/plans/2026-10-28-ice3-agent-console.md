@@ -2,9 +2,12 @@
 
 > Document ID: ICE3-AGENT-PLAN-001
 >
-> Status: Implemented
+> Status: Historical
 >
 > Owner: ICE3 Agent Console maintainers
+
+> **历史状态：** 本文保留初始 Console 的实施和验证记录，不代表当前 Toolchain 依赖。
+> 当前 Asset 接入以 [Runtime Asset 交付](../reference/asset-delivery.md) 为准。
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **目标：** 构建一个可运行的 3D 工业 Agent Console，将虚构污水处理厂、持续挂载的

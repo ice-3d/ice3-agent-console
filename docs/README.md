@@ -29,6 +29,7 @@
 | ID | 标题 | Status | 用途 |
 |---|---|---|---|
 | `ICE3-AGENT-REF-001` | [Event 和 Scene Tool 协议](reference/protocol.md) | Active | event stream、tool、payload 和失败行为 |
+| `ICE3-AGENT-REF-002` | [Runtime Asset 交付](reference/asset-delivery.md) | Active | Tileset 分块、粗模/细模、业务绑定、首屏 loading 和发布验证 |
 | `ICE3-AGENT-ADR-001` | [Agent 和 Scene 边界](decisions/0001-agent-scene-boundary.md) | Active | 让编排逻辑留在 engine 内部实现之外 |
 | `ICE3-AGENT-ADR-002` | [脚本与 Real-Model 传输](decisions/0002-scripted-and-real-model-transport.md) | Active | 明确 runtime 模式和失败行为 |
 
@@ -36,6 +37,6 @@
 
 | ID | 标题 | Status | 用途 |
 |---|---|---|---|
-| `ICE3-AGENT-SPEC-001` | [Console 设计](specs/2026-10-28-ice3-agent-console-design.md) | Implemented | 已实现的界面和行为设计 |
-| `ICE3-AGENT-PLAN-001` | [Console 实施计划](plans/2026-10-28-ice3-agent-console.md) | Implemented | 历史实施和验证计划 |
-| `ICE3-AGENT-PLAN-002` | [污水处理厂专属演示改造](plans/2026-10-29-wastewater-only-agent-demo.md) | Implemented | 固定内置演示资产并记录其它模型接入方法 |
+| `ICE3-AGENT-SPEC-001` | [Console 设计](specs/2026-10-28-ice3-agent-console-design.md) | Historical | 保留初始界面和行为设计；当前 Asset 链路见 REF-002 |
+| `ICE3-AGENT-PLAN-001` | [Console 实施计划](plans/2026-10-28-ice3-agent-console.md) | Historical | 初始实施和验证的审计记录 |
+| `ICE3-AGENT-PLAN-002` | [污水处理厂专属演示改造](plans/2026-10-29-wastewater-only-agent-demo.md) | Historical | 固定演示资产的历史记录；当前接入见 GUIDE-004 和 REF-002 |

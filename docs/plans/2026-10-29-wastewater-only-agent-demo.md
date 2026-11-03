@@ -2,9 +2,13 @@
 
 > Document ID: ICE3-AGENT-PLAN-002
 >
-> Status: Implemented
+> Status: Historical
 >
 > Owner: ICE3 Agent Console maintainers
+
+> **历史状态：** 本文保留固定污水处理厂演示的历史改造记录。当前 Source Import、
+> Tileset 和设备绑定流程以 [接入其它模型](../guides/other-models.md) 与
+> [Runtime Asset 交付](../reference/asset-delivery.md) 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development
 > (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps

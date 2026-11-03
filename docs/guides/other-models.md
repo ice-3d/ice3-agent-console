@@ -28,23 +28,37 @@ Runtime 不接受通用 source 转换。不得在浏览器中重新切分、简�
 
 ## 1. 预处理 3D Asset
 
-按照 [从 GLB 到 Engine 的完整接入流程](https://github.com/ice-3d/ice3-toolchain/blob/main/docs/guides/glb-to-engine.md)
-运行 `inspect` 和 `partition`。一个最小示例：
+优先把已获准的 source model 纳入 `ice3-studio` 工程，并执行正式 Runtime
+导出：
 
 ```bash
-node ../ice3-toolchain/packages/cli/dist/main.js partition \
-  path/to/approved-model.glb \
+cargo run --manifest-path ../ice3-studio/Cargo.toml -p studio-cli -- \
+  export tileset \
+  --project path/to/studio-project \
   --output /tmp/custom-plant \
   --asset-id custom-plant \
-  --max-triangles 120000 \
-  --max-bytes 16777216 \
+  --profile agent-console-v1
+```
+
+确认 `/tmp/custom-plant/tileset.json`、`bindings.json`、`parts/` 和 `coarse/`
+完整生成。`bindings.json` 是设备清单的唯一生成输入；不要手工维护另一套 Bounds 或
+Selection ID。
+
+仅做几何验证时，也可以对 source 直接运行 Studio `partition`：
+
+```bash
+cargo run --manifest-path ../ice3-studio/Cargo.toml -p studio-cli -- \
+  partition path/to/approved-model.glb \
+  --output /tmp/custom-plant-tileset \
+  --asset-id custom-plant-tileset \
+  --adapter auto \
+  --render-batch static \
   --lod \
-  --coarse-chunk-max-bytes 8388608 \
   --json
 ```
 
-确认命令正常结束，并且 `/tmp/custom-plant/tileset.json`、`parts/` 和 `coarse/`
-完整生成。不要只复制单个 GLB，也不要手工修改 Tileset 中的相对 URI。
+直接 partition 不替代正式工程导出；需要设备业务绑定时应使用上面的 `export tileset`
+入口。不要只复制单个 GLB，也不要手工修改 Tileset 中的相对 URI。
 
 ## 2. 准备设备业务清单
 
@@ -208,4 +222,5 @@ npm run test:e2e
 - `ICE3-AGENT-RM-001` — [README](../../README.md)
 - `ICE3-AGENT-GUIDE-001` — [本地开发](local-development.md)
 - `ICE3-AGENT-GUIDE-002` — [静态部署](static-deployment.md)
-- `ICE3-TOOL-GUIDE-003` — [从 GLB 到 Engine 的完整接入流程](https://github.com/ice-3d/ice3-toolchain/blob/main/docs/guides/glb-to-engine.md)
+- `ICE3-AGENT-REF-002` — [Runtime Asset 交付](https://github.com/ice-3d/ice3-agent-console/blob/main/docs/reference/asset-delivery.md)
+- `ICE3-STUDIO-GUIDE-004` — [Studio 入门](https://github.com/ice-3d/ice3-studio/blob/main/docs/guides/getting-started.md)

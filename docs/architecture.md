@@ -36,6 +36,7 @@ Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine 
 | Scene controller | 校验允许的 tool argument 并调用公开 ICE3 API |
 | Browser Scene | 管理 camera、Selection pulse、panel Bounds 和 stage lifecycle |
 | Demo Asset 配置 | 集中定义虚构污水处理厂的 identity、标题、Tileset 和 manifest 路径 |
+| Runtime Asset | Studio 导出 fine/coarse Tileset、binding manifest 和设备 catalog |
 | Local transport | 在浏览器中运行确定性脚本 Agent |
 | Server transport | 通过 SSE 流式传输服务端输出 |
 | Model adapter | 将兼容 chat-completion tool call 转换为 event stream |
@@ -56,6 +57,16 @@ Selection 是 semantic identity，不是屏幕坐标。Runtime 将 Selection 转
 Bounds 和短暂脉冲，随后保持 highlight。Focus target 使用未被 conversation panel 覆盖的
 可见 stage 区域。
 
+## Asset 加载与首屏
+
+Scene 通过 `ICETilesetLoader` 加载 OGC 3D Tiles 1.1。Loader 按相机工作集选择 visible
+和 prefetch tile，先使用 coarse coverage，再以 fine partition 替换；tile 大小和常驻
+数量受 resident budget 约束。网络层不会下载完整的单体 source GLB。
+
+`bindings.json` 提供业务实体与 Node Selection 的映射，`equipment.json` 从同一版本
+bindings 生成。浏览器 HTML 在 bundle 执行前通过内联 critical style 显示 loading，
+Scene ready 或错误界面挂载后再移除 loading。
+
 ## 失败边界
 
 - 未知 tool 永不执行。
@@ -68,6 +79,7 @@ Bounds 和短暂脉冲，随后保持 highlight。Focus target 使用未被 conv
 
 - `ICE3-AGENT-RM-001` — [README](../README.md)
 - `ICE3-AGENT-REF-001` — [Event 和 Scene Tool protocol](reference/protocol.md)
+- `ICE3-AGENT-REF-002` — [Runtime Asset 交付](reference/asset-delivery.md)
 - `ICE3-AGENT-ADR-001` — [Agent 和 Scene 边界](decisions/0001-agent-scene-boundary.md)
 - `ICE3-AGENT-GUIDE-004` — [接入其它 3D 模型](guides/other-models.md)
 - `ICE3-DOC-ARC-001` — [ICE3 家族架构](https://github.com/ice-3d/ice3-doc/blob/main/docs/architecture.md)
