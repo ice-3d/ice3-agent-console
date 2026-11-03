@@ -23,6 +23,7 @@
 | `ICE3-AGENT-GUIDE-002` | [静态部署](guides/static-deployment.md) | Active | 构建并托管无凭据演示 |
 | `ICE3-AGENT-GUIDE-003` | [Real-Model 服务端](guides/real-model-server.md) | Active | 配置兼容的 Agent endpoint |
 | `ICE3-AGENT-GUIDE-004` | [接入其它 3D 模型](guides/other-models.md) | Active | 将已预处理的另一个 Scene 与设备清单接入应用 |
+| `ICE3-AGENT-GUIDE-005` | [视觉验证脚本](../scripts/AGENT-CONSOLE-SHOT.md) | Active | 程序化截屏、对话验证与闪烁定位工具 |
 
 ## 3. 协议与决策
 

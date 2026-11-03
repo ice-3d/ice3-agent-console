@@ -161,7 +161,15 @@ export async function createSceneController(
     ...framingForCurrentLayout(),
     fillRatio: 0.78,
   });
-  camera.setClipPlanes(camera.near, Math.max(camera.far, overviewRadius * 8));
+  camera.setClipPlanes(
+    // near 随场景尺度自适应：near 过小会把 24-bit 深度精度压到厘米级以下，
+    // 远处共面/近共面几何（水面贴池体、标线贴路面、盖板贴墙体）深度胜者
+    // 随视角交替，表现为缩放与旋转时的局部闪烁。以 overview 半径 1/150 为
+    // 下界并夹在轨道最小缩放距离之内，保证特写不裁剪的同时深度量化保持在
+    // 毫米量级。
+    Math.max(1, Math.min(overviewRadius / 150, 4)),
+    Math.max(camera.far, overviewRadius * 8),
+  );
   camera.setProjectionOffset(overview.projectionOffset);
   camera.setPosition(overview.position).setTarget(overview.target);
   let orbit = new ICEOrbitController(engine, camera).start();
