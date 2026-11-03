@@ -29,7 +29,7 @@ test('reuses a checked-in manifest when the source GLB is unavailable', async ()
   const source = join(root, 'missing-source.glb');
   const contents = `${JSON.stringify({
     assetId: 'ice3-virtual-wwtp',
-    equipment: [],
+    bindings: [],
   }, null, 2)}\n`;
   try {
     await mkdir(join(root, 'public', 'assets', 'wastewater-plant'), {

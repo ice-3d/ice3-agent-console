@@ -1,0 +1,70 @@
+{
+  "kind": "ice3-runtime-asset",
+  "schemaVersion": "1.0",
+  "revision": 1,
+  "profile": "agent-console-v1",
+  "sourceDigest": "7ce343b9e1814ef248b2a87a1d1352fd6db613d47597b4364da41be86a0d1fa4",
+  "tilesetDigest": "5c2e2d769133c4ba554abb481adef5d814c7ab29d00371ee8131fe6406dd33c9",
+  "bindingsDigest": "17ceeaedb884879099102cc076632f0ca5e6c5cf8954e7c01c047075f78ec95e",
+  "bundleDigest": "7e64fd34715107491e6d6cad5cf720462e8867aadffedf96d5e738770904da8e",
+  "outputDir": "../ice3-agent-console/public/assets/wastewater-plant/tiled",
+  "files": [
+    {
+      "path": "bindings.json",
+      "byteLength": 431316,
+      "digest": "17ceeaedb884879099102cc076632f0ca5e6c5cf8954e7c01c047075f78ec95e"
+    },
+    {
+      "path": "coarse/group-root-0.glb",
+      "byteLength": 3834488,
+      "digest": "5c5bcb28e182dbbdb6d337576ea2886ef402f6709fe75078f50a044d06768022"
+    },
+    {
+      "path": "coarse/group-root-1.glb",
+      "byteLength": 2603460,
+      "digest": "be6d5f8c6d24c6f856d29b09c9270364211d1c87207a16b8515a2d5997965ea2"
+    },
+    {
+      "path": "coarse/group-root-chunk-0.glb",
+      "byteLength": 2922524,
+      "digest": "8557f66a5c744fd1244810ff840427256cb425ccc78b3ac652e27f02c449b5c1"
+    },
+    {
+      "path": "coarse/group-root-chunk-1.glb",
+      "byteLength": 3522452,
+      "digest": "0d85d3b96ec94f81bff0c01fb6095752422b125517d6480e17c413dd60766a38"
+    },
+    {
+      "path": "parts/part-000.glb",
+      "byteLength": 4709856,
+      "digest": "a1a279121f40b543e8a52069b1db4709a49da5dba1972129cb2959d084685d2f"
+    },
+    {
+      "path": "parts/part-001.glb",
+      "byteLength": 5369580,
+      "digest": "18124543db69f45450f429f41b56bf0163725c28ce9e63e21d0cb6818cf83f17"
+    },
+    {
+      "path": "parts/part-002.glb",
+      "byteLength": 3286804,
+      "digest": "ceddae9a54baec9077a74aa48533e99c50c323d6a48e4021acef0eb3b7b72ec3"
+    },
+    {
+      "path": "parts/part-003.glb",
+      "byteLength": 5513116,
+      "digest": "12d5854e89c780e783b691c0dfed164205cb3d9a243c2260a93394d2e3c097bf"
+    },
+    {
+      "path": "tileset.json",
+      "byteLength": 2561,
+      "digest": "5c2e2d769133c4ba554abb481adef5d814c7ab29d00371ee8131fe6406dd33c9"
+    }
+  ],
+  "stats": {
+    "triangleCount": 132124,
+    "edgeSegmentCount": 0,
+    "partitionCount": 4,
+    "coarseCount": 4,
+    "bindingCount": 681
+  }
+}

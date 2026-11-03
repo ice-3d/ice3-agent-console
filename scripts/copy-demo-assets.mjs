@@ -10,7 +10,7 @@ import { pathToFileURL } from 'node:url';
 export async function copyDemoAssets(options = {}) {
   const source = resolve(
     options.source
-      ?? '../ice3-engine/examples/m1/assets/wastewater-plant/tiled',
+      ?? 'public/assets/wastewater-plant/tiled',
   );
   const manifest = resolve(
     options.manifest

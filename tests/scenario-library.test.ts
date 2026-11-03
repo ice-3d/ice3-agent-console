@@ -51,10 +51,10 @@ test('every built-in scene action targets equipment in the synthetic wastewater 
     'public/assets/wastewater-plant/equipment.json',
     'utf8',
   )) as {
-    equipment: Array<{ selectionId: string }>;
+    bindings: Array<{ selectionId: string }>;
   };
   const knownIds = new Set(
-    manifest.equipment.map((item) => item.selectionId),
+    manifest.bindings.map((item) => item.selectionId),
   );
   const prefix = `${DEMO_ASSET_ID}/equipment/`;
   const focusTargets = SCRIPTED_SCENARIOS.flatMap((scenario) => (

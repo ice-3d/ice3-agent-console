@@ -15,7 +15,9 @@
 - 共享 tool 和 event 名称放在 `shared/`，不得在多个模块中重复定义。
 - 脚本 Agent 必须无需凭据即可运行。
 - 模型已经配置但运行失败时必须报错，不得静默切换为脚本 Agent。
-- Agent 只可使用 `find_equipment` 和 `select_equipment` Scene Tool。
+- Agent 只可使用受控的六个 Scene Tool：`find_equipment`、`select_equipment`、
+  `focus_equipment`、`highlight_equipment`、`set_camera_view` 和
+  `clear_scene_focus`。
 
 ## 演示资产
 

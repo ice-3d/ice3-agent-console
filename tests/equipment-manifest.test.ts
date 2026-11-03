@@ -7,17 +7,23 @@ test('contains stable identities and finite bounds for every device', async () =
     'public/assets/wastewater-plant/equipment.json',
     'utf8',
   )) as {
-    equipment: Array<{
+    assetId: string;
+    materialSlots: Array<{ id: string }>;
+    bindings: Array<{
       selectionId: string;
       tag: string;
+      slot: string;
       bounds: { min: number[]; max: number[] };
     }>;
   };
-  expect(manifest.equipment.length).toBeGreaterThanOrEqual(200);
-  expect(new Set(manifest.equipment.map((item) => item.selectionId)).size)
-    .toBe(manifest.equipment.length);
-  for (const item of manifest.equipment) {
+  const slotIds = new Set(manifest.materialSlots.map((slot) => slot.id));
+  expect(manifest.assetId).toBe('ice3-virtual-wwtp');
+  expect(manifest.bindings.length).toBeGreaterThanOrEqual(200);
+  expect(new Set(manifest.bindings.map((item) => item.selectionId)).size)
+    .toBe(manifest.bindings.length);
+  for (const item of manifest.bindings) {
     expect(item.selectionId).toContain(`/equipment/${item.tag}`);
+    expect(slotIds.has(item.slot)).toBe(true);
     expect([...item.bounds.min, ...item.bounds.max].every(Number.isFinite))
       .toBe(true);
   }

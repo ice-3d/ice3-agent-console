@@ -49,13 +49,6 @@ module.exports = (env = {}) => ({
         directory: path.resolve(__dirname, 'public'),
         publicPath: '/',
       },
-      {
-        directory: path.resolve(
-          __dirname,
-          '../ice3-engine/examples/m1/assets',
-        ),
-        publicPath: '/assets',
-      },
     ],
   },
   devtool: 'source-map',
