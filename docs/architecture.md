@@ -52,9 +52,13 @@ Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine 
 
 ## Scene 选中行为
 
-Selection 是 semantic identity，不是屏幕坐标。Runtime 将 Selection 转换为 camera
-Bounds 和短暂脉冲，随后保持 highlight。Focus target 使用未被 conversation panel 覆盖的
-可见 stage 区域。
+Selection 是 semantic identity，不是屏幕坐标。鼠标点击只接受 `equipment.json` 中
+声明的完整设备或业务实体，厂区地面、道路和未绑定节点会被过滤为无 Selection。用户
+点击产生的黄色 highlight 直接稳定显示，不再闪烁。Focus target 使用未被 conversation
+panel 覆盖的可见 stage 区域。
+
+内置演示剧本逐站聚焦设备，完整播放结束后统一执行 `clear_scene_focus`，清除场景和
+设备卡 Selection 并返回全厂 Overview。
 
 ## 失败边界
 

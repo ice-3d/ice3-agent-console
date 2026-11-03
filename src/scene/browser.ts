@@ -29,6 +29,7 @@ import {
   blinkSelection,
   type SelectionBlinkHandle,
 } from './selection-blink.js';
+import { applyUserSelection } from './user-selection.js';
 
 interface BrowserSceneOptions {
   readonly stage: HTMLElement;
@@ -115,6 +116,9 @@ export async function createSceneController(
         materialSlot: record.slot,
       }),
     })),
+  );
+  const selectableIds = new Set(
+    catalogRecords.map(({ selectionId }) => selectionId),
   );
 
   const engine = await initializeSceneEngine(options.stage);
@@ -270,8 +274,12 @@ export async function createSceneController(
     readonly param?: { readonly selection?: readonly string[] };
   }): void => {
     if (programmaticSelectionDepth > 0) return;
-    const ids = event.param?.selection ?? [];
-    startSelectionBlink(ids);
+    const ids = applyUserSelection(
+      event.param?.selection ?? [],
+      selectableIds,
+      applyProgrammaticSelection,
+    );
+    logicalSelection = ids;
     for (const listener of selectionListeners) listener(ids);
     options.onSelection?.(ids);
   };

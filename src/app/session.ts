@@ -166,7 +166,11 @@ export function createSession(options: SessionOptions): AgentConsoleSession {
       result,
       ...(result.ok ? {} : { error: result.message }),
     });
-    if (result.selectionIds[0]) setSelectedEquipment(result.selectionIds[0]);
+    if (command.type === 'clear') {
+      setSelectedEquipment(null);
+    } else if (result.selectionIds[0]) {
+      setSelectedEquipment(result.selectionIds[0]);
+    }
   }
 
   const run = async (

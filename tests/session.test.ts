@@ -41,10 +41,13 @@ class FakeScene implements SceneController {
 
   async execute(command: unknown) {
     this.commands.push(command);
+    const type = (command as { readonly type?: string }).type;
     return {
       ok: true,
-      selectionIds: ['ice3-virtual-wwtp/equipment/SC-101'],
-      message: '已定位二沉池 A',
+      selectionIds: type === 'clear'
+        ? []
+        : ['ice3-virtual-wwtp/equipment/SC-101'],
+      message: type === 'clear' ? '已返回全厂视角' : '已定位二沉池 A',
     };
   }
 
@@ -64,6 +67,7 @@ class FakeScene implements SceneController {
 class FakeView implements SessionView {
   readonly messages: string[] = [];
   readonly busyStates: boolean[] = [];
+  readonly equipment: Array<unknown> = [];
 
   appendUserMessage(text: string): void {
     this.messages.push(text);
@@ -71,7 +75,9 @@ class FakeView implements SessionView {
 
   render(): void {}
 
-  renderEquipment(): void {}
+  renderEquipment(equipment: unknown): void {
+    this.equipment.push(equipment);
+  }
 
   setBusy(busy: boolean): void {
     this.busyStates.push(busy);
@@ -129,6 +135,46 @@ test('routes a complete scene tool call to the controller', async () => {
     selectionIds: ['ice3-virtual-wwtp/equipment/SC-101'],
   }]);
   expect(session.state.status).toBe('idle');
+});
+
+test('clears the equipment card after returning to overview', async () => {
+  const view = new FakeView();
+  const session = createSession({
+    transport: async (_request, handlers) => {
+      handlers.onEvent({
+        type: EventType.RUN_STARTED,
+        threadId: 'thread-1',
+        runId: 'run-1',
+      });
+      handlers.onEvent({
+        type: EventType.TOOL_CALL_START,
+        toolCallId: 'tool-1',
+        toolCallName: 'clear_scene_focus',
+      });
+      handlers.onEvent({
+        type: EventType.TOOL_CALL_ARGS,
+        toolCallId: 'tool-1',
+        delta: '{}',
+      });
+      handlers.onEvent({
+        type: EventType.TOOL_CALL_END,
+        toolCallId: 'tool-1',
+      });
+      handlers.onEvent({
+        type: EventType.RUN_FINISHED,
+        threadId: 'thread-1',
+        runId: 'run-1',
+      });
+      handlers.onDone?.();
+    },
+    scene: new FakeScene(),
+    view,
+    threadId: 'thread-1',
+  });
+
+  await session.send('回到全厂');
+
+  expect(view.equipment.at(-1)).toBeNull();
 });
 
 test('manual scene intent cancels pending autoplay', async () => {
