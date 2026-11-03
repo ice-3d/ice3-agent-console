@@ -7,6 +7,7 @@ import {
   resolveVisibleViewport,
 } from '../src/scene/focus-framing.js';
 import type { ICEGeometryBoundsLike } from '../src/scene/types.js';
+import { ICEViewOffsetCamera } from '../src/scene/view-offset-camera.js';
 
 const BOUNDS = {
   min: [-4, -1, -4] as const,
@@ -35,14 +36,14 @@ test('centers an equipment focus in the desktop area left of the panel', () => {
     visible,
     fovDegrees: 45,
   });
-  const camera = new ICEPerspectiveCamera({
+  const camera = new ICEViewOffsetCamera({
     id: 'focus-test',
     fov: 45,
     near: 0.1,
     far: 1000,
     position: pose.position,
     target: pose.target,
-  });
+  }).setProjectionOffset(pose.projectionOffset);
   const point = projectWorldPoint(camera, [0, 1, 0], {
     x: 0,
     y: 0,
@@ -75,14 +76,14 @@ test('frames the complete plant inside the visible viewport', () => {
     fovDegrees: 45,
     fillRatio: 0.78,
   });
-  const camera = new ICEPerspectiveCamera({
+  const camera = new ICEViewOffsetCamera({
     id: 'overview-test',
     fov: 45,
     near: 0.1,
     far: 5_000,
     position: pose.position,
     target: pose.target,
-  });
+  }).setProjectionOffset(pose.projectionOffset);
   const projected = corners(plantBounds).map((corner) => (
     projectWorldPoint(camera, corner, { x: 0, y: 0, ...viewport })
   ));
@@ -95,6 +96,74 @@ test('frames the complete plant inside the visible viewport', () => {
     .toBeGreaterThanOrEqual(visible.y + 8);
   expect(Math.max(...projected.map(({ y }) => y)))
     .toBeLessThanOrEqual(visible.y + visible.height - 8);
+});
+
+test('keeps the orbit target at the scene center while shifting the view', () => {
+  const bounds = {
+    min: [-10, -5, -185] as const,
+    max: [610, 45, 185] as const,
+  };
+  const pose = frameBounds(bounds, {
+    viewport: { width: 1_200, height: 720 },
+    visible: { x: 0, y: 0, width: 760, height: 720 },
+    fovDegrees: 45,
+    fillRatio: 0.78,
+  });
+
+  expect(pose.target).toEqual([300, 20, 0]);
+  expect(pose.projectionOffset[0]).toBeLessThan(-0.3);
+  expect(Math.abs(pose.projectionOffset[1])).toBeLessThan(0.001);
+});
+
+test('applies a projection offset without moving the camera target', () => {
+  const camera = new ICEViewOffsetCamera({
+    id: 'offset-test',
+    fov: 45,
+    near: 0.1,
+    far: 100,
+    position: [0, 0, 5],
+    target: [0, 0, 0],
+  });
+  camera.setProjectionOffset([-0.5, 0.25]);
+
+  const point = projectWorldPoint(camera, [0, 0, 0], {
+    x: 0,
+    y: 0,
+    width: 640,
+    height: 360,
+  });
+
+  expect(Math.abs(point.x - 160)).toBeLessThan(0.001);
+  expect(Math.abs(point.y - 135)).toBeLessThan(0.001);
+  expect(camera.getTarget().toArray()).toEqual([0, 0, 0]);
+});
+
+test('keeps the scene center fixed through a complete orbit', () => {
+  const viewport = { x: 0, y: 0, width: 1_200, height: 800 };
+  const target = [300, 20, 0] as const;
+  const projectionOffset = [-0.35, 0] as const;
+  const projected: Array<Readonly<{ x: number; y: number }>> = [];
+
+  for (const angle of [0, Math.PI / 2, Math.PI, Math.PI * 1.5]) {
+    const camera = new ICEViewOffsetCamera({
+      id: 'orbit-visible-center',
+      fov: 45,
+      near: 0.1,
+      far: 5_000,
+      position: [
+        target[0] + Math.sin(angle) * 700,
+        target[1] + 420,
+        target[2] + Math.cos(angle) * 700,
+      ],
+      target,
+    }).setProjectionOffset(projectionOffset);
+    projected.push(projectWorldPoint(camera, target, viewport));
+  }
+
+  for (const point of projected) {
+    expect(Math.abs(point.x - 390)).toBeLessThan(0.001);
+    expect(Math.abs(point.y - 400)).toBeLessThan(0.001);
+  }
 });
 
 function projectWorldPoint(
@@ -126,14 +195,14 @@ test('centers an equipment focus above the mobile conversation panel', () => {
     visible,
     fovDegrees: 45,
   });
-  const camera = new ICEPerspectiveCamera({
+  const camera = new ICEViewOffsetCamera({
     id: 'focus-test',
     fov: 45,
     near: 0.1,
     far: 1000,
     position: pose.position,
     target: pose.target,
-  });
+  }).setProjectionOffset(pose.projectionOffset);
   const point = projectWorldPoint(camera, [0, 1, 0], {
     x: 0,
     y: 0,

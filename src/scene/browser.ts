@@ -1,7 +1,6 @@
 import {
   ICE3,
   ICEOrbitController,
-  ICEPerspectiveCamera,
   ICETilesetLoader,
   type ICEGeometryBounds,
   type ICETilesetHandle,
@@ -14,7 +13,7 @@ import type {
 } from '../../shared/scene.js';
 import { DEMO_ASSET } from '../../shared/demo-asset.js';
 import { resolveDemoAssetUrl } from './asset-url.js';
-import { moveCamera, type CameraPose } from './camera-controller.js';
+import { moveCamera } from './camera-controller.js';
 import { SceneCommandExecutor } from './controller.js';
 import type {
   EquipmentRecord,
@@ -24,6 +23,8 @@ import type {
 import {
   frameBounds,
   frameEquipment,
+  type FramedCameraPose,
+  type FocusFramingOptions,
   type ScreenRect,
 } from './focus-framing.js';
 import {
@@ -31,6 +32,7 @@ import {
   type SelectionBlinkHandle,
 } from './selection-blink.js';
 import { applyUserSelection } from './user-selection.js';
+import { ICEViewOffsetCamera } from './view-offset-camera.js';
 
 interface BrowserSceneOptions {
   readonly stage: HTMLElement;
@@ -124,7 +126,7 @@ export async function createSceneController(
 
   const engine = await initializeSceneEngine(options.stage);
   engine.setBackgroundColor('#000000');
-  const camera = new ICEPerspectiveCamera({
+  const camera = new ICEViewOffsetCamera({
     id: 'agent-console-camera',
     fov: 45,
     near: 0.1,
@@ -140,21 +142,27 @@ export async function createSceneController(
 
   const overviewCenter = center(handle.bounds);
   const overviewRadius = radius(handle.bounds);
-  const overviewViewport = {
-    width: Math.max(1, options.stage.clientWidth),
-    height: Math.max(1, options.stage.clientHeight),
+  const framingForCurrentLayout = (): FocusFramingOptions => {
+    const viewport = {
+      width: Math.max(1, options.stage.clientWidth),
+      height: Math.max(1, options.stage.clientHeight),
+    };
+    return {
+      viewport,
+      visible: options.visibleViewport?.() ?? {
+        x: 0,
+        y: 0,
+        ...viewport,
+      },
+      fovDegrees: camera.fov,
+    };
   };
-  const overview: CameraPose = frameBounds(handle.bounds, {
-    viewport: overviewViewport,
-    visible: options.visibleViewport?.() ?? {
-      x: 0,
-      y: 0,
-      ...overviewViewport,
-    },
-    fovDegrees: camera.fov,
+  const overview: FramedCameraPose = frameBounds(handle.bounds, {
+    ...framingForCurrentLayout(),
     fillRatio: 0.78,
   });
   camera.setClipPlanes(camera.near, Math.max(camera.far, overviewRadius * 8));
+  camera.setProjectionOffset(overview.projectionOffset);
   camera.setPosition(overview.position).setTarget(overview.target);
   let orbit = new ICEOrbitController(engine, camera).start();
 
@@ -167,10 +175,11 @@ export async function createSceneController(
   const intentListeners = new Set<() => void>();
   let disposed = false;
 
-  const animate = async (destination: CameraPose): Promise<void> => {
+  const animate = async (destination: FramedCameraPose): Promise<void> => {
     motion?.abort();
     const controller = new AbortController();
     motion = controller;
+    camera.setProjectionOffset(destination.projectionOffset);
     await moveCamera(
       camera,
       destination,
@@ -203,6 +212,10 @@ export async function createSceneController(
       return;
     }
     if (next === 'top') {
+      const projection = frameBounds(handle.bounds, {
+        ...framingForCurrentLayout(),
+        fillRatio: 0.78,
+      });
       await animate({
         target: overviewCenter,
         position: [
@@ -210,6 +223,7 @@ export async function createSceneController(
           overviewCenter[1] + overviewRadius * 1.8,
           overviewCenter[2] + 0.01,
         ],
+        projectionOffset: projection.projectionOffset,
       });
     }
   };
@@ -250,18 +264,8 @@ export async function createSceneController(
     async focus(bounds: ICEGeometryBoundsLike): Promise<void> {
       view = 'equipment';
       engine.requestRender('agent-focus');
-      const viewport = {
-        width: Math.max(1, options.stage.clientWidth),
-        height: Math.max(1, options.stage.clientHeight),
-      };
       await animate(frameEquipment(bounds, {
-        viewport,
-        visible: options.visibleViewport?.() ?? {
-          x: 0,
-          y: 0,
-          ...viewport,
-        },
-        fovDegrees: camera.fov,
+        ...framingForCurrentLayout(),
       }));
     },
     async setView(next: CameraView): Promise<void> {

@@ -17,6 +17,10 @@ export interface FocusFramingOptions {
 
 type Vec3 = readonly [number, number, number];
 
+export interface FramedCameraPose extends CameraPose {
+  readonly projectionOffset: readonly [number, number];
+}
+
 export function resolveVisibleViewport(
   viewport: ScreenRect,
   overlay?: ScreenRect,
@@ -77,32 +81,24 @@ function normalize(vector: Vec3): Vec3 {
     : [0, 0, 1];
 }
 
-function add(
+function advance(
   vector: Vec3,
-  right: Vec3,
-  up: Vec3,
-  rightAmount: number,
-  upAmount: number,
+  direction: Vec3,
+  amount: number,
 ): Vec3 {
   return [
-    vector[0] + right[0] * rightAmount + up[0] * upAmount,
-    vector[1] + right[1] * rightAmount + up[1] * upAmount,
-    vector[2] + right[2] * rightAmount + up[2] * upAmount,
+    vector[0] + direction[0] * amount,
+    vector[1] + direction[1] * amount,
+    vector[2] + direction[2] * amount,
   ];
 }
 
 export function frameBounds(
   bounds: ICEGeometryBoundsLike,
   options: FocusFramingOptions,
-): CameraPose {
+): FramedCameraPose {
   const objectCenter = center(bounds);
   const direction = normalize([0.6, 0.45, 0.75]);
-  const right = normalize([direction[2], 0, -direction[0]]);
-  const up = normalize([
-    direction[1] * right[2] - direction[2] * right[1],
-    direction[2] * right[0] - direction[0] * right[2],
-    direction[0] * right[1] - direction[1] * right[0],
-  ]);
   const aspect = options.viewport.width / Math.max(options.viewport.height, 1);
   const tanVertical = Math.tan(options.fovDegrees * Math.PI / 360);
   const tanHorizontal = tanVertical * aspect;
@@ -121,23 +117,19 @@ export function frameBounds(
   const desiredNdcY = 1 - (
     (visible.y + visible.height / 2) / options.viewport.height
   ) * 2;
-  const rightShift = -desiredNdcX * distance * tanHorizontal;
-  const upShift = -desiredNdcY * distance * tanVertical;
-  const target = add(
-    objectCenter,
-    right,
-    up,
-    rightShift,
-    upShift,
-  );
-  const position = add(target, direction, up, distance, 0);
+  const target = objectCenter;
+  const position = advance(target, direction, distance);
 
-  return { position, target };
+  return {
+    position,
+    target,
+    projectionOffset: [desiredNdcX, desiredNdcY],
+  };
 }
 
 export function frameEquipment(
   bounds: ICEGeometryBoundsLike,
   options: FocusFramingOptions,
-): CameraPose {
+): FramedCameraPose {
   return frameBounds(bounds, options);
 }
