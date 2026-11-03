@@ -2,20 +2,24 @@ import { ICEPerspectiveCamera } from 'ice3';
 import { expect } from '#test-expect';
 import { test } from 'node:test';
 import {
+  frameBounds,
   frameEquipment,
   resolveVisibleViewport,
 } from '../src/scene/focus-framing.js';
+import type { ICEGeometryBoundsLike } from '../src/scene/types.js';
 
 const BOUNDS = {
   min: [-4, -1, -4] as const,
   max: [4, 3, 4] as const,
 };
 
-const corners = (): [number, number, number][] => {
+const corners = (
+  bounds: ICEGeometryBoundsLike = BOUNDS,
+): [number, number, number][] => {
   const result: [number, number, number][] = [];
-  for (const x of [BOUNDS.min[0], BOUNDS.max[0]]) {
-    for (const y of [BOUNDS.min[1], BOUNDS.max[1]]) {
-      for (const z of [BOUNDS.min[2], BOUNDS.max[2]]) {
+  for (const x of [bounds.min[0], bounds.max[0]]) {
+    for (const y of [bounds.min[1], bounds.max[1]]) {
+      for (const z of [bounds.min[2], bounds.max[2]]) {
         result.push([x, y, z]);
       }
     }
@@ -56,6 +60,41 @@ test('centers an equipment focus in the desktop area left of the panel', () => {
   expect(Math.abs(point.y - 400)).toBeLessThan(24);
   expect(right - left).toBeLessThan(visible.width * 0.8);
   expect(bottom - top).toBeLessThan(visible.height * 0.8);
+});
+
+test('frames the complete plant inside the visible viewport', () => {
+  const plantBounds = {
+    min: [-10, -5, -185] as const,
+    max: [610, 45, 185] as const,
+  };
+  const viewport = { width: 1_200, height: 720 };
+  const visible = { x: 0, y: 0, width: 760, height: 720 };
+  const pose = frameBounds(plantBounds, {
+    viewport,
+    visible,
+    fovDegrees: 45,
+    fillRatio: 0.78,
+  });
+  const camera = new ICEPerspectiveCamera({
+    id: 'overview-test',
+    fov: 45,
+    near: 0.1,
+    far: 5_000,
+    position: pose.position,
+    target: pose.target,
+  });
+  const projected = corners(plantBounds).map((corner) => (
+    projectWorldPoint(camera, corner, { x: 0, y: 0, ...viewport })
+  ));
+
+  expect(Math.min(...projected.map(({ x }) => x)))
+    .toBeGreaterThanOrEqual(visible.x + 8);
+  expect(Math.max(...projected.map(({ x }) => x)))
+    .toBeLessThanOrEqual(visible.x + visible.width - 8);
+  expect(Math.min(...projected.map(({ y }) => y)))
+    .toBeGreaterThanOrEqual(visible.y + 8);
+  expect(Math.max(...projected.map(({ y }) => y)))
+    .toBeLessThanOrEqual(visible.y + visible.height - 8);
 });
 
 function projectWorldPoint(

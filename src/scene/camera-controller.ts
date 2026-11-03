@@ -14,12 +14,14 @@ export async function moveCamera(
   destination: CameraPose,
   durationMs: number,
   signal: AbortSignal,
+  onFrame?: () => void,
 ): Promise<void> {
   const startPosition = camera.getPosition().toArray();
   const startTarget = camera.getTarget().toArray();
   const startedAt = performance.now();
   if (durationMs <= 0) {
     camera.setPosition(destination.position).setTarget(destination.target);
+    onFrame?.();
     return;
   }
   while (!signal.aborted) {
@@ -36,6 +38,7 @@ export async function moveCamera(
         startTarget[1] + (destination.target[1] - startTarget[1]) * amount,
         startTarget[2] + (destination.target[2] - startTarget[2]) * amount,
       ]);
+    onFrame?.();
     if (t >= 1) return;
     await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
   }

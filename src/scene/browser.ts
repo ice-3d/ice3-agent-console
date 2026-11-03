@@ -22,6 +22,7 @@ import type {
   SceneController,
 } from './types.js';
 import {
+  frameBounds,
   frameEquipment,
   type ScreenRect,
 } from './focus-framing.js';
@@ -140,14 +141,21 @@ export async function createSceneController(
 
   const overviewCenter = center(handle.bounds);
   const overviewRadius = radius(handle.bounds);
-  const overview: CameraPose = {
-    target: overviewCenter,
-    position: [
-      overviewCenter[0] + overviewRadius * 0.75,
-      overviewCenter[1] + overviewRadius * 0.65,
-      overviewCenter[2] + overviewRadius * 0.95,
-    ],
+  const overviewViewport = {
+    width: Math.max(1, options.stage.clientWidth),
+    height: Math.max(1, options.stage.clientHeight),
   };
+  const overview: CameraPose = frameBounds(handle.bounds, {
+    viewport: overviewViewport,
+    visible: options.visibleViewport?.() ?? {
+      x: 0,
+      y: 0,
+      ...overviewViewport,
+    },
+    fovDegrees: camera.fov,
+    fillRatio: 0.78,
+  });
+  camera.setClipPlanes(camera.near, Math.max(camera.far, overviewRadius * 8));
   camera.setPosition(overview.position).setTarget(overview.target);
 
   let motion: AbortController | null = null;
@@ -163,7 +171,13 @@ export async function createSceneController(
     motion?.abort();
     const controller = new AbortController();
     motion = controller;
-    await moveCamera(camera, destination, 420, controller.signal);
+    await moveCamera(
+      camera,
+      destination,
+      420,
+      controller.signal,
+      () => engine.requestRender('agent-camera-motion'),
+    );
     if (controller.signal.aborted) return;
     orbit.dispose();
     orbit = new ICEOrbitController(engine, camera).start();

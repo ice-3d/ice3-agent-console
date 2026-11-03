@@ -91,7 +91,7 @@ function add(
   ];
 }
 
-export function frameEquipment(
+export function frameBounds(
   bounds: ICEGeometryBoundsLike,
   options: FocusFramingOptions,
 ): CameraPose {
@@ -133,4 +133,11 @@ export function frameEquipment(
   const position = add(target, direction, up, distance, 0);
 
   return { position, target };
+}
+
+export function frameEquipment(
+  bounds: ICEGeometryBoundsLike,
+  options: FocusFramingOptions,
+): CameraPose {
+  return frameBounds(bounds, options);
 }

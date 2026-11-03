@@ -59,7 +59,7 @@ Selection 是 semantic identity，不是屏幕坐标。鼠标点击只接受 `eq
 panel 覆盖的可见 stage 区域。
 
 内置演示剧本逐站聚焦设备，完整播放结束后统一执行 `clear_scene_focus`，清除场景和
-设备卡 Selection 并返回全厂 Overview。
+设备卡 Selection，并恢复页面初次加载完成时的全厂相机位姿和空 Selection。
 
 ## Asset 加载与首屏
 

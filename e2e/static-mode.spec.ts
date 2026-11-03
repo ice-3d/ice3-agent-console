@@ -106,15 +106,36 @@ test('returns to overview and hides the focus card after a complete scenario', a
   await page.goto('http://127.0.0.1:8111/?demo=1&autoplay=0');
   await expect(page.locator('[data-role="scene-status"]'))
     .toHaveText('场景已就绪', { timeout: 60_000 });
+  const initial = await page.evaluate(() => (
+    window.__ICE3_AGENT_CONSOLE__.snapshot()
+  ));
 
   await page.getByRole('button', { name: '二沉池', exact: true }).click();
+  await expect(page.locator('[data-role="selection-tag"]'))
+    .toHaveText('SC-103', { timeout: 20_000 });
+  await page.waitForTimeout(600);
+  const focusedCanvas = await page.locator(
+    'canvas[data-layer="scene"]',
+  ).screenshot();
   await expect.poll(
-    () => page.evaluate(() => window.__ICE3_AGENT_CONSOLE__.state().status),
+    () => page.evaluate(() => {
+      const snapshot = window.__ICE3_AGENT_CONSOLE__.snapshot();
+      return snapshot.view === 'overview'
+        && snapshot.selectedIds.length === 0;
+    }),
     { timeout: 20_000 },
-  ).toBe('idle');
+  ).toBe(true);
+  await page.waitForTimeout(500);
 
   expect(await page.evaluate(() => (
     window.__ICE3_AGENT_CONSOLE__.selectedIds()
   ))).toEqual([]);
+  expect(await page.evaluate(() => (
+    window.__ICE3_AGENT_CONSOLE__.snapshot()
+  ))).toEqual(initial);
+  const returnedCanvas = await page.locator(
+    'canvas[data-layer="scene"]',
+  ).screenshot();
+  expect(returnedCanvas.equals(focusedCanvas)).toBe(false);
   await expect(page.locator('[data-role="equipment-card"]')).toBeHidden();
 });

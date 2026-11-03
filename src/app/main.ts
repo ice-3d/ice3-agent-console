@@ -99,6 +99,7 @@ export async function startConsole(host: HTMLElement): Promise<void> {
     window.__ICE3_AGENT_CONSOLE__ = {
       send: (text) => session.send(text),
       selectedIds: () => scene.snapshot().selectedIds,
+      snapshot: () => scene.snapshot(),
       assistantMode: () => 'scripted',
       transportMode: () => demo ? 'local' : 'server',
       state: () => session.state,
