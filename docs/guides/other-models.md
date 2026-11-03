@@ -20,7 +20,7 @@
 开始前需要准备：
 
 1. 有权部署的 source glTF 2.0 或 GLB。
-2. 已由 `ice3-toolchain` 生成的 Prepared GLB Tileset。
+2. 已由 `ice3-studio` 生成的 Prepared GLB Tileset 和 `bindings.json`。
 3. 与 Tileset 中设备 Selection ID 一致的业务清单。
 4. 设备 tag、名称、工艺阶段、区域、连接关系和世界坐标 Bounds。
 
@@ -96,10 +96,11 @@ public/assets/custom-plant/
 - `stage` 和 `area` 用于 `find_equipment` 分类查询。
 - `connections` 保存可公开的流程或管线 ID，不得包含敏感客户字段。
 
-如果 source Asset 已通过 ICE3 authoring metadata 写入 `equipmentTag`、
-`selectionId`、`displayName`、`processStage`、`area` 和 `connections`，可以使用
-manifest generator 生成清单。接入其它模型时需同步修改脚本中的 source、output 和
-`assetId` 默认值：
+Agent Console 的设备清单必须从同一 Tileset 的 `bindings.json` 生成，不读取旧 Source
+GLB，也不手工维护另一套坐标。manifest generator 会保留
+`equipmentTag`、`selectionId`、`displayName`、`area` 和 Bounds，并补充 UI 使用的
+工艺段、材质槽和展示配置。接入其它模型时需同步修改脚本中的 Tileset binding input
+和 output：
 
 ```text
 scripts/generate-equipment-manifest.mjs
@@ -108,17 +109,12 @@ scripts/generate-equipment-manifest.mjs
 对应配置应改为：
 
 ```js
-const source = resolve(
-  process.env.ICE3_WWTP_SOURCE ?? 'path/to/authoring-source.glb',
-);
+const input = resolve('public/assets/custom-plant/tiled/bindings.json');
 const output = resolve('public/assets/custom-plant/equipment.json');
-
-// writeFile(...)
-assetId: 'custom-plant',
 ```
 
-source 路径也可以临时通过 `ICE3_WWTP_SOURCE` environment variable 指定；该变量是
-现有兼容入口，不改变默认污水处理厂生成结果。
+生成器拒绝重复设备标签、Selection ID 不匹配、缺失或非有限 Bounds。不得通过复用
+旧清单绕过校验。
 
 ## 3. 放置 Runtime Asset
 

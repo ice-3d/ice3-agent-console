@@ -52,11 +52,7 @@ test('plays a multi-stop guided tour for opening autoplay', async () => {
     { name: 'set_camera_view', args: { view: 'overview' } },
     {
       name: 'focus_equipment',
-      args: { selectionId: 'ice3-virtual-wwtp/equipment/P-101' },
-    },
-    {
-      name: 'focus_equipment',
-      args: { selectionId: 'ice3-virtual-wwtp/equipment/AT-101' },
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/PS-101-P' },
     },
     {
       name: 'focus_equipment',
@@ -64,11 +60,15 @@ test('plays a multi-stop guided tour for opening autoplay', async () => {
     },
     {
       name: 'focus_equipment',
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/AE-103' },
+    },
+    {
+      name: 'focus_equipment',
       args: { selectionId: 'ice3-virtual-wwtp/equipment/SC-101' },
     },
     {
       name: 'focus_equipment',
-      args: { selectionId: 'ice3-virtual-wwtp/equipment/CO-101' },
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/CHEM-101-D' },
     },
     {
       name: 'focus_equipment',
@@ -76,7 +76,7 @@ test('plays a multi-stop guided tour for opening autoplay', async () => {
     },
     {
       name: 'focus_equipment',
-      args: { selectionId: 'ice3-virtual-wwtp/equipment/ST-101' },
+      args: { selectionId: 'ice3-virtual-wwtp/equipment/DW-101' },
     },
     { name: 'clear_scene_focus', args: {} },
   ]);

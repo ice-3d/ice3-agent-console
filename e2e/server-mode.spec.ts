@@ -7,9 +7,9 @@ test('starts a moving guided tour when opened without overrides', async ({
   await expect(page.locator('[data-role="scene-status"]'))
     .toHaveText('场景已就绪', { timeout: 60_000 });
   await expect(page.locator('[data-role="selection-tag"]'))
-    .toHaveText('P-101', { timeout: 10_000 });
+    .toHaveText('PS-101-P', { timeout: 10_000 });
   await expect(page.locator('[data-role="selection-tag"]'))
-    .toHaveText('AT-101', { timeout: 10_000 });
+    .toHaveText('AE-101', { timeout: 10_000 });
 });
 
 test('loads the wastewater plant and completes a scene command', async ({
@@ -20,7 +20,7 @@ test('loads the wastewater plant and completes a scene command', async ({
     .toHaveText('场景已就绪', { timeout: 60_000 });
   await page.getByRole('button', { name: '二沉池', exact: true }).click();
   await expect(page.locator('[data-role="selection-tag"]'))
-    .toHaveText('P-WAS-301', { timeout: 10_000 });
+    .toHaveText('SC-101', { timeout: 10_000 });
 });
 
 test('cancels autoplay when the user interacts with the scene', async ({

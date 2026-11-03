@@ -61,16 +61,16 @@ const PROCESS_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
         tag: 'GR-101',
       },
       {
-        text: '进水泵把污水提升到后续处理构筑物，A、B 两台泵可以互为备用。',
-        tag: 'P-101',
+        text: '提升泵组把污水提升到后续处理构筑物，多台泵可以互为备用。',
+        tag: 'PS-101-P',
       },
       {
         text: '曝气沉砂池利用曝气和沉降去除砂粒，避免磨损后续设备。',
         tag: 'GC-101',
       },
       {
-        text: '砂水分离器把沉砂与污水分离，预处理后的水进入初沉池。',
-        tag: 'GW-101',
+        text: '沉砂配水井把预处理后的水量分配到后续工艺线。',
+        tag: 'DD-001',
       },
     ]),
   },
@@ -82,19 +82,19 @@ const PROCESS_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
     steps: steps([
       {
         text: '厌氧池首先释放磷并水解部分有机物，为后续生物反应准备条件。',
-        tag: 'AT-101',
-      },
-      {
-        text: '缺氧池利用内回流带来的硝态氮进行反硝化，完成脱氮。',
-        tag: 'AX-101',
-      },
-      {
-        text: '好氧池通过曝气完成有机物降解和硝化，是生化系统的核心反应区。',
         tag: 'AE-101',
       },
       {
+        text: '缺氧池利用内回流带来的硝态氮进行反硝化，完成脱氮。',
+        tag: 'AE-102',
+      },
+      {
+        text: '好氧池通过曝气完成有机物降解和硝化，是生化系统的核心反应区。',
+        tag: 'AE-103',
+      },
+      {
         text: '回流污泥泵把二沉池污泥送回生化系统，维持反应池中的活性污泥浓度。',
-        tag: 'P-RAS-101',
+        tag: 'RWS-101',
       },
     ]),
   },
@@ -109,16 +109,16 @@ const PROCESS_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
         tag: 'SC-101',
       },
       {
-        text: '中间提升泵负责克服后续深度处理构筑物的高程差。',
-        tag: 'P-LIFT-111',
+        text: '回流污泥泵站把沉降污泥送回生化系统，维持活性污泥浓度。',
+        tag: 'RWS-101',
       },
       {
-        text: '回流污泥泵维持生化池污泥浓度，是活性污泥系统稳定运行的关键。',
-        tag: 'P-RAS-101',
+        text: '并列的二沉池分担泥水分离负荷，保证出水稳定。',
+        tag: 'SC-102',
       },
       {
-        text: '剩余污泥泵排出系统增殖的污泥，控制泥龄并维持处理效果。',
-        tag: 'P-WAS-301',
+        text: '第三座二沉池与前一池协同运行，便于检修和负荷调节。',
+        tag: 'SC-103',
       },
     ]),
   },
@@ -129,20 +129,20 @@ const PROCESS_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
     keywords: ['深度处理', '混凝沉淀', '滤布滤池', '臭氧', '活性炭', '消毒'],
     steps: steps([
       {
-        text: '混凝沉淀池通过加药和沉淀进一步去除悬浮物与磷。',
-        tag: 'CO-101',
+        text: '加药装置向深度处理线投加药剂，帮助去除悬浮物与磷。',
+        tag: 'CHEM-101-D',
       },
       {
         text: '滤布滤池拦截细小悬浮物，反冲洗系统定期恢复过滤能力。',
         tag: 'FL-101',
       },
       {
-        text: '臭氧接触池用于氧化难降解有机物并辅助消毒。',
-        tag: 'OZ-101',
+        text: '紫外消毒渠道完成出水前的微生物控制。',
+        tag: 'UV-101',
       },
       {
-        text: '紫外消毒渠道完成出水前最后一道微生物控制。',
-        tag: 'UV-101',
+        text: '最终出水口汇集处理后的尾水，是厂区对外排放边界。',
+        tag: 'OUT-101',
       },
     ]),
   },
@@ -160,20 +160,20 @@ const PROCESS_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
     ],
     steps: steps([
       {
-        text: '厌氧消化池稳定剩余污泥并产生沼气，是污泥减量和资源化的关键环节。',
-        tag: 'DIG-101',
+        text: '污泥浓缩池先降低污泥含水率，为后续稳定和脱水减量。',
+        tag: 'TH-101',
       },
       {
-        text: '污泥脱水机通过机械脱水降低含水率，减少后续运输体积。',
-        tag: 'DWG-101',
+        text: '厌氧消化池稳定剩余污泥并产生沼气，是污泥资源化的关键环节。',
+        tag: 'DG-101',
       },
       {
-        text: '污泥干化机进一步降低含水率，为储存和外运创造条件。',
-        tag: 'DRY-101',
+        text: '脱水机房通过机械脱水降低含水率，减少后续运输体积。',
+        tag: 'DW-101',
       },
       {
-        text: '处理后的污泥进入料仓暂存，再由输送系统装车外运。',
-        tag: 'SILO-101',
+        text: '泥饼输送机把脱水后的污泥送往后续储存和外运环节。',
+        tag: 'CV-101',
       },
     ]),
   },
@@ -191,12 +191,12 @@ const SYSTEM_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
         tag: 'BLW-101',
       },
       {
-        text: '空气进入好氧池曝气支管，为微生物提供溶解氧。',
-        tag: 'AE-101',
+        text: '鼓风机 1 为曝气系统提供稳定气源，出口压力和流量决定供气能力。',
+        tag: 'BLW-101-A',
       },
       {
-        text: '内回流设备连接好氧区与缺氧区，把硝态氮带回反硝化区域。',
-        tag: 'P-RAS-101',
+        text: '空气进入好氧池曝气支管，为微生物提供溶解氧。',
+        tag: 'AE-103',
       },
     ]),
   },
@@ -207,20 +207,12 @@ const SYSTEM_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
     keywords: ['加药系统', 'PAC', 'PAM', '次氯酸钠', '碳源'],
     steps: steps([
       {
-        text: 'PAC 加药装置用于混凝反应，帮助细小悬浮物形成可沉降絮体。',
-        tag: 'PAC-101',
+        text: '加药间集中储存和配制深度处理所需药剂。',
+        tag: 'CHEM-101',
       },
       {
-        text: 'PAM 加药装置改善污泥絮体结构，常用于污泥脱水调理。',
-        tag: 'PAM-101',
-      },
-      {
-        text: '次氯酸钠系统用于消毒和部分化学氧化，计量泵负责精确投加。',
-        tag: 'NACLO-101',
-      },
-      {
-        text: '碳源储罐为反硝化提供补充碳源，在进水碳氮比不足时使用。',
-        tag: 'CARBON-101',
+        text: '加药装置按工艺负荷精确投加药剂，维持混凝和除磷效果。',
+        tag: 'CHEM-101-D',
       },
     ]),
   },
@@ -231,16 +223,16 @@ const SYSTEM_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
     keywords: ['出水在线监测', '水质监测', 'COD', '氨氮', '总磷', '总氮', '浊度', '排放口'],
     steps: steps([
       {
-        text: '出水 COD 在线仪监测有机污染指标，帮助判断深度处理效果。',
-        tag: 'AIT-COD-101',
+        text: '二沉集水井汇集二沉池上清液，再送入深度处理。',
+        tag: 'FB-101',
       },
       {
-        text: '出水氨氮在线仪监测硝化效果，是生化系统运行状态的重要反馈。',
-        tag: 'AIT-NH3-101',
+        text: '滤池拦截细小悬浮物，反冲洗系统定期恢复过滤能力。',
+        tag: 'FL-101',
       },
       {
-        text: '出水流量计累计排放水量，在线仪表数据需要与流量同步分析。',
-        tag: 'FIT-101',
+        text: '紫外消毒渠道完成出水前的微生物控制。',
+        tag: 'UV-101',
       },
       {
         text: '最终排放口汇集在线监测结果，是厂区对外排放的边界。',
@@ -256,15 +248,15 @@ const SYSTEM_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
     steps: steps([
       {
         text: '事故池用于暂时接纳异常进水，避免高负荷冲击生化系统。',
-        tag: 'EQ-101',
+        tag: 'EMG-101',
       },
       {
-        text: '事故水回流泵把储存在事故池中的水按可控流量送回处理主线。',
-        tag: 'P-EQ-101',
+        text: '事故水按可控流量送回提升泵组，重新进入处理主线。',
+        tag: 'PS-101-P',
       },
       {
-        text: '回流期间持续关注出水浊度，确认异常水没有影响最终水质。',
-        tag: 'AIT-TU-101',
+        text: '回流期间持续关注最终出水口，确认异常水没有影响排放。',
+        tag: 'OUT-101',
       },
     ]),
   },

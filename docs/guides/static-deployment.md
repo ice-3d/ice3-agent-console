@@ -35,18 +35,17 @@ https://ice-3d.github.io/ice3-agent-console/
 ```
 
 仓库使用 [Deploy demo to Pages](../../.github/workflows/deploy-pages.yml) 在 `main`
-更新后自动构建并发布。Workflow 会同时检出公开的 `ice3-engine` 仓库，因为当前静态
-构建需要读取同级 Engine package 和虚构污水处理厂 Runtime Asset。
+更新后自动构建并发布。Workflow 只检出 Agent Console，并从 npm registry 安装锁定
+版本的公开 `ice3` package；虚构污水处理厂 Runtime Asset 已包含在本仓库中。
 
 发布流程：
 
-1. 检出 Agent Console 和 Engine。
+1. 检出 Agent Console。
 2. 使用 `.nvmrc` 指定的 Node.js 24.22.1。
-3. 安装两个仓库的依赖，并先构建 Engine 的公开 package。
+3. 使用 lockfile 安装 Agent Console 依赖和公开 `ice3` package。
 4. 运行文档门禁、类型检查和单元测试。
-5. 通过 `ICE3_EQUIPMENT_MANIFEST_REUSE=1` 复用版本库中已校验的设备清单，并执行
-   `npm run build:demo`。Engine source GLB 按体积和保密策略不进入 Git，因此 CI
-   不从 source 重新生成清单。
+5. 执行 `npm run build:demo`。构建前会从同一 Tileset 的 `bindings.json` 生成
+   `equipment.json`，因此 Bounds、Selection ID 和静态剧本使用同一个 Asset revision。
 6. 将 `dist/` 作为 Pages artifact 发布。
 
 仓库 Settings 中的 Pages Source 必须保持为 `GitHub Actions`。不要把 151 MiB 左右的

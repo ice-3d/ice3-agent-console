@@ -47,14 +47,19 @@ test('every static scenario uses approved tools and focuses equipment', () => {
 });
 
 test('every built-in scene action targets equipment in the synthetic wastewater demo', async () => {
-  const manifest = JSON.parse(await readFile(
-    'public/assets/wastewater-plant/equipment.json',
+  const bindings = JSON.parse(await readFile(
+    'public/assets/wastewater-plant/tiled/bindings.json',
     'utf8',
   )) as {
-    bindings: Array<{ selectionId: string }>;
+    bindings: Array<{
+      selectionId: string;
+      equipmentTag?: string;
+    }>;
   };
   const knownIds = new Set(
-    manifest.bindings.map((item) => item.selectionId),
+    bindings.bindings
+      .filter((item) => item.equipmentTag)
+      .map((item) => item.selectionId),
   );
   const prefix = `${DEMO_ASSET_ID}/equipment/`;
   const focusTargets = SCRIPTED_SCENARIOS.flatMap((scenario) => (
