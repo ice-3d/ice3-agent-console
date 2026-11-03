@@ -50,7 +50,14 @@ export async function initializeSceneEngine(
 }
 
 interface EquipmentManifest {
-  readonly equipment: readonly {
+  readonly assetId: string;
+  readonly displayExposure: number;
+  readonly materialSlots: readonly {
+    readonly id: string;
+    readonly color: string;
+    readonly role: string;
+  }[];
+  readonly bindings: readonly {
     readonly selectionId: string;
     readonly tag: string;
     readonly name: string;
@@ -58,6 +65,7 @@ interface EquipmentManifest {
     readonly area: string;
     readonly connections: readonly string[];
     readonly bounds: ICEGeometryBoundsLike;
+    readonly slot: string;
   }[];
 }
 
@@ -95,7 +103,7 @@ export async function createSceneController(
   }
   const manifest = await manifestResponse.json() as EquipmentManifest;
   const catalogRecords = Object.freeze(
-    manifest.equipment.map((record) => Object.freeze({
+    manifest.bindings.map((record) => Object.freeze({
       selectionId: record.selectionId,
       name: record.name,
       bounds: record.bounds,
@@ -104,6 +112,7 @@ export async function createSceneController(
         processStage: record.stage,
         area: record.area,
         connections: record.connections,
+        materialSlot: record.slot,
       }),
     })),
   );

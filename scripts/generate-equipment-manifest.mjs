@@ -15,7 +15,7 @@ function validateManifest(value) {
     !value
     || typeof value !== 'object'
     || typeof value.assetId !== 'string'
-    || !Array.isArray(value.equipment)
+    || !Array.isArray(value.bindings)
   ) {
     throw new Error(
       'ICE3_EQUIPMENT_MANIFEST_INVALID: checked-in manifest cannot be reused',
