@@ -105,3 +105,13 @@ test('loads GA4 only outside local and file URLs', () => {
     '<script async src="https://www.googletagmanager.com/gtag/js',
   );
 });
+
+test('paints an accessible inline loading state before runtime CSS and JS', () => {
+  const criticalStyle = /<style[^>]*data-role="boot-critical"[^>]*>([\s\S]*?)<\/style>/i
+    .exec(html)?.[1] ?? '';
+  expect(criticalStyle).toContain('.sr-only');
+  expect(criticalStyle).toContain('#boot-loading');
+  expect(html).toContain('id="boot-loading"');
+  expect(html).toContain('正在加载工业 3D 场景');
+  expect(html).toContain('正在准备模型、材质和 Agent 演示');
+});
