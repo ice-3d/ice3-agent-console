@@ -25,6 +25,118 @@
     <meta name="theme-color" content="#0a0f14" />
     <link rel="canonical" href="https://ice-3d.github.io/ice3-agent-console/" />
 
+    <style data-role="boot-critical">
+      :root {
+        color-scheme: dark;
+        --boot-ink: #edf5f7;
+        --boot-muted: #8ca3ad;
+        --boot-accent: #71d8c4;
+        --boot-background: #05080c;
+        font-family:
+          "IBM Plex Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei",
+          sans-serif;
+        background: var(--boot-background);
+        color: var(--boot-ink);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body,
+      #app {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 30% 20%, rgb(25 58 66 / 32%), transparent 38%),
+          var(--boot-background);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      #boot-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at 50% 42%, rgb(36 83 88 / 28%), transparent 42%),
+          var(--boot-background);
+      }
+
+      .boot-loading__panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        max-width: 360px;
+        text-align: center;
+      }
+
+      .boot-loading__brand {
+        padding: 7px 10px;
+        border: 1px solid var(--boot-accent);
+        color: var(--boot-accent);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+      }
+
+      .boot-loading__spinner {
+        width: 34px;
+        height: 34px;
+        margin: 4px 0;
+        border: 2px solid rgb(113 216 196 / 22%);
+        border-top-color: var(--boot-accent);
+        border-radius: 50%;
+        animation: boot-spin 900ms linear infinite;
+      }
+
+      .boot-loading__title {
+        font-size: 17px;
+        font-weight: 650;
+        letter-spacing: 0.01em;
+      }
+
+      .boot-loading__detail {
+        color: var(--boot-muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      @keyframes boot-spin {
+        to {
+          transform: rotate(1turn);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .boot-loading__spinner {
+          animation: none;
+          border-color: var(--boot-accent);
+        }
+      }
+    </style>
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ICE3 Agent Console" />
     <meta property="og:locale" content="zh_CN" />
@@ -131,9 +243,29 @@
     </script>
   </head>
   <body>
-    <div id="app">
+    <div
+      id="boot-loading"
+      role="status"
+      aria-live="polite"
+      aria-label="正在加载工业 3D 场景"
+    >
+      <div class="boot-loading__panel">
+        <span class="boot-loading__brand">ICE3</span>
+        <span class="boot-loading__spinner" aria-hidden="true"></span>
+        <strong class="boot-loading__title">正在加载工业 3D 场景</strong>
+        <span class="boot-loading__detail">
+          正在准备模型、材质和 Agent 演示…
+        </span>
+      </div>
+    </div>
+    <div id="app" aria-busy="true">
       <main id="stage" data-role="stage" aria-busy="true"></main>
       <noscript>
+        <style>
+          #boot-loading {
+            display: none;
+          }
+        </style>
         <p>
           这个 3D 演示需要启用 JavaScript 和 WebGL2。页面内容的文字摘要和源码入口仍可在
           下方的 <a href="#site-summary">页面说明</a> 中查看。

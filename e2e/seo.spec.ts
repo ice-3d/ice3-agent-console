@@ -40,3 +40,29 @@ test('serves production TDK and keeps GA disabled on localhost', async ({ page }
     window as Window & { gtag?: unknown }
   ).gtag)).toBeUndefined();
 });
+
+test('shows inline loading until the interactive console is ready', async ({
+  page,
+}) => {
+  let releaseBoot!: () => void;
+  const bootGate = new Promise<void>((resolve) => {
+    releaseBoot = resolve;
+  });
+  await page.route('**/boot.*.js', async (route) => {
+    await bootGate;
+    await route.continue();
+  });
+
+  await page.goto('http://127.0.0.1:8111/?demo=1&autoplay=0', {
+    waitUntil: 'commit',
+  });
+  const loading = page.locator('#boot-loading');
+  await expect(loading).toBeVisible();
+  await expect(loading).toContainText('正在加载工业 3D 场景');
+  await expect(page.locator('#site-summary')).toHaveCSS('position', 'absolute');
+
+  releaseBoot();
+  await expect(page.locator('[data-role="scene-status"]'))
+    .toHaveText('场景已就绪', { timeout: 60_000 });
+  await expect(loading).toHaveCount(0);
+});
