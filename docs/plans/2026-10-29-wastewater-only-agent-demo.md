@@ -26,7 +26,7 @@ Playwright。
 
 **规格：** [仓库规则](../../AGENTS.md)、[应用设计](../specs/2026-10-28-ice3-agent-console-design.md)。
 
-## 全局约束
+## 1. 全局约束
 
 - 内置 autoplay、快捷操作、脚本 Agent、服务端脚本和 E2E 只使用虚构污水处理厂。
 - 不得加入真实客户模型、派生模型、截图或提取纹理。
@@ -35,7 +35,7 @@ Playwright。
 - Node.js 版本固定为 `24.22.1`，Git author 和 committer 为 `damoqiongqiu`。
 - 文档中不得出现竞品、厂商或未批准商业产品名称。
 
-## 审查重点
+## 2. 审查重点
 
 - 剧本误指向非污水处理厂 identity：本地和服务端 Agent 必须使用同一
   `ice3-virtual-wwtp` 前缀。
@@ -46,7 +46,7 @@ Playwright。
 
 ---
 
-### Task 1：固定演示资产 identity
+### 2.1 Task 1：固定演示资产 identity
 
 **Files:**
 
@@ -104,7 +104,7 @@ Selection 常量都改用 `demoEquipmentSelectionId()`。
 
 预期：PASS。
 
-### Task 2：记录其它模型接入方法
+### 2.2 Task 2：记录其它模型接入方法
 
 **Files:**
 
@@ -137,7 +137,7 @@ README、文档索引、本地开发和静态部署都必须链接新指南，�
 
 预期：全部文档有效，引用无断链。
 
-### Task 3：完整验证与合并
+### 2.3 Task 3：完整验证与合并
 
 **Files:**
 

@@ -6,7 +6,7 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## Run 请求
+## 1. Run 请求
 
 Client 发送：
 
@@ -21,7 +21,7 @@ Client 发送：
 }
 ```
 
-## Stream Event
+## 2. Stream Event
 
 Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event。
 
@@ -41,7 +41,7 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 
 未知 event 不修改既有 thread state。
 
-## Custom Event
+## 3. Custom Event
 
 | 名称 | 用途 |
 |---|---|
@@ -49,9 +49,9 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 | `ice3/point-clear` | 表示当前视觉要点已完成 |
 | `ice3/autoplay-cancelled` | 表示引导 autoplay 已取消 |
 
-## Scene Tool
+## 4. Scene Tool
 
-### `find_equipment`
+### 4.1 `find_equipment`
 
 ```json
 { "query": "string", "area": "string" }
@@ -59,7 +59,7 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 
 两个字段都是可选的，返回匹配的 equipment summary。
 
-### `select_equipment`
+### 4.2 `select_equipment`
 
 ```json
 { "selectionIds": ["string"] }
@@ -67,7 +67,7 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 
 至少需要一个 Selection ID。
 
-### `focus_equipment`
+### 4.3 `focus_equipment`
 
 ```json
 { "selectionId": "string" }
@@ -75,7 +75,7 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 
 选中 equipment 并移动 camera。
 
-### `highlight_equipment`
+### 4.4 `highlight_equipment`
 
 ```json
 { "selectionIds": ["string"], "durationMs": 1500 }
@@ -83,7 +83,7 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 
 需要一个或多个 ID。`durationMs` 可选且不能为负。
 
-### `set_camera_view`
+### 4.5 `set_camera_view`
 
 ```json
 { "view": "overview" }
@@ -91,7 +91,7 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 
 允许的 view 为 `overview`、`area`、`equipment` 和 `top`。
 
-### `clear_scene_focus`
+### 4.6 `clear_scene_focus`
 
 ```json
 {}
@@ -99,14 +99,14 @@ Server 使用 Server-Sent Events。每个 `data:` payload 是一个 JSON event�
 
 清除 Selection 和 highlight，然后返回 overview。
 
-## Error 规则
+## 5. Error 规则
 
 - 未知 tool name 被拒绝。
 - 无效或格式错误的 JSON argument 不执行。
 - Tool 失败时针对其 tool-call ID 返回 error result。
 - Run error 在没有有效 tool effect 时不会替换当前 Scene Selection。
 
-## 关联文档
+## 6. 关联文档
 
 - `ICE3-AGENT-ARC-001` — [应用架构](../architecture.md)
 - `ICE3-AGENT-GUIDE-003` — [Real-Model 服务端](../guides/real-model-server.md)

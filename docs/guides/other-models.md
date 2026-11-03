@@ -6,7 +6,7 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## 适用范围
+## 1. 适用范围
 
 仓库中的内置演示、autoplay、快捷操作、本地脚本 Agent、服务端脚本 Agent 和 E2E
 只使用完全虚构的市政污水处理厂 `ice3-virtual-wwtp`。本指南用于在独立项目部署中
@@ -15,7 +15,7 @@
 “Real-Model 服务端”中的 model 指 AI 推理模型，与 3D Asset 无关。接入其它 3D 模型
 不需要修改 AI endpoint，也不表示要删除默认污水处理厂演示。
 
-## 输入要求
+## 2. 输入要求
 
 开始前需要准备：
 
@@ -26,7 +26,7 @@
 
 Runtime 不接受通用 source 转换。不得在浏览器中重新切分、简化或转换 3D 模型。
 
-## 1. 预处理 3D Asset
+## 3. 预处理 3D Asset
 
 优先把已获准的 source model 纳入 `ice3-studio` 工程，并执行正式 Runtime
 导出：
@@ -60,7 +60,7 @@ cargo run --manifest-path ../ice3-studio/Cargo.toml -p studio-cli -- \
 直接 partition 不替代正式工程导出；需要设备业务绑定时应使用上面的 `export tileset`
 入口。不要只复制单个 GLB，也不要手工修改 Tileset 中的相对 URI。
 
-## 2. 准备设备业务清单
+## 4. 准备设备业务清单
 
 默认示例清单位于：
 
@@ -130,7 +130,7 @@ const output = resolve('public/assets/custom-plant/equipment.json');
 生成器拒绝重复设备标签、Selection ID 不匹配、缺失或非有限 Bounds。不得通过复用
 旧清单绕过校验。
 
-## 3. 放置 Runtime Asset
+## 5. 放置 Runtime Asset
 
 开发服务器会从 `public/` 提供以 `/assets/` 开头的相对路径。把完整 Tileset 输出放到：
 
@@ -151,7 +151,7 @@ await copyDemoAssets({
 });
 ```
 
-## 4. 配置演示资产
+## 6. 配置演示资产
 
 浏览器和内置剧本共享同一个配置：
 
@@ -179,7 +179,7 @@ export const DEMO_ASSET = Object.freeze({
 - 所有 `focus_equipment` 的 `selectionId` 都必须存在于新清单中。
 - 如果模型没有水务工艺，应删除水务术语和按水务流程编写的剧本，不要保留无效入口。
 
-## 5. 验证
+## 7. 验证
 
 开发模式：
 
@@ -209,7 +209,7 @@ npm run test:e2e
 默认仓库构建仍应保留 `dist/assets/wastewater-plant/tiled/tileset.json`。用于客户部署的
 定制构建应单独校验新的 Asset root，不得把真实客户模型加入默认仓库资产。
 
-## 安全与发布边界
+## 8. 安全与发布边界
 
 - 真实客户 source、partition output、粗模、equipment metadata、截图和本地路径不得提交
   到默认示例仓库，除非项目明确采用独立私有交付流程。
@@ -217,7 +217,7 @@ npm run test:e2e
 - Tileset 与设备清单默认从同源路径提供；跨源部署必须明确配置 CORS 和缓存规则。
 - 已配置的 Asset 加载失败时保留明确错误，不得静默切换到污水处理厂。
 
-## 关联文档
+## 9. 关联文档
 
 - `ICE3-AGENT-RM-001` — [README](../../README.md)
 - `ICE3-AGENT-GUIDE-001` — [本地开发](local-development.md)

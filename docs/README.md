@@ -6,7 +6,7 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## 从这里开始
+## 1. 从这里开始
 
 | ID | 标题 | Status | 用途 |
 |---|---|---|---|
@@ -15,7 +15,7 @@
 | `ICE3-AGENT-IDX-002` | [架构决策](decisions/README.md) | Active | 应用决策索引 |
 | `ICE3-AGENT-POL-001` | [仓库规则](../AGENTS.md) | Active | 架构和交付规则 |
 
-## 指南
+## 2. 指南
 
 | ID | 标题 | Status | 用途 |
 |---|---|---|---|
@@ -24,7 +24,7 @@
 | `ICE3-AGENT-GUIDE-003` | [Real-Model 服务端](guides/real-model-server.md) | Active | 配置兼容的 Agent endpoint |
 | `ICE3-AGENT-GUIDE-004` | [接入其它 3D 模型](guides/other-models.md) | Active | 将已预处理的另一个 Scene 与设备清单接入应用 |
 
-## 协议与决策
+## 3. 协议与决策
 
 | ID | 标题 | Status | 用途 |
 |---|---|---|---|
@@ -33,7 +33,7 @@
 | `ICE3-AGENT-ADR-001` | [Agent 和 Scene 边界](decisions/0001-agent-scene-boundary.md) | Active | 让编排逻辑留在 engine 内部实现之外 |
 | `ICE3-AGENT-ADR-002` | [脚本与 Real-Model 传输](decisions/0002-scripted-and-real-model-transport.md) | Active | 明确 runtime 模式和失败行为 |
 
-## 设计历史
+## 4. 设计历史
 
 | ID | 标题 | Status | 用途 |
 |---|---|---|---|
