@@ -46,6 +46,16 @@ test('every static scenario uses approved tools and focuses equipment', () => {
   }
 });
 
+test('every static scenario ends by clearing focus and returning to overview', () => {
+  for (const scenario of SCRIPTED_SCENARIOS) {
+    expect(scenario.steps.at(-1)?.tool).toEqual({
+      name: 'clear_scene_focus',
+      args: {},
+    });
+    expect(scenario.steps.at(-1)?.text).toContain('全厂');
+  }
+});
+
 test('every built-in scene action targets equipment in the synthetic wastewater demo', async () => {
   const bindings = JSON.parse(await readFile(
     'public/assets/wastewater-plant/tiled/bindings.json',

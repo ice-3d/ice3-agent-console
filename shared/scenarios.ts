@@ -43,11 +43,18 @@ const steps = (
     readonly text: string;
     readonly tag: string;
   }[],
-): readonly ScenarioStep[] => entries.map((entry) => ({
-  text: entry.text,
-  tool: focus(entry.tag),
-  holdMs: 1_500,
-}));
+): readonly ScenarioStep[] => [
+  ...entries.map((entry) => ({
+    text: entry.text,
+    tool: focus(entry.tag),
+    holdMs: 1_500,
+  })),
+  {
+    text: '本节演示结束，镜头返回全厂视角。',
+    tool: { name: 'clear_scene_focus', args: {} },
+    holdMs: 600,
+  },
+];
 
 const PROCESS_SCENARIOS: readonly ScriptedScenario[] = Object.freeze([
   {

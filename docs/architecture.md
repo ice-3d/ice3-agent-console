@@ -34,7 +34,7 @@ Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine 
 | Protocol reducer | 将流式 model event 转换为 text 和 tool item |
 | Session | 管理单次 run、cancellation、autoplay 和 tool-result update |
 | Scene controller | 校验允许的 tool argument 并调用公开 ICE3 API |
-| Browser Scene | 管理 camera、Selection pulse、panel Bounds 和 stage lifecycle |
+| Browser Scene | 管理 camera、稳定 Selection highlight、panel Bounds 和 stage lifecycle |
 | Demo Asset 配置 | 集中定义虚构污水处理厂的 identity、标题、Tileset 和 manifest 路径 |
 | Runtime Asset | Studio 导出 fine/coarse Tileset、binding manifest 和设备 catalog |
 | Local transport | 在浏览器中运行确定性脚本 Agent |
@@ -53,9 +53,13 @@ Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine 
 
 ## Scene 选中行为
 
-Selection 是 semantic identity，不是屏幕坐标。Runtime 将 Selection 转换为 camera
-Bounds 和短暂脉冲，随后保持 highlight。Focus target 使用未被 conversation panel 覆盖的
-可见 stage 区域。
+Selection 是 semantic identity，不是屏幕坐标。鼠标点击只接受 `equipment.json` 中
+声明的完整设备或业务实体，厂区地面、道路和未绑定节点会被过滤为无 Selection。用户
+点击产生的黄色 highlight 直接稳定显示，不再闪烁。Focus target 使用未被 conversation
+panel 覆盖的可见 stage 区域。
+
+内置演示剧本逐站聚焦设备，完整播放结束后统一执行 `clear_scene_focus`，清除场景和
+设备卡 Selection 并返回全厂 Overview。
 
 ## Asset 加载与首屏
 
