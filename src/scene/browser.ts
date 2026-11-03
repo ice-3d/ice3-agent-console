@@ -136,7 +136,6 @@ export async function createSceneController(
   const handle: ICETilesetHandle = await loader.open(
     resolveDemoAssetUrl(assetBaseUri, DEMO_ASSET.tilesetPath),
   );
-  let orbit = new ICEOrbitController(engine, camera).start();
   engine.setScene(handle.scene).setCamera(camera).start();
 
   const overviewCenter = center(handle.bounds);
@@ -157,6 +156,7 @@ export async function createSceneController(
   });
   camera.setClipPlanes(camera.near, Math.max(camera.far, overviewRadius * 8));
   camera.setPosition(overview.position).setTarget(overview.target);
+  let orbit = new ICEOrbitController(engine, camera).start();
 
   let motion: AbortController | null = null;
   let selectionBlink: SelectionBlinkHandle | null = null;
