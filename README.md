@@ -20,7 +20,7 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 其它演示 Asset 的切换入口。其它已获准使用的 3D 模型应按
 [接入其它 3D 模型](docs/guides/other-models.md)配置为独立部署。
 
-## 能力
+## 1. 能力
 
 | 领域 | 能力 |
 |---|---|
@@ -38,7 +38,7 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 
 本工程是应用层，依赖公开 engine API，不向 engine 或 industrial core 增加 Agent 概念。
 
-## 界面预览
+## 2. 界面预览
 
 | Agent 工艺巡游 | 聚焦设备 |
 |---|---|
@@ -47,7 +47,7 @@ Scene 状态更新时，3D 舞台始终保持挂载。
 左图展示 Agent 按工艺段自动移动镜头并讲解设备；右图展示收起对话面板后的聚焦场景。
 两张图均来自版本库中的虚构污水处理厂示例。
 
-## 快速开始
+## 3. 快速开始
 
 运行要求：
 
@@ -66,7 +66,7 @@ npm run dev
 打开 `http://127.0.0.1:8110/`；Agent 服务监听 `http://127.0.0.1:8099/`。Scene 加载完成后
 开始总览巡游。
 
-## 浏览器本地演示
+## 4. 浏览器本地演示
 
 ```bash
 npm run build:demo
@@ -83,7 +83,7 @@ URL 控制参数：
 
 无效值回退到构建默认值。
 
-## Real-Model 服务端
+## 5. Real-Model 服务端
 
 这里的 “Real-Model” 指 AI 推理服务，不是 3D 场景模型。
 
@@ -101,7 +101,7 @@ API key 只保留在服务端。`/health` 报告运行模式和接口 host，不
 
 详见 [Real-Model 服务端](docs/guides/real-model-server.md)。
 
-## Scene 工具
+## 6. Scene 工具
 
 暴露给 Agent 的 Scene 工具仅为：
 
@@ -114,7 +114,7 @@ API key 只保留在服务端。`/health` 报告运行模式和接口 host，不
 
 未知工具会被拒绝。参数格式错误时只显示错误，不执行工具。
 
-## 验证
+## 7. 验证
 
 ```bash
 npm run docs:check
@@ -124,7 +124,7 @@ npm run test:e2e
 npm run verify
 ```
 
-## 文档
+## 8. 文档
 
 - [文档索引](docs/README.md)
 - [应用架构](docs/architecture.md)
@@ -136,10 +136,10 @@ npm run verify
 - [Runtime Asset 交付](docs/reference/asset-delivery.md)
 - [架构决策](docs/decisions/README.md)
 
-## AI 辅助开发
+## 9. AI 辅助开发
 
 本项目在设计和实现过程中大量使用了 AI 辅助开发。
 
-## 许可证
+## 10. 许可证
 
 本项目采用 [MIT License](LICENSE) 许可。

@@ -6,11 +6,11 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## 目标结果
+## 1. 目标结果
 
 同时运行 Web 应用和 Agent service，并验证脚本对话和 Scene action。
 
-## 前置条件
+## 2. 前置条件
 
 - Node.js 24.22.1 LTS
 - npm 11 或更高版本
@@ -20,7 +20,7 @@
 为虚构污水处理厂；加载其它合规 3D 模型的方法见
 [接入其它 3D 模型](other-models.md)。
 
-## 操作步骤
+## 3. 操作步骤
 
 ```bash
 nvm use
@@ -36,7 +36,7 @@ npm run dev
 
 调试时可使用 `?autoplay=0` 关闭开场巡游。
 
-## 聚焦测试
+## 4. 聚焦测试
 
 ```bash
 npm run typecheck
@@ -44,7 +44,7 @@ npm test
 npm run test:e2e
 ```
 
-## 故障诊断
+## 5. 故障诊断
 
 | 现象 | 检查 |
 |---|---|
@@ -54,7 +54,7 @@ npm run test:e2e
 | Tool 可见但不执行 | 检查 protocol reference 中的 tool name 和 JSON argument |
 | 巡游未开始 | 检查 `autoplay` URL parameter 和 reduced-motion 行为 |
 
-## 关联文档
+## 6. 关联文档
 
 - `ICE3-AGENT-RM-001` — [README](../../README.md)
 - `ICE3-AGENT-GUIDE-002` — [静态部署](static-deployment.md)

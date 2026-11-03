@@ -23,7 +23,7 @@ native Node test、Playwright 1.64 和同级 `ice3` package。
 
 **规格：** [`ICE3-AGENT-SPEC-001`](../specs/2026-10-28-ice3-agent-console-design.md)
 
-## 全局约束
+## 1. 全局约束
 
 - 不引入仓库命名和技术约束禁止的开发工具。
 - Source、test、documentation、Diagnostic 或 commit message 中不得使用竞品、厂商或未批准商业产品名称。
@@ -40,7 +40,7 @@ native Node test、Playwright 1.64 和同级 `ice3` package。
 - 用户 pointer 或 keyboard camera input 取消 Agent-driven camera motion。
 - 每项行为变化先写失败测试，最终以相关完整测试 suite 全绿结束。
 
-## 审查重点
+## 2. 审查重点
 
 - Model configuration 无效或缺失：Server 必须明确识别失败，不得回退到 scripted output。
 - Equipment ID stale 或未知：Scene executor 必须拒绝 command，不得清除或移动当前 Scene。
@@ -50,7 +50,7 @@ native Node test、Playwright 1.64 和同级 `ice3` package。
 
 ---
 
-### Task 1：搭建应用与 mode switch
+### 2.1 Task 1：搭建应用与 mode switch
 
 **文件：**
 
@@ -222,7 +222,7 @@ git commit -m "feat: bootstrap agent console"
 
 ---
 
-### Task 2：定义共享 Protocol 和 Scene command contract
+### 2.2 Task 2：定义共享 Protocol 和 Scene command contract
 
 **文件：**
 
@@ -334,7 +334,7 @@ git commit -m "feat: define scene agent protocol"
 
 ---
 
-### Task 3：构建 AG-UI event reducer
+### 2.3 Task 3：构建 AG-UI event reducer
 
 **Files:**
 
@@ -456,7 +456,7 @@ git commit -m "feat: reduce agent scene events"
 
 ---
 
-### Task 4：实现确定性 Agent 和 event encoder
+### 2.4 Task 4：实现确定性 Agent 和 event encoder
 
 **文件：**
 
@@ -559,7 +559,7 @@ git commit -m "feat: add deterministic scene agent"
 
 ---
 
-### Task 5：增加 Server transport
+### 2.5 Task 5：增加 Server transport
 
 **Files:**
 
@@ -645,7 +645,7 @@ git commit -m "feat: serve agent events"
 
 ---
 
-### Task 6：实现 3D Scene adapter
+### 2.6 Task 6：实现 3D Scene adapter
 
 **文件：**
 
@@ -771,7 +771,7 @@ git commit -m "feat: add semantic scene controller"
 
 ---
 
-### Task 7：构建 Stage 和 Conversation 界面
+### 2.7 Task 7：构建 Stage 和 Conversation 界面
 
 **文件：**
 
@@ -869,7 +869,7 @@ git commit -m "feat: add industrial agent interface"
 
 ---
 
-### Task 8：组装应用并将 Tool 接入 Scene
+### 2.8 Task 8：组装应用并将 Tool 接入 Scene
 
 **文件：**
 
@@ -1026,7 +1026,7 @@ git commit -m "feat: connect agent events to 3d scene"
 
 ---
 
-### Task 9：增加 Real-Model Server adapter
+### 2.9 Task 9：增加 Real-Model Server adapter
 
 **文件：**
 
@@ -1115,7 +1115,7 @@ git commit -m "feat: add real model agent adapter"
 
 ---
 
-### Task 10：构建自包含 Demo 并执行端到端验证
+### 2.10 Task 10：构建自包含 Demo 并执行端到端验证
 
 **文件：**
 
@@ -1256,7 +1256,7 @@ git commit -m "feat: add static agent console demo"
 
 ---
 
-## 最终验证
+## 3. 最终验证
 
 - [ ] 运行 `npm run verify`。
 - [ ] 运行 `npm run build:demo`。
@@ -1269,7 +1269,7 @@ git commit -m "feat: add static agent console demo"
 - [ ] 从嵌套路径启动 demo build，并手动重复相同 flow。
 - [ ] 运行 `git status --short`，确认 worktree 干净。
 
-## 关联文档
+## 4. 关联文档
 
 - `ICE3-AGENT-IDX-001` — [文档索引](../README.md)
 - `ICE3-AGENT-SPEC-001` — [Console 设计](../specs/2026-10-28-ice3-agent-console-design.md)

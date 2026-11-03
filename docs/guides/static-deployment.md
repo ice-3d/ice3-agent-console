@@ -6,11 +6,11 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## 目标结果
+## 1. 目标结果
 
 发布无需凭据的演示，其中包含应用、Runtime Asset 和确定性本地 Agent。
 
-## 构建
+## 2. 构建
 
 ```bash
 nvm use
@@ -26,7 +26,7 @@ npx http-server dist -p 8111 -c-1
 
 预期：`http://127.0.0.1:8111/` 无需 Agent service 或 model credential 即可运行。
 
-## GitHub Pages
+## 3. GitHub Pages
 
 线上演示地址：
 
@@ -55,7 +55,7 @@ server transport。
 GitHub Pages 只提供静态文件，没有 `8099` Agent service。线上应使用默认地址或
 `?demo=1`；`?demo=0` 会尝试连接不存在的后端。
 
-## 搜索与访问统计
+## 4. 搜索与访问统计
 
 静态页面包含：
 
@@ -81,7 +81,7 @@ G-5M03M076TL
 `gtag.js` 只在非本地主机注入。`localhost`、`*.localhost`、`127.0.0.1`、`::1` 和
 `file:` 页面不会发送统计请求，避免开发调试和 E2E 污染生产数据。
 
-## 发布文件
+## 5. 发布文件
 
 Static build 包含：
 
@@ -89,13 +89,13 @@ Static build 包含：
 - 仅包含虚构 Runtime `tiled/` Asset tree。
 - 不包含 source GLB、prepared monolithic GLB、客户数据或凭据。
 
-## URL 参数
+## 6. URL 参数
 
 - `?autoplay=0` 关闭开场巡游。
 - `?demo=1` 明确选择 browser-local transport。
 - `?demo=0` 选择 server transport，并要求 service 可达。
 
-## 预期结果
+## 7. 预期结果
 
 无后端部署路径可以打开并加载虚构污水处理厂，并通过 local event stream 执行所有内置
 场景。
@@ -104,7 +104,7 @@ Static build 包含：
 Prepared Tileset 和设备清单，并按 [接入其它 3D 模型](other-models.md)调整 custom
 deployment。
 
-## 关联文档
+## 8. 关联文档
 
 - `ICE3-AGENT-RM-001` — [README](../../README.md)
 - `ICE3-AGENT-ARC-001` — [架构](../architecture.md)

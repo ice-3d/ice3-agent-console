@@ -8,7 +8,7 @@
 
 > **历史状态：** 本文保留初始 Console 设计记录。当前 Tileset 分块、业务 Selection、
 > 首屏 loading 和发布链路以 [Runtime Asset 交付](../reference/asset-delivery.md) 为准。
-## 目标
+## 1. 目标
 
 ICE3 Agent Console 是一个独立的工业应用，将全视口 3D Scene 与对话式 Agent 结合。
 3D Scene 始终是主要界面。对话面板用于控制和解释 Scene，而不是用一串消息卡片替代
@@ -25,9 +25,9 @@ Scene。
 Engine、Toolchain 和 industrial semantic 保持独立。Agent Console 只消费其公开
 interface，不把 Agent 行为迁入 Engine 或领域模型。
 
-## 范围
+## 2. 范围
 
-### 首个版本
+### 2.1 首个版本
 
 - 全屏 3D 污水处理厂舞台。
 - 可折叠浮动对话面板。
@@ -40,7 +40,7 @@ interface，不把 Agent 行为迁入 Engine 或领域模型。
 - camera 和 equipment tool 通过公开 Scene API 实现。
 - Chromium 和 WebKit 端到端覆盖。
 
-### 暂缓
+### 2.2 暂缓
 
 - 授权、多租户 identity 和持久化 conversation storage。
 - 图表、可编辑表单、control command 和审批 workflow。
@@ -49,7 +49,7 @@ interface，不把 Agent 行为迁入 Engine 或领域模型。
 - 实时过程遥测。
 - 从 Console 创建或编辑 3D Geometry。
 
-## 架构
+## 3. 架构
 
 项目是单个 TypeScript package，包含四个 Runtime 边界：
 
@@ -80,7 +80,7 @@ server -> agents + transport + shared
 `src/scene` 是唯一允许构造或修改 Engine object 的浏览器模块。`server` 和 Agent 实现
 不得导入 renderer internals 或访问 GPU resource。
 
-## 应用组合
+## 4. 应用组合
 
 `src/app` 负责启动和停止：
 
@@ -93,7 +93,7 @@ server -> agents + transport + shared
 
 Disposal 按相反顺序执行，并且必须幂等。
 
-## Scene Controller
+## 5. Scene Controller
 
 Scene controller 将公开 `ice3` capability 转换为应用级 command。它负责：
 
@@ -120,7 +120,7 @@ Scene controller 将公开 `ice3` capability 转换为应用级 command。它负
 每个 command 返回结构化结果，包含 status、受影响的 Selection ID 和可安全展示的
 message。无效 ID 和不可用 equipment 不修改 Scene。
 
-## Agent Protocol
+## 6. Agent Protocol
 
 Agent Console 复用 2D 产品建立的 AG-UI event model：
 
@@ -152,11 +152,11 @@ Selected equipment 和 active Scene view 等持久事实保存在 session state�
 
 Context 是结构化数据。Client 不把 Scene fact 拼接到用户 message 中。
 
-## Agent 实现
+## 7. Agent 实现
 
 两种实现都满足同一个 `AgentRun` interface，并发送相同 event type。
 
-### Scripted Agent
+### 7.1 Scripted Agent
 
 首版确定性场景包括：
 
@@ -172,7 +172,7 @@ Context 是结构化数据。Client 不把 Scene fact 拼接到用户 message �
 
 实现必须具有确定性，并且不需要 network 或 credential。
 
-### Real-Model Agent
+### 7.2 Real-Model Agent
 
 Server 检测 model configuration 并构造 Real-Model adapter。Configuration 使用
 environment variable，永不进入浏览器。
@@ -192,11 +192,11 @@ controller 或 view。
 
 无法连接已配置 model 属于 error，不得静默生成 scripted response。
 
-## Runtime 模式
+## 8. Runtime 模式
 
 行为由两个独立维度决定：
 
-### Transport
+### 8.1 Transport
 
 - `server`：browser 通过 SSE 调用本地 Agent endpoint。
 - `demo`：相同 scripted Agent 在 browser 内运行，不需要 backend。
@@ -204,7 +204,7 @@ controller 或 view。
 普通构建默认使用 `server`，demo build 默认使用 `demo`。`?demo=1` 和 `?demo=0`
 覆盖 build default。无效值回退到 build default。
 
-### Autoplay
+### 8.2 Autoplay
 
 - 该演示的所有构建默认播放引导开场巡游。
 - `?autoplay=1` 和 `?autoplay=0` 覆盖 build default。
@@ -216,11 +216,11 @@ Agent 驱动的 camera movement。
 并在下一 stop 开始前移动 camera。Tour tool 引起的 programmatic Selection 不是用户
 意图，不得取消 run；pointer、keyboard 或显式用户 Selection 会取消。
 
-## 界面
+## 9. 界面
 
 3D 舞台占据全 viewport，conversation panel 浮动在右侧边缘。
 
-### Stage
+### 9.1 Stage
 
 - 黑色背景。
 - 默认加载污水处理厂 view。
@@ -233,7 +233,7 @@ Agent 驱动的 camera movement。
 - 显示 loading、LOD 和 failure status。
 - 不保留永久 equipment label 遮挡。
 
-### Conversation Panel
+### 9.2 Conversation Panel
 
 - 可展开和折叠。
 - 流式 assistant text。
@@ -243,7 +243,7 @@ Agent 驱动的 camera movement。
 - 支持可访问 keyboard behavior。
 - Error state 保持之前 Scene 可见。
 
-### Equipment Overlay
+### 9.3 Equipment Overlay
 
 Equipment card 与 conversation panel 分开显示：
 
@@ -256,7 +256,7 @@ Equipment card 与 conversation panel 分开显示：
 
 Scene 聚焦选中 equipment 时，overlay 不得遮挡该 equipment。
 
-### Quick Command
+### 9.4 Quick Command
 
 首版提供：
 
@@ -267,7 +267,7 @@ Scene 聚焦选中 equipment 时，overlay 不得遮挡该 equipment。
 
 Quick command 与 typed message 使用相同 Agent input path。
 
-## Asset 与部署
+## 10. Asset 与部署
 
 开发应用可以直接从同级 `ice3-engine` 仓库读取虚构污水处理厂 Asset。本仓库的
 autoplay、内置剧本、服务端脚本 Agent 和测试只针对该虚构 Asset；其它 3D 模型通过
@@ -286,7 +286,7 @@ Demo build 自包含：
 Source、build script、test fixture、screenshot 或 deployment output 永不引用真实
 客户 Asset。
 
-## Error 处理
+## 11. Error 处理
 
 - 无效 AG-UI input 返回带结构化 issue 的 HTTP 422。
 - Provider failure 发送 `RUN_ERROR`，不静默回退。
@@ -296,9 +296,9 @@ Source、build script、test fixture、screenshot 或 deployment output 永不�
 - 用户 pointer 或 keyboard navigation 取消 Agent camera movement。
 - Static demo mode 默认不尝试 network transport。
 
-## 测试
+## 12. 测试
 
-### Unit
+### 12.1 Unit
 
 - Transport 和 autoplay mode 解析。
 - AG-UI event reducer 顺序和 streamed text。
@@ -308,7 +308,7 @@ Source、build script、test fixture、screenshot 或 deployment output 永不�
 - Scripted Agent 确定性。
 - Model configuration 不暴露 credential。
 
-### Integration
+### 12.2 Integration
 
 - 所有 scripted tool 针对只实现公开 command contract 的 Scene controller test double
   执行。
@@ -316,7 +316,7 @@ Source、build script、test fixture、screenshot 或 deployment output 永不�
 - Server 发送有效 AG-UI SSE response。
 - Client disconnect 终止 model request。
 
-### End-to-end
+### 12.3 End-to-end
 
 - Server mode 加载污水处理厂并完成 overview command。
 - Scripted mode 定位和聚焦指定 device。
@@ -328,7 +328,7 @@ Source、build script、test fixture、screenshot 或 deployment output 永不�
 
 核心 E2E flow 在 Chromium 和 WebKit 中运行。
 
-## 验收标准
+## 13. 验收标准
 
 - 应用启动时可见虚构污水处理厂。
 - 默认演示不需要 model credential。
@@ -339,7 +339,7 @@ Source、build script、test fixture、screenshot 或 deployment output 永不�
 - Engine 和 Toolchain 不因理解 Agent 概念而被修改。
 - Package、browser 和 deployment test 全部通过。
 
-## 关联文档
+## 14. 关联文档
 
 - `ICE3-AGENT-IDX-001` — [文档索引](../README.md)
 - `ICE3-AGENT-PLAN-001` — [实施计划](../plans/2026-10-28-ice3-agent-console.md)

@@ -6,7 +6,7 @@
 >
 > Owner: ICE3 Agent Console maintainers
 
-## 系统上下文
+## 1. 系统上下文
 
 Console 组合公开 Engine、Scene controller、Agent event stream 和对话界面。
 
@@ -26,7 +26,7 @@ user or autoplay prompt
 
 Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine state。
 
-## 组件
+## 2. 组件
 
 | 组件 | 职责 |
 |---|---|
@@ -41,7 +41,7 @@ Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine 
 | Server transport | 通过 SSE 流式传输服务端输出 |
 | Model adapter | 将兼容 chat-completion tool call 转换为 event stream |
 
-## Run 生命周期
+## 3. Run 生命周期
 
 1. Prompt 携带 thread context 和可选 Scene Snapshot 启动一次 run。
 2. Transport 发送 run、text、tool、custom、completion 或 error event。
@@ -51,7 +51,7 @@ Scene 在多次 run 期间保持挂载。Conversation state 不会成为 Engine 
 6. Tool result 返回对话。
 7. 手动交互或新意图会取消过时 autoplay。
 
-## Scene 选中行为
+## 4. Scene 选中行为
 
 Selection 是 semantic identity，不是屏幕坐标。鼠标点击只接受 `equipment.json` 中
 声明的完整设备或业务实体，厂区地面、道路和未绑定节点会被过滤为无 Selection。用户
@@ -61,7 +61,7 @@ panel 覆盖的可见 stage 区域。
 内置演示剧本逐站聚焦设备，完整播放结束后统一执行 `clear_scene_focus`，清除场景和
 设备卡 Selection，并恢复页面初次加载完成时的全厂相机位姿和空 Selection。
 
-## Asset 加载与首屏
+## 5. Asset 加载与首屏
 
 Scene 通过 `ICETilesetLoader` 加载 OGC 3D Tiles 1.1。Loader 按相机工作集选择 visible
 和 prefetch tile，先使用 coarse coverage，再以 fine partition 替换；tile 大小和常驻
@@ -71,7 +71,7 @@ Scene 通过 `ICETilesetLoader` 加载 OGC 3D Tiles 1.1。Loader 按相机工作
 bindings 生成。浏览器 HTML 在 bundle 执行前通过内联 critical style 显示 loading，
 Scene ready 或错误界面挂载后再移除 loading。
 
-## 失败边界
+## 6. 失败边界
 
 - 未知 tool 永不执行。
 - 格式错误的 tool argument 会展示并跳过。
@@ -79,7 +79,7 @@ Scene ready 或错误界面挂载后再移除 loading。
 - 已配置 model 失败时返回 error，不回退到 scripted mode。
 - Aborted run 释放 listener 并忽略 late event。
 
-## 关联文档
+## 7. 关联文档
 
 - `ICE3-AGENT-RM-001` — [README](../README.md)
 - `ICE3-AGENT-REF-001` — [Event 和 Scene Tool protocol](reference/protocol.md)
