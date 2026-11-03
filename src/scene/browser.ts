@@ -134,7 +134,20 @@ export async function createSceneController(
     position: [1, 1, 1],
     target: [0, 0, 0],
   });
-  const loader = new ICETilesetLoader(engine, { camera });
+  // 该演示瓦片集很小（2 级 LOD / 6 块内容）。默认 maxCommitsPerFrame=1 会让
+  // 粗模（抽稀后的大三角面）逐块被细模替换，肉眼表现为"旋转停下后，很多区域
+  // 像低分辨率/三角形马赛克一样一片片闪入"。这里一次性并发拉取、每帧提交全部
+  // 可见瓦片，把粗→细的切换压缩到一帧内完成；同时收紧屏幕空间误差阈值，让
+  // 细模优先、粗模不在视野里长时间停留。
+  const loader = new ICETilesetLoader(engine, {
+    camera,
+    maxConcurrentTiles: 6,
+    maxCommitsPerFrame: 6,
+    maxScreenSpaceErrorPixels: 1,
+    lodSettleDelayMs: 120,
+    maxResidentTiles: 128,
+    prefetchMarginRatio: 0.6,
+  });
   const handle: ICETilesetHandle = await loader.open(
     resolveDemoAssetUrl(assetBaseUri, DEMO_ASSET.tilesetPath),
   );
@@ -343,6 +356,14 @@ export async function createSceneController(
     },
     async whenReady(): Promise<void> {
       await handle.whenReady();
+      // 首帧显示前等瓦片全部加载并提交完成（细 LOD 就位），避免"粗模大三角面
+      // 被细模逐片替换"的过渡闪烁。超时兜底，防止极端网络下永久卡在加载态。
+      await Promise.race([
+        handle.whenIdle(),
+        new Promise<void>((resolve) => {
+          setTimeout(resolve, 8000);
+        }),
+      ]);
     },
     dispose(): void {
       if (disposed) return;
