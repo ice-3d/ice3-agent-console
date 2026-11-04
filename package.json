@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@ag-ui/core": "1.0.3",
-    "ice3": "0.2.2",
+    "ice3": "0.2.3",
     "markdown-it": "15.0.3",
     "zod": "^4.6.7"
   },

@@ -1,70 +1,220 @@
 {
   "kind": "ice3-runtime-asset",
   "schemaVersion": "1.0",
-  "revision": 1,
+  "revision": 4,
   "profile": "agent-console-v1",
-  "sourceDigest": "7ce343b9e1814ef248b2a87a1d1352fd6db613d47597b4364da41be86a0d1fa4",
-  "tilesetDigest": "d049bc47510c9de95afa498665da17a5fd673d7935dac1c5d504aafbf56c5d48",
-  "bindingsDigest": "17ceeaedb884879099102cc076632f0ca5e6c5cf8954e7c01c047075f78ec95e",
-  "bundleDigest": "6cf25fb69f2022143cebc4bdf0bdb7f7bb8d62f6f38dadaf37e2bf75f504fa6b",
-  "outputDir": "../ice3-agent-console/public/assets/wastewater-plant/tiled",
+  "sourceDigest": "361af45bb4e9e2a3d83b4f0e2838ef1571fb0b07ea97809cd7acda1aa79e506e",
+  "tilesetDigest": "5600212f92f8ef7210b6e0258f48f82df8ccbd0ed33a016eaade1d3b0d3bb521",
+  "bindingsDigest": "fb550663dd86ef826f8552d9e293caede76a41bc9e3e3ed1038fde43788f3685",
+  "bundleDigest": "1e29a6e88c3c155fe5a746c4eadfca3c6409a163e4b82779ca089a2b1c7722e8",
+  "outputDir": "/tmp/showcase/plant9",
   "files": [
     {
       "path": "bindings.json",
-      "byteLength": 431316,
-      "digest": "17ceeaedb884879099102cc076632f0ca5e6c5cf8954e7c01c047075f78ec95e"
+      "byteLength": 153938,
+      "digest": "fb550663dd86ef826f8552d9e293caede76a41bc9e3e3ed1038fde43788f3685"
     },
     {
       "path": "coarse/group-root-0.glb",
-      "byteLength": 4018980,
-      "digest": "cbaca043a92c93a2decf20cd8256fa886b12dc9502133a791445f5f8dce5c0ec"
+      "byteLength": 4090296,
+      "digest": "8679d50283da1e0c78e6a8128e54f0ec291ea7e4b8a721a000c3bade537c07d7"
     },
     {
       "path": "coarse/group-root-1.glb",
-      "byteLength": 2681316,
-      "digest": "413315f06f5f2e449e5f3a9dbd6276f24be209e3ae824f9988f5bf3c7e7aa753"
+      "byteLength": 2741380,
+      "digest": "bb4b9202c36d0d4830cd5e213921f53e6d1fd780ee7b4e4974cd21e01e487fab"
     },
     {
       "path": "coarse/group-root-chunk-0.glb",
-      "byteLength": 3112452,
-      "digest": "6fb0b4d9200a0d9ffce5c55306f9270445c9e2db440988104abd30a1fd5f7ee3"
+      "byteLength": 3173168,
+      "digest": "8cc9be2f6d05c5bb3747aab9f787e4cc9bf78ddaa717037861b7a8c46cd02254"
     },
     {
       "path": "coarse/group-root-chunk-1.glb",
-      "byteLength": 3654272,
-      "digest": "cafb23b6a67d1ca97f3706c82fdd6cfef490ec86f31bd79b2dfd8a9ffda57356"
+      "byteLength": 3700444,
+      "digest": "f05426b1c162981205dae86b9e922785e15dcd71d963b4a354c937935c6cc936"
+    },
+    {
+      "path": "coarse/textures/asphalt-base.png",
+      "byteLength": 275218,
+      "digest": "dfb57e8e8e1a93be8efc584d404695a1e4662be69fd5e994bb5a6c47fb9d38a0"
+    },
+    {
+      "path": "coarse/textures/asphalt-normal-a.png",
+      "byteLength": 772451,
+      "digest": "07abb4a54995d56536948ab528845ea771d00f5b1d108255f299f1da0a30fb78"
+    },
+    {
+      "path": "coarse/textures/asphalt-normal-b.png",
+      "byteLength": 771116,
+      "digest": "5e98a722ec14c86d761e5f1acccaaf183c5f1607039473e523da0a512202c6ae"
+    },
+    {
+      "path": "coarse/textures/asphalt-orm.png",
+      "byteLength": 85054,
+      "digest": "eb939fa1c1f21e12b3fadb49b8baf337b48bdc213c35975355ed4fc755b45307"
+    },
+    {
+      "path": "coarse/textures/concrete-base-a.png",
+      "byteLength": 212881,
+      "digest": "db1155c8a768917ba0f8d91ed6046fa2b27a53ba1993e4ea00d5bb78e7a7bc80"
+    },
+    {
+      "path": "coarse/textures/concrete-base-b.png",
+      "byteLength": 217548,
+      "digest": "75e7731f9553465b9b35e202b0c17b34ac306936a4c569bbe5d4630b1d196099"
+    },
+    {
+      "path": "coarse/textures/concrete-normal-a.png",
+      "byteLength": 692366,
+      "digest": "171851ec89c845e3c99dd889ed1f54f5b50a22107c9f2cc7b6b484cd3973d4ab"
+    },
+    {
+      "path": "coarse/textures/concrete-normal-b.png",
+      "byteLength": 671229,
+      "digest": "c006f790d3981a0f8c51c037a9e326ab21b92cc65693414fd45587549b96bd4f"
+    },
+    {
+      "path": "coarse/textures/concrete-normal-c.png",
+      "byteLength": 749513,
+      "digest": "67e66f76ed5322bdfbe26de66fef7dd4deb26d446f70308d0f23414db4dc5138"
+    },
+    {
+      "path": "coarse/textures/concrete-orm.png",
+      "byteLength": 73784,
+      "digest": "187d23f383f34c358b4f1e33dd9d1b4d61c53425634f8166b678f41b3a855dfe"
+    },
+    {
+      "path": "coarse/textures/foliage-normal.png",
+      "byteLength": 711255,
+      "digest": "d81e699822e40b394f6286065696d919f1e838e44095c6034174f7e6ab31e43d"
+    },
+    {
+      "path": "coarse/textures/masonry-normal.png",
+      "byteLength": 506296,
+      "digest": "09c9643a79f0f9874bf55168c388bd38ae7a3622eae6693444371e9b0b8bed1c"
+    },
+    {
+      "path": "coarse/textures/metal-normal-a.png",
+      "byteLength": 143578,
+      "digest": "7f2570055ea89978d6ca390fb7d08283e990a9ae34096e3a613397c3d25a507e"
+    },
+    {
+      "path": "coarse/textures/metal-normal-b.png",
+      "byteLength": 111070,
+      "digest": "e217e17bbfed99d9a8815a8a26e5d1a5f438dbde27494282969c587582069482"
+    },
+    {
+      "path": "coarse/textures/water-normal.png",
+      "byteLength": 307816,
+      "digest": "9b912a78da00ce75ca8eba57045ca81f04f7d1b1cf9c5c856d239f7b73f714cc"
     },
     {
       "path": "parts/part-000.glb",
-      "byteLength": 4872288,
-      "digest": "84acef2699407b6b91e225f8ef57f644dd99383e73de17712d9ba67abc498a79"
+      "byteLength": 5095696,
+      "digest": "75f4a83891cb935907569133cbde7647c8a0e1b1a42ab93d2f9e7379f90aa436"
     },
     {
       "path": "parts/part-001.glb",
-      "byteLength": 5541324,
-      "digest": "0b78928c78a848a13694a66fbbabf044996e1074eca674e3949c6a615c88cfc9"
+      "byteLength": 5725396,
+      "digest": "d8f320f04a0b4537f34d5e1e4ffd4b4c7d9f07c0119eff4c474fe6dfe30bdbc2"
     },
     {
       "path": "parts/part-002.glb",
-      "byteLength": 3342100,
-      "digest": "bc88c7bce50e8c438a12e67fabcc4a3d627f413ff4ac249456a43f1b545db3e1"
+      "byteLength": 3407556,
+      "digest": "ebf4d606a6757547aebc102c14306a28f35ee8a26861d214a585a28523a3f856"
     },
     {
       "path": "parts/part-003.glb",
-      "byteLength": 5598844,
-      "digest": "a25e102491313fe1988eeb31c3517b98f623794d0ff55710998fd3efecce13ab"
+      "byteLength": 5730768,
+      "digest": "637e36ef0f4b1f1399d72f7ad70423817bdb213876eb864851852682c247e6f0"
+    },
+    {
+      "path": "parts/textures/asphalt-base.png",
+      "byteLength": 275218,
+      "digest": "dfb57e8e8e1a93be8efc584d404695a1e4662be69fd5e994bb5a6c47fb9d38a0"
+    },
+    {
+      "path": "parts/textures/asphalt-normal-a.png",
+      "byteLength": 772451,
+      "digest": "07abb4a54995d56536948ab528845ea771d00f5b1d108255f299f1da0a30fb78"
+    },
+    {
+      "path": "parts/textures/asphalt-normal-b.png",
+      "byteLength": 771116,
+      "digest": "5e98a722ec14c86d761e5f1acccaaf183c5f1607039473e523da0a512202c6ae"
+    },
+    {
+      "path": "parts/textures/asphalt-orm.png",
+      "byteLength": 85054,
+      "digest": "eb939fa1c1f21e12b3fadb49b8baf337b48bdc213c35975355ed4fc755b45307"
+    },
+    {
+      "path": "parts/textures/concrete-base-a.png",
+      "byteLength": 212881,
+      "digest": "db1155c8a768917ba0f8d91ed6046fa2b27a53ba1993e4ea00d5bb78e7a7bc80"
+    },
+    {
+      "path": "parts/textures/concrete-base-b.png",
+      "byteLength": 217548,
+      "digest": "75e7731f9553465b9b35e202b0c17b34ac306936a4c569bbe5d4630b1d196099"
+    },
+    {
+      "path": "parts/textures/concrete-normal-a.png",
+      "byteLength": 692366,
+      "digest": "171851ec89c845e3c99dd889ed1f54f5b50a22107c9f2cc7b6b484cd3973d4ab"
+    },
+    {
+      "path": "parts/textures/concrete-normal-b.png",
+      "byteLength": 671229,
+      "digest": "c006f790d3981a0f8c51c037a9e326ab21b92cc65693414fd45587549b96bd4f"
+    },
+    {
+      "path": "parts/textures/concrete-normal-c.png",
+      "byteLength": 749513,
+      "digest": "67e66f76ed5322bdfbe26de66fef7dd4deb26d446f70308d0f23414db4dc5138"
+    },
+    {
+      "path": "parts/textures/concrete-orm.png",
+      "byteLength": 73784,
+      "digest": "187d23f383f34c358b4f1e33dd9d1b4d61c53425634f8166b678f41b3a855dfe"
+    },
+    {
+      "path": "parts/textures/foliage-normal.png",
+      "byteLength": 711255,
+      "digest": "d81e699822e40b394f6286065696d919f1e838e44095c6034174f7e6ab31e43d"
+    },
+    {
+      "path": "parts/textures/masonry-normal.png",
+      "byteLength": 506296,
+      "digest": "09c9643a79f0f9874bf55168c388bd38ae7a3622eae6693444371e9b0b8bed1c"
+    },
+    {
+      "path": "parts/textures/metal-normal-a.png",
+      "byteLength": 143578,
+      "digest": "7f2570055ea89978d6ca390fb7d08283e990a9ae34096e3a613397c3d25a507e"
+    },
+    {
+      "path": "parts/textures/metal-normal-b.png",
+      "byteLength": 111070,
+      "digest": "e217e17bbfed99d9a8815a8a26e5d1a5f438dbde27494282969c587582069482"
+    },
+    {
+      "path": "parts/textures/water-normal.png",
+      "byteLength": 307816,
+      "digest": "9b912a78da00ce75ca8eba57045ca81f04f7d1b1cf9c5c856d239f7b73f714cc"
     },
     {
       "path": "tileset.json",
       "byteLength": 2561,
-      "digest": "d049bc47510c9de95afa498665da17a5fd673d7935dac1c5d504aafbf56c5d48"
+      "digest": "5600212f92f8ef7210b6e0258f48f82df8ccbd0ed33a016eaade1d3b0d3bb521"
     }
   ],
   "stats": {
-    "triangleCount": 132124,
+    "triangleCount": 136996,
     "edgeSegmentCount": 0,
     "partitionCount": 4,
     "coarseCount": 4,
-    "bindingCount": 681
+    "bindingCount": 51
   }
 }
