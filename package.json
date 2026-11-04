@@ -14,6 +14,8 @@
   },
   "scripts": {
     "predev": "node scripts/generate-equipment-manifest.mjs",
+    "assets:sync": "node scripts/sync-demo-assets.mjs",
+    "assets:check": "node scripts/sync-demo-assets.mjs --check",
     "dev": "node scripts/dev.mjs",
     "dev:web": "webpack serve --mode development",
     "dev:api": "tsx watch server/index.ts",

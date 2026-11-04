@@ -66,6 +66,18 @@ npm run dev
 打开 `http://127.0.0.1:8110/`；Agent 服务监听 `http://127.0.0.1:8099/`。Scene 加载完成后
 开始总览巡游。
 
+演示资产（`public/assets/wastewater-plant`）是 Studio 导出的副本，随仓库提交。
+要更新它，在**同级 studio 仓库**里先 `cargo build -p studio-cli`，然后：
+
+```bash
+npm run assets:sync    # 调 studio-cli 重新导出，并重生成 equipment.json
+npm run assets:check   # 只校验已提交的资产（CI 与单测都会跑）
+```
+
+`assets:sync` 用 `STUDIO_CLI_BIN` 找 CLI，缺省找同级仓库的 `target/release` 或
+`target/debug`。导出时固定 `--asset-id ice3-virtual-wwtp`——身份一变，设备清单和内置
+剧本会全部失配。
+
 ## 4. 浏览器本地演示
 
 ```bash
@@ -119,6 +131,7 @@ API key 只保留在服务端。`/health` 报告运行模式和接口 host，不
 ```bash
 npm run docs:check
 npm run typecheck
+npm run assets:check
 npm test
 npm run test:e2e
 npm run verify

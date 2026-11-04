@@ -7,7 +7,7 @@
   "tilesetDigest": "5600212f92f8ef7210b6e0258f48f82df8ccbd0ed33a016eaade1d3b0d3bb521",
   "bindingsDigest": "fb550663dd86ef826f8552d9e293caede76a41bc9e3e3ed1038fde43788f3685",
   "bundleDigest": "1e29a6e88c3c155fe5a746c4eadfca3c6409a163e4b82779ca089a2b1c7722e8",
-  "outputDir": "/tmp/showcase/plant9",
+  "outputDir": "/Users/felix/Windows-E-workspace/felix/ice3/ice3-agent-console/.asset-staging-52422",
   "files": [
     {
       "path": "bindings.json",
