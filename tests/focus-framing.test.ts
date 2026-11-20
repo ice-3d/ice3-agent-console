@@ -138,6 +138,27 @@ test('applies a projection offset without moving the camera target', () => {
   expect(camera.getTarget().toArray()).toEqual([0, 0, 0]);
 });
 
+test('moves the near clip plane with close-up camera distance', () => {
+  const camera = new ICEViewOffsetCamera({
+    id: 'dynamic-clip-test',
+    fov: 45,
+    near: 4,
+    far: 5_000,
+    position: [0, 0, 500],
+    target: [0, 0, 0],
+  }).setDynamicClipPlanes({
+    minNear: 0.02,
+    maxNear: 4,
+    nearRatio: 0.01,
+    far: 5_000,
+  });
+
+  expect(camera.near).toBe(4);
+  camera.setPosition([0, 0, 0.5]);
+  expect(camera.near).toBeLessThan(0.1);
+  expect(camera.far).toBe(5_000);
+});
+
 test('keeps the scene center fixed through a complete orbit', () => {
   const viewport = { x: 0, y: 0, width: 1_200, height: 800 };
   const target = [300, 20, 0] as const;

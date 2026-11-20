@@ -174,18 +174,27 @@ export async function createSceneController(
     ...framingForCurrentLayout(),
     fillRatio: 0.78,
   });
-  camera.setClipPlanes(
-    // near 随场景尺度自适应：near 过小会把 24-bit 深度精度压到厘米级以下，
-    // 远处共面/近共面几何（水面贴池体、标线贴路面、盖板贴墙体）深度胜者
-    // 随视角交替，表现为缩放与旋转时的局部闪烁。以 overview 半径 1/150 为
-    // 下界并夹在轨道最小缩放距离之内，保证特写不裁剪的同时深度量化保持在
-    // 毫米量级。
-    Math.max(1, Math.min(overviewRadius / 150, 4)),
-    Math.max(camera.far, overviewRadius * 8),
+  const overviewOrbitDistance = Math.hypot(
+    overview.position[0] - overview.target[0],
+    overview.position[1] - overview.target[1],
+    overview.position[2] - overview.target[2],
   );
+  const orbitOptions = Object.freeze({
+    maxDistance: overviewOrbitDistance,
+    minDistance: Math.max(0.35, overviewOrbitDistance * 0.0005),
+    rotationRadiansPerPixel: 0.0032,
+    zoomFractionPerPixel: 0.0012,
+    dragThresholdPixels: 4,
+  });
+  camera.setDynamicClipPlanes({
+    minNear: 0.02,
+    maxNear: Math.max(1, Math.min(overviewRadius / 150, 4)),
+    nearRatio: 0.02,
+    far: Math.max(camera.far, overviewRadius * 8),
+  });
   camera.setProjectionOffset(overview.projectionOffset);
   camera.setPosition(overview.position).setTarget(overview.target);
-  let orbit = new ICEOrbitController(engine, camera).start();
+  let orbit = new ICEOrbitController(engine, camera, orbitOptions).start();
 
   let motion: AbortController | null = null;
   let selectionBlink: SelectionBlinkHandle | null = null;
@@ -210,7 +219,7 @@ export async function createSceneController(
     );
     if (controller.signal.aborted) return;
     orbit.dispose();
-    orbit = new ICEOrbitController(engine, camera).start();
+    orbit = new ICEOrbitController(engine, camera, orbitOptions).start();
   };
 
   const boundsForArea = (area: string): ICEGeometryBounds | undefined => {
