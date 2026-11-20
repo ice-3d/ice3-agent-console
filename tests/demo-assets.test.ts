@@ -3,7 +3,11 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import { expect } from '#test-expect';
-import { checkDemoAssets, DEMO_ASSET_ID } from '../scripts/sync-demo-assets.mjs';
+import {
+  checkDemoAssets,
+  compareAssetExports,
+  DEMO_ASSET_ID,
+} from '../scripts/sync-demo-assets.mjs';
 
 /**
  * 这条测试守的是"资产与代码同步"这件事本身。
@@ -65,6 +69,31 @@ test('flags an asset export that predates the texture pass', async () => {
   } finally {
     await rm(root, { recursive: true, force: true });
   }
+});
+
+test('flags a committed export that is older than the Studio project', () => {
+  const current = {
+    revision: 1,
+    sourceDigest: 'source-current',
+    tilesetDigest: 'tileset-current',
+    bindingsDigest: 'bindings-current',
+    bundleDigest: 'bundle-current',
+  };
+  const latest = {
+    ...current,
+    revision: 2,
+    sourceDigest: 'source-latest',
+    tilesetDigest: 'tileset-latest',
+    bundleDigest: 'bundle-latest',
+  };
+
+  expect(compareAssetExports(current, latest)).toEqual([
+    'committed export revision 1 is stale; Studio exports revision 2',
+    'committed export sourceDigest is stale; run assets:sync',
+    'committed export tilesetDigest is stale; run assets:sync',
+    'committed export bundleDigest is stale; run assets:sync',
+  ]);
+  expect(compareAssetExports(latest, latest)).toEqual([]);
 });
 
 /** 最小 GLB：只有 JSON chunk，够校验逻辑读材质。 */

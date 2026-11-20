@@ -13,7 +13,17 @@
 
 import { spawnSync } from 'node:child_process';
 import { existsSync, statSync } from 'node:fs';
-import { cp, mkdir, readFile, readdir, rename, rm, stat } from 'node:fs/promises';
+import {
+  cp,
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rename,
+  rm,
+  stat,
+} from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -26,6 +36,27 @@ export const DEMO_ASSET_ID = 'ice3-virtual-wwtp';
 
 /** Studio 工程目录，可用 `--project` 覆盖。 */
 export const DEFAULT_STUDIO_PROJECT = resolve(repoRoot, '../ice3-studio/projects/wastewater-plant');
+
+export function compareAssetExports(committed, latest) {
+  const errors = [];
+  if (committed.revision !== latest.revision) {
+    errors.push(
+      `committed export revision ${committed.revision} is stale; `
+      + `Studio exports revision ${latest.revision}`,
+    );
+  }
+  for (const field of [
+    'sourceDigest',
+    'tilesetDigest',
+    'bindingsDigest',
+    'bundleDigest',
+  ]) {
+    if (committed[field] !== latest[field]) {
+      errors.push(`committed export ${field} is stale; run assets:sync`);
+    }
+  }
+  return errors;
+}
 
 function resolveStudioCli(explicit) {
   if (explicit) return explicit;
@@ -200,6 +231,40 @@ async function syncAssets({ studioCli, project, assetId }) {
   return manifest.stdout.trim();
 }
 
+async function checkSourceFreshness({ studioCli, project, assetId }) {
+  if (!existsSync(project) || !existsSync(studioCli)) {
+    return { checked: false, errors: [] };
+  }
+  const staging = await mkdtemp(join(tmpdir(), 'ice3-demo-assets-check-'));
+  try {
+    const result = spawnSync(
+      studioCli,
+      ['export', 'tileset', '--project', project, '--output', staging, '--asset-id', assetId, '--force'],
+      { encoding: 'utf8' },
+    );
+    if (result.status !== 0) {
+      return {
+        checked: false,
+        errors: [
+          `could not verify Studio source freshness: ${
+            result.stderr || result.stdout || `exit ${result.status}`
+          }`.trim(),
+        ],
+      };
+    }
+    const [committed, latest] = await Promise.all([
+      readJson(join(tiledRoot, 'export.json')),
+      readJson(join(staging, 'export.json')),
+    ]);
+    return {
+      checked: true,
+      errors: compareAssetExports(committed, latest),
+    };
+  } finally {
+    await rm(staging, { recursive: true, force: true });
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const checkOnly = args.includes('--check');
@@ -207,7 +272,13 @@ async function main() {
   const project = projectArg >= 0 ? resolve(args[projectArg + 1]) : DEFAULT_STUDIO_PROJECT;
 
   if (checkOnly) {
-    const { errors, stats } = await checkDemoAssets();
+    const { errors: selfConsistencyErrors, stats } = await checkDemoAssets();
+    const source = await checkSourceFreshness({
+      studioCli: resolveStudioCli(),
+      project,
+      assetId: DEMO_ASSET_ID,
+    });
+    const errors = [...selfConsistencyErrors, ...source.errors];
     if (errors.length > 0) {
       console.error(`ICE3_DEMO_ASSETS_INVALID: ${errors.length} problem(s)`);
       for (const error of errors) console.error(`  - ${error}`);
@@ -219,6 +290,9 @@ async function main() {
       `ICE3_DEMO_ASSETS_OK: ${stats.tiles} tiles, ${stats.images} images, `
       + `${stats.ormMaterials} ORM / ${stats.normalMaterials} normal materials`,
     );
+    if (source.checked) {
+      console.log('ICE3_DEMO_ASSETS_SOURCE_OK: committed export matches the current Studio project');
+    }
     return;
   }
 

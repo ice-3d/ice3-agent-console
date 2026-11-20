@@ -22,3 +22,16 @@ export type DemoAssetCheck = {
 export declare function checkDemoAssets(options?: {
   readonly assetRoot?: string;
 }): Promise<DemoAssetCheck>;
+
+export type DemoAssetExport = {
+  readonly revision: number;
+  readonly sourceDigest: string;
+  readonly tilesetDigest: string;
+  readonly bindingsDigest: string;
+  readonly bundleDigest: string;
+};
+
+export declare function compareAssetExports(
+  committed: DemoAssetExport,
+  latest: DemoAssetExport,
+): string[];

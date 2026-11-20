@@ -1,38 +1,48 @@
 {
   "kind": "ice3-runtime-asset",
   "schemaVersion": "1.0",
-  "revision": 4,
+  "revision": 1,
   "profile": "agent-console-v1",
-  "sourceDigest": "361af45bb4e9e2a3d83b4f0e2838ef1571fb0b07ea97809cd7acda1aa79e506e",
-  "tilesetDigest": "5600212f92f8ef7210b6e0258f48f82df8ccbd0ed33a016eaade1d3b0d3bb521",
-  "bindingsDigest": "fb550663dd86ef826f8552d9e293caede76a41bc9e3e3ed1038fde43788f3685",
-  "bundleDigest": "1e29a6e88c3c155fe5a746c4eadfca3c6409a163e4b82779ca089a2b1c7722e8",
-  "outputDir": "/Users/felix/Windows-E-workspace/felix/ice3/ice3-agent-console/.asset-staging-52422",
+  "sourceDigest": "8023dc67675cb9e2c4c2d8c5014bc3c6c1f65dd4027a14df118f86da70582f03",
+  "tilesetDigest": "673a9a7e9750b972dc9cbe70f66f667cf2cef3e2c909337b915e6f817697e05f",
+  "bindingsDigest": "674390f3b111e4093926ebb224baa13157feca35e84dad4d05d9b5c96d333ba7",
+  "bundleDigest": "bb08d00a7c808236136ad28f5e6482e4d4072ec2c6aee94d45345003326b9a49",
+  "outputDir": "/Users/felix/Windows-E-workspace/felix/ice3/ice3-agent-console/.asset-staging-46627",
   "files": [
     {
       "path": "bindings.json",
       "byteLength": 153938,
-      "digest": "fb550663dd86ef826f8552d9e293caede76a41bc9e3e3ed1038fde43788f3685"
+      "digest": "674390f3b111e4093926ebb224baa13157feca35e84dad4d05d9b5c96d333ba7"
     },
     {
-      "path": "coarse/group-root-0.glb",
-      "byteLength": 4090296,
-      "digest": "8679d50283da1e0c78e6a8128e54f0ec291ea7e4b8a721a000c3bade537c07d7"
+      "path": "coarse/group-root-0-chunk-0.glb",
+      "byteLength": 3528060,
+      "digest": "6b8d0eda01693f0145bdefd30faaf10362d316251ea0cce3639e87da366bd410"
+    },
+    {
+      "path": "coarse/group-root-0-chunk-1.glb",
+      "byteLength": 1823440,
+      "digest": "07ecb307428f22f048df1f828672a09ee4e6181f52a239d16adb4dee05289925"
     },
     {
       "path": "coarse/group-root-1.glb",
-      "byteLength": 2741380,
-      "digest": "bb4b9202c36d0d4830cd5e213921f53e6d1fd780ee7b4e4974cd21e01e487fab"
+      "byteLength": 2841136,
+      "digest": "3cec443ee5d38646e1445a3f689025834cf060d026c40ae057282d5c09ddeca7"
     },
     {
-      "path": "coarse/group-root-chunk-0.glb",
-      "byteLength": 3173168,
-      "digest": "8cc9be2f6d05c5bb3747aab9f787e4cc9bf78ddaa717037861b7a8c46cd02254"
+      "path": "coarse/group-root-chunk-0-chunk-0.glb",
+      "byteLength": 3322764,
+      "digest": "0bca5303a9c0934e4d51897ce1fb02b7df720edf047069aaeb7ea4e6f803ca36"
+    },
+    {
+      "path": "coarse/group-root-chunk-0-chunk-1.glb",
+      "byteLength": 1045364,
+      "digest": "60de237d4b28f5a144f12da53579e32b14275bd49ad2871a12cffdd2939458e8"
     },
     {
       "path": "coarse/group-root-chunk-1.glb",
-      "byteLength": 3700444,
-      "digest": "f05426b1c162981205dae86b9e922785e15dcd71d963b4a354c937935c6cc936"
+      "byteLength": 3897908,
+      "digest": "6f58ad6e24997f9d11b16bb2abe22443a276a5465c80e01ca263f02f39681c56"
     },
     {
       "path": "coarse/textures/asphalt-base.png",
@@ -111,23 +121,23 @@
     },
     {
       "path": "parts/part-000.glb",
-      "byteLength": 5095696,
-      "digest": "75f4a83891cb935907569133cbde7647c8a0e1b1a42ab93d2f9e7379f90aa436"
+      "byteLength": 7639184,
+      "digest": "bc8a57f22874ddf3abc1a2977035d641fc6fa08a96a065b8722ecfc0fb17fea1"
     },
     {
       "path": "parts/part-001.glb",
-      "byteLength": 5725396,
-      "digest": "d8f320f04a0b4537f34d5e1e4ffd4b4c7d9f07c0119eff4c474fe6dfe30bdbc2"
+      "byteLength": 5756036,
+      "digest": "4eef13c5410a18e7568ee077ce9a82c5ca0493aace924c672b116d39bd8ce022"
     },
     {
       "path": "parts/part-002.glb",
-      "byteLength": 3407556,
-      "digest": "ebf4d606a6757547aebc102c14306a28f35ee8a26861d214a585a28523a3f856"
+      "byteLength": 3468332,
+      "digest": "fa9eda834bbac88ba70ef4d61544608ab893d068ee136ad3dc6e528973e855a6"
     },
     {
       "path": "parts/part-003.glb",
-      "byteLength": 5730768,
-      "digest": "637e36ef0f4b1f1399d72f7ad70423817bdb213876eb864851852682c247e6f0"
+      "byteLength": 5836228,
+      "digest": "a1dce266d0da96816b1b15c68aed46075a8ca6fa0585f8feb6e591314f67ec77"
     },
     {
       "path": "parts/textures/asphalt-base.png",
@@ -206,15 +216,15 @@
     },
     {
       "path": "tileset.json",
-      "byteLength": 2561,
-      "digest": "5600212f92f8ef7210b6e0258f48f82df8ccbd0ed33a016eaade1d3b0d3bb521"
+      "byteLength": 2669,
+      "digest": "673a9a7e9750b972dc9cbe70f66f667cf2cef3e2c909337b915e6f817697e05f"
     }
   ],
   "stats": {
-    "triangleCount": 136996,
+    "triangleCount": 132920,
     "edgeSegmentCount": 0,
     "partitionCount": 4,
-    "coarseCount": 4,
+    "coarseCount": 6,
     "bindingCount": 51
   }
 }
