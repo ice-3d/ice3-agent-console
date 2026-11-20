@@ -10,9 +10,8 @@
 > Tileset 和设备绑定流程以 [接入其它模型](../guides/other-models.md) 与
 > [Runtime Asset 交付](../reference/asset-delivery.md) 为准。
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development
-> (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps
-> use checkbox (`- [ ]`) syntax for tracking.
+> **历史计划，请勿直接执行：** 本文件只记录原始实施过程。
+> 当前代码和执行规则以 [AGENTS.md](../../AGENTS.md) 为准；默认 Native，只有用户明确允许时才启用子 Agent。
 
 **目标：** 让所有内置 Agent 演示只使用虚构市政污水处理厂，同时明确记录其它合规 3D
 模型的接入方法。
@@ -62,7 +61,7 @@ Playwright。
 - Produces: `DEMO_ASSET_ID: string`
 - Produces: `demoEquipmentSelectionId(tag: string): string`
 
-- [x] **步骤 1：编写失败测试**
+- **步骤 1：编写失败测试**
 
 ```ts
 import { expect } from '#test-expect';
@@ -79,26 +78,26 @@ test('defines the synthetic wastewater demo identity once', () => {
 });
 ```
 
-- [x] **步骤 2：确认测试因缺少 module 而失败**
+- **步骤 2：确认测试因缺少 module 而失败**
 
 运行：`npm test -- tests/demo-asset.test.ts`
 
-- [x] **步骤 3：实现最小共享 identity**
+- **步骤 3：实现最小共享 identity**
 
 `shared/demo-asset.ts` 导出 `DEMO_ASSET_ID = 'ice3-virtual-wwtp'`，并由
 `demoEquipmentSelectionId(tag)` 统一拼接 `/equipment/<tag>`。
 
-- [x] **步骤 4：迁移脚本 Agent**
+- **步骤 4：迁移脚本 Agent**
 
 `shared/scenarios.ts` 的 equipment helper 和 `server/agents/scripted.ts` 的七个
 Selection 常量都改用 `demoEquipmentSelectionId()`。
 
-- [x] **步骤 5：增加默认 manifest 覆盖测试**
+- **步骤 5：增加默认 manifest 覆盖测试**
 
 遍历全部 `SCRIPTED_SCENARIOS` 的 `focus_equipment` 参数，断言 `selectionId` 以
 `${DEMO_ASSET_ID}/equipment/` 开头，并存在于默认 `equipment.json`。
 
-- [x] **步骤 6：运行相关测试**
+- **步骤 6：运行相关测试**
 
 运行：`npm test -- tests/demo-asset.test.ts tests/scenario-library.test.ts tests/scripted-agent.test.ts`
 
@@ -120,18 +119,18 @@ Selection 常量都改用 `demoEquipmentSelectionId()`。
 - Consumes: Toolchain `partition` 输出目录和 equipment manifest。
 - Produces: 从 source model 到 Agent Console Scene 的可执行接入说明。
 
-- [x] **步骤 1：编写接入指南**
+- **步骤 1：编写接入指南**
 
 说明输入要求、Toolchain 预处理、目录布局、equipment manifest schema、Selection ID
 一致性、Scene 配置、业务剧本适配、开发验证和静态部署。默认示例必须保持
 `ice3-virtual-wwtp`。
 
-- [x] **步骤 2：补充入口和关联链接**
+- **步骤 2：补充入口和关联链接**
 
 README、文档索引、本地开发和静态部署都必须链接新指南，并明确“Real-Model”指 AI
 接口，不是 3D 模型。
 
-- [x] **步骤 3：运行文档门禁**
+- **步骤 3：运行文档门禁**
 
 运行：`npm run docs:check`
 
@@ -148,7 +147,7 @@ README、文档索引、本地开发和静态部署都必须链接新指南，�
 - Consumes: Task 1 和 Task 2 的完整交付。
 - Produces: `main` 上干净的虚构污水处理厂演示。
 
-- [x] **步骤 1：运行仓库验证**
+- **步骤 1：运行仓库验证**
 
 ```bash
 nvm use
@@ -157,16 +156,16 @@ npm run build:demo
 npm run test:e2e
 ```
 
-- [x] **步骤 2：检查静态产物**
+- **步骤 2：检查静态产物**
 
 确认 `dist/assets/wastewater-plant/tiled/tileset.json` 存在；确认没有 source GLB、
 prepared monolithic GLB、客户资源或凭据进入 `dist/` 和 Git index。
 
-- [x] **步骤 3：更新计划状态**
+- **步骤 3：更新计划状态**
 
 验证通过后把本计划 Status 改为 `Implemented`。
 
-- [x] **步骤 4：提交并合并**
+- **步骤 4：提交并合并**
 
 提交到 `docs/wastewater-only-demo`，通过后再合并到 `main`，并确认 author 和
-committer 均为 `damoqiongqiu <damoqiongqiu@126.com>`。
+committer 符合仓库 `AGENTS.md` 的身份策略。
