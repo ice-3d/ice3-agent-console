@@ -36,7 +36,8 @@ https://ice-3d.github.io/ice3-agent-console/
 
 仓库使用 [Deploy demo to Pages](../../.github/workflows/deploy-pages.yml) 在 `main`
 更新后自动构建并发布。Workflow 只检出 Agent Console，并从 npm registry 安装锁定
-版本的公开 `ice3` package；虚构污水处理厂 Runtime Asset 已包含在本仓库中。
+版本的公开 `ice3` package；当前锁文件使用 `ice3@0.2.4`。虚构污水处理厂 Runtime Asset
+已包含在本仓库中。
 
 发布流程：
 
@@ -48,7 +49,14 @@ https://ice-3d.github.io/ice3-agent-console/
    `equipment.json`，因此 Bounds、Selection ID 和静态剧本使用同一个 Asset revision。
 6. 将 `dist/` 作为 Pages artifact 发布。
 
-仓库 Settings 中的 Pages Source 必须保持为 `GitHub Actions`。不要把 151 MiB 左右的
+Engine 升级必须先完成以下顺序，避免 Pages 在依赖不存在或 tarball 尚未同步时失败：
+
+1. 在 Engine 更新公开包版本、运行 `npm run release:check`、推送并发布 npm package。
+2. 确认目标版本的 registry tarball 可下载。
+3. 在 Console 修改 `package.json`、版本测试并运行 `npm install` 更新 lockfile。
+4. 运行 Console `verify`、`assets:check` 和 Chrome E2E 后再推送 `main`。
+
+仓库 Settings 中的 Pages Source 必须保持为 `GitHub Actions`。不要把 58 MiB 左右的
 完整 `dist/` 提交到 `main`，也不要改用普通 `npm run build`，因为普通构建默认选择
 server transport。
 

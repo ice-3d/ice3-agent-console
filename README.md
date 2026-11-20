@@ -24,7 +24,7 @@
 | Scene | 设备发现、选择、聚焦、高亮、相机视角、清除焦点 |
 | 渲染 | WebGL2 默认；PBR 材质（底色/法线/ORM 贴图）、环境遮蔽、方向光阴影 |
 | 传输 | 浏览器本地确定性脚本 Agent（离线可用）或服务端事件流（接真实模型） |
-| 相机 | 多站点引导巡游、响应式舞台取景 |
+| 相机 | 多站点引导巡游、响应式舞台取景、稳定拖拽阈值、近景动态裁剪 |
 | 选择 | 鼠标拾取走稳定黄色高亮；地面、道路与未绑定业务实体不可选 |
 | 加载 | Studio Tileset fine/coarse 分块、设备绑定、按需驱逐 |
 | 首屏 | 内联 loading，在完整 CSS/JS 之前就能稳定显示 |
@@ -92,7 +92,7 @@ API key 只保留在服务端，`/health` 只报告运行模式与接口 host，
 
 ## 5. 演示资产从哪来
 
-`public/assets/wastewater-plant` 是 **ICE3 Studio 导出的副本**，随仓库提交（当前约 44 MB，
+`public/assets/wastewater-plant` 是 **ICE3 Studio 导出的副本**，随仓库提交（当前约 50 MB，
 含 fine/coarse 分块与 15 张贴图）。它记录的是演示世界本身，所以必须一起进版本库。
 
 更新它需要同级的 studio 仓库：
@@ -100,14 +100,15 @@ API key 只保留在服务端，`/health` 只报告运行模式与接口 host，
 ```bash
 # 先在同级 studio 仓库：cargo build -p studio-cli
 npm run assets:sync     # 调 studio-cli 重新导出 → 换目录 → 重生成 equipment.json → 自检
-npm run assets:check    # 只校验已提交的资产（CI 和单测都会跑）
+npm run assets:check    # 校验已提交资产；本地有 Studio 时同时核对源版本
 ```
 
 - CLI 定位顺序：`STUDIO_CLI_BIN` → 同级仓库 `target/release` / `target/debug` 中**最新构建**的那个。
 - 导出必须带 `--asset-id ice3-virtual-wwtp`。身份一变，设备清单与内置剧本全部失配。
 - `assets:check` 会查：资产身份三处一致、每个贴图槽位指向的文件真实存在、至少一个材质带
-  normal 与 ORM。**它挡住过一次真实事故**——仓库里躺着一份贴图之前的导出，页面照常能开，
-  只是材质全平。
+  normal 与 ORM。若同级 Studio 工程和 CLI 可用，它还会重新导出并比较 revision、
+  source/tileset/bindings/bundle digest；通过时输出
+  `ICE3_DEMO_ASSETS_SOURCE_OK`。这一步能区分“文件没坏”和“文件不是当前版本”。
 
 ## 6. 命令
 
@@ -131,8 +132,10 @@ URL 参数：`?demo=1|0` 切换本地/服务端传输，`?autoplay=1|0` 控制�
 
 **必须遵守**
 
-1. 依赖的 `ice3` 是 npm 上的**准确版本**，且有测试钉住（`tests/package-version.test.ts`）。
-   升级引擎 = 改 `package.json` + 该测试 + 跑 `npm install` 更新 lock，三处一起。
+1. 当前依赖 npm 上已发布的 `ice3@0.2.4`，且由
+   `tests/package-version.test.ts` 钉住准确版本和 registry tarball。升级引擎必须先发布新
+   Engine 版本，再修改 `package.json`、该测试并运行 `npm install` 更新 lock；不能把本地
+   tarball 或 sibling workspace 写进 lock。
 2. 资产改动只能走 `npm run assets:sync`，不要手改 `public/assets` 下的 GLB 或 JSON。
    改完必须提交资产本身——CI 部署的是仓库里的副本，不是 Studio 工程。
 3. 断言"完成"之前跑 `npm run verify`。CI 的部署流水线在 `Run unit tests` 就守门，

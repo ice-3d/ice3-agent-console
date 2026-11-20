@@ -45,11 +45,11 @@ public/assets/<asset-id>/
 默认污水处理厂包含：
 
 - 4 个 fine partition。
-- 4 个 coarse content。
+- 6 个 coarse content。
 - 103 个静态 render batch。
-- 132,124 个源三角形。
+- 132,920 个源三角形。
 - 51 个带业务 tag 的设备实体。
-- 681 个包含关联构件和管线的 binding。
+- 3,290 个归入这 51 个业务实体的 Node Selection 引用。
 
 具体 digest 和文件长度以 `export.json` 为准。
 
@@ -77,17 +77,34 @@ public/assets/<asset-id>/
 - 单个 tile 失败不得移除已提交 coverage；所有可见 tile 失败时显示明确错误。
 - 配置了其它 Asset 时失败不得静默切回默认污水处理厂。
 
-## 6. 发布验证
+## 6. Asset 同步与新鲜度
+
+`npm run assets:sync` 从 committed Studio project revision 重新导出 Tileset，在 sibling
+staging 目录完成 profile 和文件校验后再替换目录，并从同一版本 `bindings.json` 重新生成
+`equipment.json`。
+
+`npm run assets:check` 有两个层级：
+
+1. 始终执行 self-consistency 检查：Asset ID、bindings/manifest 数量、贴图文件、normal
+   和 ORM 材质必须一致。
+2. 当同级 Studio project 和最新 `studio-cli` 可用时，再导出到临时目录并比较
+   `revision`、`sourceDigest`、`tilesetDigest`、`bindingsDigest` 和 `bundleDigest`。
+
+第二层通过时输出 `ICE3_DEMO_ASSETS_SOURCE_OK`。CI 只检出 Console，因此先保证已提交资产
+自洽；本地更新资产或发布前，必须让源版本检查也通过。
+
+## 7. 发布验证
 
 ```bash
 npm run verify
+npm run assets:check
 PLAYWRIGHT_CHANNEL=chrome npx playwright test --project=chromium
 ```
 
 浏览器 E2E 必须验证设备 Selection、黄色高亮、分块 Tileset 加载、内联 loading 和服务端/
 本地 transport。
 
-## 7. 关联文档
+## 8. 关联文档
 
 - `ICE3-AGENT-ARC-001` — [应用架构](../architecture.md)
 - `ICE3-AGENT-GUIDE-004` — [接入其它 3D 模型](../guides/other-models.md)

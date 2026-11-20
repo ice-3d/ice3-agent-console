@@ -41,6 +41,7 @@ npm run dev
 ```bash
 npm run typecheck
 npm test
+npm run assets:check
 npm run test:e2e
 ```
 
@@ -53,6 +54,9 @@ npm run test:e2e
 | Model variable 不完整 | 同时设置三个 model variable，或全部不设置 |
 | Tool 可见但不执行 | 检查 protocol reference 中的 tool name 和 JSON argument |
 | 巡游未开始 | 检查 `autoplay` URL parameter 和 reduced-motion 行为 |
+| 相机点击时轻微偏转 | 检查 `dragThresholdPixels` 和 selection click threshold；Console 当前为 4px |
+| 近景被提前裁掉 | 检查 dynamic near/far；Console 在 close-up 时把 near 最低降到 0.02m |
+| 资产文件存在但画面仍旧 | 运行 `npm run assets:check`，确认 Studio source digest 与 committed export 一致 |
 
 ## 6. 关联文档
 
