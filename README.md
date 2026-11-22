@@ -92,7 +92,7 @@ API key 只保留在服务端，`/health` 只报告运行模式与接口 host，
 
 ## 5. 演示资产从哪来
 
-`public/assets/wastewater-plant` 是 **ICE3 Studio 导出的副本**，随仓库提交（当前约 50 MB，
+`public/assets/wastewater-plant` 是 **ICE3 Studio 导出的副本**，随仓库提交（当前约 51 MB，
 含 fine/coarse 分块与 15 张贴图）。它记录的是演示世界本身，所以必须一起进版本库。
 
 更新它需要同级的 studio 仓库：

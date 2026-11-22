@@ -46,10 +46,10 @@ public/assets/<asset-id>/
 
 - 4 个 fine partition。
 - 6 个 coarse content。
-- 103 个静态 render batch。
-- 132,920 个源三角形。
-- 51 个带业务 tag 的设备实体。
-- 3,290 个归入这 51 个业务实体的 Node Selection 引用。
+- 102 个静态 render batch。
+- 137,076 个源三角形。
+- 53 个带业务 tag 的设备实体。
+- 3,292 个归入这 53 个业务实体的 Node Selection 引用。
 
 具体 digest 和文件长度以 `export.json` 为准。
 
