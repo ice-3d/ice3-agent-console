@@ -580,6 +580,27 @@
       "slot": "process-unit"
     },
     {
+      "selectionId": "ice3-virtual-wwtp/equipment/GAS-WALL-101",
+      "tag": "GAS-WALL-101",
+      "name": "沼气穿越墙",
+      "stage": "process",
+      "area": "sludge",
+      "connections": [],
+      "bounds": {
+        "min": [
+          378.275,
+          0,
+          -126.5
+        ],
+        "max": [
+          378.725,
+          8,
+          -123.5
+        ]
+      },
+      "slot": "equipment-steel"
+    },
+    {
       "selectionId": "ice3-virtual-wwtp/equipment/GATE-101",
       "tag": "GATE-101",
       "name": "入口大门",
@@ -872,6 +893,27 @@
         ]
       },
       "slot": "pump-unit"
+    },
+    {
+      "selectionId": "ice3-virtual-wwtp/equipment/RAS-WALL-101",
+      "tag": "RAS-WALL-101",
+      "name": "回流污泥穿越墙",
+      "stage": "process",
+      "area": "secondary",
+      "connections": [],
+      "bounds": {
+        "min": [
+          273.5,
+          0,
+          29.5
+        ],
+        "max": [
+          276.5,
+          8,
+          29.95
+        ]
+      },
+      "slot": "equipment-steel"
     },
     {
       "selectionId": "ice3-virtual-wwtp/equipment/RWS-101",
